@@ -97,18 +97,10 @@
                 </div>
                 
                 <div>
-                    <?php
-                    $someArray = json_decode($data2, true);
-                    foreach ($someArray as $a) {
-                        echo $a["productName"];
-                        echo "<br>";
-                        
-                    }
                     
-                    
-                    
-                    
-                    ?>
+                <div class="alert alert-success">
+        {{ session()->get('message') }}
+    </div>
 
                     
                      
@@ -119,35 +111,3 @@
     </body>
 </html>
 
-<?php
-                                                $arr=json_decode($jsproductlist,true);
-                                                $i = 0;
-                                                foreach ($arr as $a) {
-                                                  echo " <tr>
-                                                            <td class=\"text-center text-muted\"> $i</td>
-                                                            <td>
-                                                                <div class=\"widget-content p-0\">
-                                                                    <div class=\"widget-content-wrapper\">
-                                                                        <div class=\"widget-content-left mr-3\">
-                                                                            <div class=\"widget-content-left\">
-                                                                                <img width=\"40\" class=\"rounded-circle\" src=\"assets/images/avatars/4.jpg\">
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class=\"widget-content-left flex2\">
-                                                                                <div class=\"widget-heading\">$a[productName]</div>
-                                                                                    <div class=\"widget-subheading opacity-7\">$a[productLine]</div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </td>
-                                                                <td class=\"text-center\">$a[quantityInStock]</td>
-                                                                <td class=\"text-center\">
-                                                                    <div class=\"text-center\">$a[MSRP]</div>
-                                                                </td>
-                                                                <td class=\"text-center\">
-                                                                    <button type=\"button\" id=\"PopoverCustomT-1\" class=\"btn btn-primary btn-sm\">Details</button>
-                                                            </td>
-                                                        </tr>";
-                                                 $i = $i + 1 ;
-                                                }
-                                            ?>

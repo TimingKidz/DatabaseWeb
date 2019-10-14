@@ -1,5 +1,5 @@
 <?php
-
+use Illuminate\Http\Request;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -12,8 +12,17 @@
 */
 
 
+Route::group(['middleware' => 'checkuser'],function(){
+    Route::get('/employees','DataController@indexem');
+});
+Route::group(['middleware' => 'guest'],function(){
+    Route::get('/','DataController@index');
+});
 
-Route::get('/','DataController@index');
+// Route::get('/','DataController@index');
+Route::delete('/{type}/{code}','DataController@deletepro');
+Route::post('/login','DataController@login');
+Route::post('/logout','DataController@logout');
 
 
 

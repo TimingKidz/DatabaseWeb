@@ -12,6 +12,7 @@ session_start();
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta http-equiv="Content-Language" content="en">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    
     <title>Products</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
     <meta name="description" content="This is an example dashboard created using build-in elements and components.">
@@ -26,6 +27,7 @@ session_start();
     =========================================================
     * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
     -->
+    
 <link href="./main.css" rel="stylesheet"></head>
 
 <body>
@@ -34,17 +36,74 @@ session_start();
         <div class="app-header header-shadow bg-slick-carbon header-text-light">
             <div class="app-header__logo">
                 <div class="logo-src"></div>
-            </div>  
+                <div class="header__pane ml-auto" id="sidebar1">
+                    <div>
+                        <button type="button" class="hamburger close-sidebar-btn hamburger--elastic" data-class="closed-sidebar">
+                            <span class="hamburger-box">
+                                <span class="hamburger-inner"></span>
+                            </span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="app-header__mobile-menu" id="sidebar2">
+                <div>
+                    <button type="button" class="hamburger hamburger--elastic mobile-toggle-nav">
+                        <span class="hamburger-box">
+                            <span class="hamburger-inner"></span>
+                        </span>
+                    </button>
+                </div>
+            </div>
+            <div class="app-header__menu" id="sidebar3">
+                <span>
+                    <button type="button" class="btn-shadow p-1 btn btn-dark btn-sm" id="myBtn">
+                        <span class="btn-icon-wrapper">
+                            <i class="fa fa-ellipsis-v fa-w-6"></i>
+                        </span>
+                    </button>
+                </span>
+            </div>    
             <div class="app-header__content" >
                 <div class="app-header-right">
                     <div class="header-btn-lg pr-0">
                         <div class="widget-content p-0">
                             <div class="widget-content-wrapper">
-                                <div class="widget-content-right header-user-info ml-3" id="login"> 
-                                    <button type="button" class="btn-shadow p-1 btn btn-dark btn-sm" onclick="document.getElementById('id01').style.display='block'" id="log">
-                                    <i class="metismenu-icon pe-7s-lock" id="logbut"> LOGIN</i>
-                                    </button>
+                            <!-- <div class="widget-heading">&nbsp</div> -->
+                                <div class="widget-content-left  header-user-info">
+                                    <div class="widget-heading">
+                                    <?php echo session('name'); ?>
+                                    </div>
+                                    <div class="widget-subheading">
+                                        <?php
+                                        if(session('status')=="1"){
+                                            echo "Employee";
+                                        }else{
+                                            echo "Admin";
+                                        }
+                                        ?>
+                                    </div>
                                 </div>
+                                <div class="widget-content-left ml-3" id="sidebar4">
+                                
+                                    <div class="btn-group">
+                                        <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="p-0 btn">
+                                            <img width="42" class="rounded-circle" src="assets/images/avatars/1.jpg" alt="">
+                                            <i class="fa fa-angle-down ml-2 opacity-8"></i>
+                                        </a>
+                                        <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu dropdown-menu-right">
+                                            <button type="button" tabindex="0" class="dropdown-item"><?php echo session('email'); ?></button>
+                                            <form action="/logout" method="post"> 
+                                                {{ csrf_field() }}
+                                                <button tabindex="0" class="dropdown-item pe-7s-unlock">&nbsp Logout</button>
+                                                </button>
+                                            </form>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                               
+                               
                             </div>
                         </div>
                     </div>        
@@ -52,73 +111,154 @@ session_start();
             </div>
         </div>        
         <div class="app-main">
-                   
-            <div class="app-main__inner">
-                <div id="id01" class="modal"> 
-                    <form class="modal-content animate" action="/login" method="post"> 
-                        <div class="main-card card">
-                            <div class="card-body"><h5 class="card-title"><i class="metismenu-icon pe-7s-lock">  LOGIN</i></h5>
-                            <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">×</span> 
-                                    <form class="">
-                                    {{ csrf_field() }}
-                                        <div class="position-relative form-group"><label for="Username" class="">E-mail</label><input name="email"  placeholder="Enter Email ...." type="email" class="form-control"></div>
-                                        <div class="position-relative form-group"><label for="Password" class="">Password</label><input name="password"  placeholder="Enter Password ...." type="password" class="form-control"></div>
-                                        <div class="text-right">
-                                        <button class="mt-0 btn btn-dark">Login</button>
-                                        </div>
-                                    </form>
+                <div class="app-sidebar sidebar-shadow bg-slick-carbon sidebar-text-light" id="sidebar">
+                    <div class="app-header__logo">
+                        <div class="logo-src"></div>
+                        <div class="header__pane ml-auto">
+                            <div>
+                                <button type="button" class="hamburger close-sidebar-btn hamburger--elastic" data-class="closed-sidebar">
+                                    <span class="hamburger-box">
+                                        <span class="hamburger-inner"></span>
+                                    </span>
+                                </button>
                             </div>
                         </div>
-                    </form> 
-                </div>
-                @if(session()->has('alert'))
-                <div id="id03" class="modal"> 
-                    <form class="modal-content animate"> 
-                        <div class="main-card card alert-warning">
-                            <div class="card-body "><h4><i class="metismenu-icon pe-7s-lock">  Warning</i></h4>
-                            <span onclick="document.getElementById('id03').style.display='none'" class="close" title="Close Modal">×</span> 
-                                    <form class="">
-                                        <div class="text-center">
-                                            <h5>{{ session('alert') }}</h5><br>
-                                        </div>
-                                   
-                                    </form>
-                            </div>
+                    </div>
+                    <div class="app-header__mobile-menu">
+                        <div>
+                            <button type="button" class="hamburger hamburger--elastic mobile-toggle-nav">
+                                <span class="hamburger-box">
+                                    <span class="hamburger-inner"></span>
+                                </span>
+                            </button>
                         </div>
-                    </form> 
-                </div>
-               <script>document.getElementById('id03').style.display='block'</script>
-               @endif
-                <div id="id02" class="modal" id="detailpopup"> 
-                    <form class="modal-content animate"> 
-                        <div class="main-card card">
-                            <div class="card-body"><h5 class="card-title"><i class="metismenu-icon pe-7s-lock">  Product Detail</i></h5>
-                            <span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close Modal">×</span> 
-                                <form >
-                                    <div id="detailpop">
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </form> 
-                </div> 
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="main-card mb-3 card">
-                            <div class="card-header">
-                                <div class="col-md-1">
+                    </div>
+                    <div class="app-header__menu">
+                        <span>
+                            <button type="button" class="btn-icon btn-icon-only btn btn-primary btn-sm mobile-toggle-header-nav">
+                                <span class="btn-icon-wrapper">
+                                    <i class="fa fa-ellipsis-v fa-w-6"></i>
+                                </span>
+                            </button>
+                        </span>
+                    </div>    <div class="scrollbar-sidebar">
+                        <div class="app-sidebar__inner">
+                            <ul class="vertical-nav-menu">
+                                
+                            <li class="app-sidebar__heading">Dashboard</li>
+                            <li>
+                                    <a href="dashboard-boxes.html">
+                                        <i class="metismenu-icon pe-7s-display2"></i>
+                                        Dashboard
+                                    </a>
+                                </li>
+
+
+                                <li class="app-sidebar__heading">Menu</li>
+                                <li>
+                                    <a href="dashboard-boxes.html" class="mm-active">
+                                        <i class="metismenu-icon pe-7s-display2"></i>
                                         Products
-                                </div>  
-                                <div class="col-md-1">
-                                    <div class="search-wrapper">
-                                        <div class="input-holder">
-                                            <input type="text" class="search-input" placeholder="Type to search" id="searchinput">
-                                            <button class="search-icon"><span></span></button>
+                                    </a>
+                                </li>
+                               
+                                <li>
+                                    <a href="dashboard-boxes.html">
+                                        <i class="metismenu-icon pe-7s-display2"></i>
+                                        Stock In
+                                    </a>
+                                </li>
+                                
+                                <li>
+                                    <a href="dashboard-boxes.html">
+                                        <i class="metismenu-icon pe-7s-display2"></i>
+                                        Customers
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="dashboard-boxes.html">
+                                        <i class="metismenu-icon pe-7s-display2"></i>
+                                        Saleorder
+                                    </a>
+                                </li>
+                                
+                               
+                            </ul>
+                        </div>
+                    </div>
+                </div>    <div class="app-main__outer">
+                
+  
+  <div id="id01" class="modal"> 
+
+      <form class="modal-content animate" action="/login" method="post"> 
+              
+          
+                                        <div class="main-card card">
+                                            <div class="card-body"><h5 class="card-title"><i class="metismenu-icon pe-7s-lock">  LOGIN</i></h5>
+                                            <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">×</span> 
+                                                <form class="">
+                                                {{ csrf_field() }}
+                                                    <div class="position-relative form-group"><label for="Username" class="">Username</label><input name="email" id="Users" placeholder="Enter Username ...." type="text" class="form-control"></div>
+                                                    <div class="position-relative form-group"><label for="Password" class="">Password</label><input name="password" id="Pass" placeholder="Enter Password ...." type="password"
+                                                                                                                                                           class="form-control"></div>
+                                                    
+                                                    <button class="mt-1 btn btn-dark">Login</button>
+                                                </form>
+                                            </div>
                                         </div>
-                                        <button class="close"></button>
+                                    
+
+       
+
+          
+      </form> 
+  </div> 
+ 
+ 
+  <div id="id02" class="modal" id="detailpopup"> 
+
+      <form class="modal-content animate"> 
+              
+          
+                                        <div class="main-card card">
+                                        <div class="card-body"><h5 class="card-title"><i class="metismenu-icon pe-7s-lock">  Product Detail</i></h5>
+                                            <span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close Modal">×</span> 
+                                                <form >
+                                                <div id="detailpop">
+                                                </div>
+                                                    
+                                                </form>
+                                            </div>
+                                        </div>
+                                    
+
+       
+
+          
+      </form> 
+  </div> 
+
+ 
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="main-card mb-3 card">
+                                    <div class="card-header">
+                                    <div class="col-md-1">
+                                        Products
+                                    </div>  
+                                    <div class="col-md-1">
+                                        <div class="search-wrapper">
+                                            <div class="input-holder">
+                                                <input type="text" class="search-input" placeholder="Type to search" id="searchinput">
+                                                <button class="search-icon"><span></span></button>
+                                            </div>
+                                            <button class="close"></button>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
+                                        
+                                       
+                                    </div>
                                     
                                     <div class="table-responsive">
                                         <table class="align-middle mb-0 table table-borderless table-striped table-hover">
@@ -146,11 +286,16 @@ session_start();
                       
                     
                     </div>
+                    
+                  
                  
-
+                   
                     <script type="text/javascript"> 
                   
                     
+                      
+                     
+        
                                                 var tableproduct = "";
                                                 var i = 0;
                                                 var json = <?php echo $jsproductlist; ?> ;
@@ -176,12 +321,18 @@ session_start();
                                                                 <td class="text-center">
                                                                     <div class="text-center">${a.MSRP}</div>
                                                                 </td>
+
                                                                 <td class="text-center">
-                                                                <button onclick="detailpopup(this)" type="button" id="${a.productCode}" type="button" id="PopoverCustomT-1" class="btn btn-primary btn-sm">Detail</button>
-                                                            </td>
-                                                        </tr>`
-                                                    
-                                                });
+                                                                    <button onclick="detailpopup(this)" type="button" id="${a.productCode}" type="button" class="btn btn-primary btn-sm">Detail</button>
+                                                                </td>        
+                                                                <td>
+                                                                    <form action="/products/${a.productCode}" method="post">
+                                                                        {{ csrf_field() }}
+                                                                        <input name="_method" type="hidden" value="DELETE">
+                                                                        <button class="btn btn-danger">X</button>
+                                                                    </form>
+                                                                </td>
+                                                            </tr>`});
                                                 document.getElementById("tablelist").innerHTML = tableproduct;
                                                 document.querySelector('#searchinput').addEventListener('input',noti);
                                                  function noti(e){
@@ -214,8 +365,15 @@ session_start();
                                                                     <div class="text-center">${a.MSRP}</div>
                                                                 </td>
                                                                 <td class="text-center">
-                                                                    <button onclick="detailpopup(this)" type="button" id="${a.productCode}" type="button" id="PopoverCustomT-1" class="btn btn-primary btn-sm">Detail</button>
-                                                            </td>
+                                                                    <button onclick="detailpopup(this)" type="button" id="${a.productCode}" type="button" class="btn btn-primary btn-sm">Detail</button>
+                                                                </td>        
+                                                                <td>
+                                                                    <form action="/products/${a.productCode}" method="post">
+                                                                        {{ csrf_field() }}
+                                                                        <input name="_method" type="hidden" value="DELETE">
+                                                                        <button class="btn btn-danger">X</button>
+                                                                    </form>
+                                                                </td>
                                                         </tr>`
                                                         }
                                                     });

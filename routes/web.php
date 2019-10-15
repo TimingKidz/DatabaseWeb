@@ -15,6 +15,9 @@ use Illuminate\Http\Request;
 Route::group(['middleware' => 'checkuser'],function(){
     Route::get('/employees','DataController@indexem');
 });
+Route::group(['middleware' => 'checkuser'],function(){
+    Route::get('/customer','DataController@customer');
+});
 Route::group(['middleware' => 'guest'],function(){
     Route::get('/','DataController@index');
 });

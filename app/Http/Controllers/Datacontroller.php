@@ -12,15 +12,20 @@ class DataController extends Controller
     
     public function index()
     {
-        
-        
-       
-        
         $data = DB::select('select * from products');
+        $vendor = DB::select('select distinct productVendor from products');
+        $scale = DB::select('select distinct productScale from products');
         $jsproductlist = json_encode($data);
-      
-        
-        return view('index',['jsproductlist' => $jsproductlist]);
+        $jsvendor = json_encode($vendor);
+        $jsscale = json_encode($scale);
+        return view('index', ['jsproductlist' => $jsproductlist, 'jsvendor' => $jsvendor, 'jsscale' => $jsscale]);
+    }
+
+    public function customer()
+    {
+        $data = DB::select('select * from customers');
+        $jscustomerlist = json_encode($data);
+        return view('customer',['jscustomerlist' => $jscustomerlist]);
     }
 
     public function indexem()

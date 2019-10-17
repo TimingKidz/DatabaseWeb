@@ -109,6 +109,163 @@ session_start();
                                 <div class="col-md-1">
                                         Products
                                 </div>  
+
+                                <div class="dropdown d-inline-block">
+                                        <button type="button" aria-haspopup="true" aria-expanded="false" data-toggle="dropdown" id="vendorbtn" class="mb-2 mr-2 dropdown-toggle btn btn-outline-secondary">Vendors</button>
+                                        <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu" id="vendor">                                            
+                                            <script type="text/javascript">
+                                                var vendorlist = '<button id="nonevendor" type="button" onclick="vendorFilter(this)" tabindex="0" class="dropdown-item">None</button>';
+                                                var json = <?php echo $jsvendor; ?> ;
+                                                json.forEach(function(a) {
+                                                    vendorlist += `<button id="${a.productVendor}" type="button" onclick="vendorFilter(this)" tabindex="0" class="dropdown-item">${a.productVendor}</button>`                                                    
+                                                }); 
+                                                document.getElementById("vendor").innerHTML = vendorlist;
+                                                function vendorFilter(e){
+                                                    document.getElementById("vendorbtn").click();
+                                                    i = 0;
+                                                    var productVendor = e.getAttribute("id");
+                                                    vendorlist = "";
+                                                    json.forEach(function(a) {
+                                                        if(productVendor == "nonevendor"){
+                                                            vendorlist += `<tr>
+                                                            <td class="text-center text-muted"> ${++i}</td>
+                                                            <td>
+                                                                <div class="widget-content p-0">
+                                                                    <div class="widget-content-wrapper">
+                                                                        <div class="widget-content-left mr-3">
+                                                                            <div class="widget-content-left">
+                                                                                <img width="40" class="rounded-circle" src="assets/images/avatars/4.jpg">
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="widget-content-left flex2">
+                                                                                <div class="widget-heading">${a.productName}</div>
+                                                                                    <div class="widget-subheading opacity-7">${a.productLine}</div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                                <td class="text-center">${a.quantityInStock}</td>
+                                                                <td class="text-center">
+                                                                    <div class="text-center">${a.MSRP}</div>
+                                                                </td>
+                                                                <td class="text-center">
+                                                                    <button onclick="detailpopup(this)" type="button" id="${a.productCode}" type="button" id="PopoverCustomT-1" class="btn btn-primary btn-sm">Detail</button>
+                                                            </td>
+                                                        </tr>`  
+                                                        }
+                                                        if(a.productVendor == productVendor){
+                                                           vendorlist += `<tr>
+                                                            <td class="text-center text-muted"> ${++i}</td>
+                                                            <td>
+                                                                <div class="widget-content p-0">
+                                                                    <div class="widget-content-wrapper">
+                                                                        <div class="widget-content-left mr-3">
+                                                                            <div class="widget-content-left">
+                                                                                <img width="40" class="rounded-circle" src="assets/images/avatars/4.jpg">
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="widget-content-left flex2">
+                                                                                <div class="widget-heading">${a.productName}</div>
+                                                                                    <div class="widget-subheading opacity-7">${a.productLine}</div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                                <td class="text-center">${a.quantityInStock}</td>
+                                                                <td class="text-center">
+                                                                    <div class="text-center">${a.MSRP}</div>
+                                                                </td>
+                                                                <td class="text-center">
+                                                                    <button onclick="detailpopup(this)" type="button" id="${a.productCode}" type="button" id="PopoverCustomT-1" class="btn btn-primary btn-sm">Detail</button>
+                                                            </td>
+                                                        </tr>`      
+                                                        }
+                                                                                                   
+                                                });
+                                                document.getElementById("tablelist").innerHTML = vendorlist;
+                                                }
+                                            </script>     
+                                        </div>
+                                    </div>                               
+
+                                    <div class="dropdown d-inline-block">
+                                        <button type="button" aria-haspopup="true" aria-expanded="false" data-toggle="dropdown" id="scalebtn" class="mb-2 mr-2 dropdown-toggle btn btn-outline-secondary">Scale</button>
+                                        <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu" id="scale">
+                                            <script type="text/javascript">
+                                                var scalelist = '<button id="nonescale" type="button" onclick="scaleFilter(this)" tabindex="0" class="dropdown-item">None</button>';
+                                                var json = <?php echo $jsscale; ?> ;
+                                                json.forEach(function(a) {
+                                                    scalelist += `<button id="${a.productScale}" type="button" onclick="scaleFilter(this)" tabindex="0" class="dropdown-item">${a.productScale}</button>`                                                    
+                                                }); 
+                                                document.getElementById("scale").innerHTML = scalelist;
+                                                function scaleFilter(e){
+                                                    document.getElementById("scalebtn").click();
+                                                    i = 0;
+                                                    var productScale = e.getAttribute("id");
+                                                    scalelist = "";
+                                                    json.forEach(function(a) {
+                                                        if(productScale == "nonescale"){
+                                                            scalelist += `<tr>
+                                                            <td class="text-center text-muted"> ${++i}</td>
+                                                            <td>
+                                                                <div class="widget-content p-0">
+                                                                    <div class="widget-content-wrapper">
+                                                                        <div class="widget-content-left mr-3">
+                                                                            <div class="widget-content-left">
+                                                                                <img width="40" class="rounded-circle" src="assets/images/avatars/4.jpg">
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="widget-content-left flex2">
+                                                                                <div class="widget-heading">${a.productName}</div>
+                                                                                    <div class="widget-subheading opacity-7">${a.productLine}</div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                                <td class="text-center">${a.quantityInStock}</td>
+                                                                <td class="text-center">
+                                                                    <div class="text-center">${a.MSRP}</div>
+                                                                </td>
+                                                                <td class="text-center">
+                                                                    <button onclick="detailpopup(this)" type="button" id="${a.productCode}" type="button" id="PopoverCustomT-1" class="btn btn-primary btn-sm">Detail</button>
+                                                            </td>
+                                                        </tr>`  
+                                                        }
+                                                        if(a.productScale == productScale){
+                                                           scalelist += `<tr>
+                                                            <td class="text-center text-muted"> ${++i}</td>
+                                                            <td>
+                                                                <div class="widget-content p-0">
+                                                                    <div class="widget-content-wrapper">
+                                                                        <div class="widget-content-left mr-3">
+                                                                            <div class="widget-content-left">
+                                                                                <img width="40" class="rounded-circle" src="assets/images/avatars/4.jpg">
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="widget-content-left flex2">
+                                                                                <div class="widget-heading">${a.productName}</div>
+                                                                                    <div class="widget-subheading opacity-7">${a.productLine}</div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                                <td class="text-center">${a.quantityInStock}</td>
+                                                                <td class="text-center">
+                                                                    <div class="text-center">${a.MSRP}</div>
+                                                                </td>
+                                                                <td class="text-center">
+                                                                    <button onclick="detailpopup(this)" type="button" id="${a.productCode}" type="button" id="PopoverCustomT-1" class="btn btn-primary btn-sm">Detail</button>
+                                                            </td>
+                                                        </tr>`      
+                                                        }
+                                                                                                   
+                                                });
+                                                document.getElementById("tablelist").innerHTML = scalelist;
+                                                }
+                                            </script>
+                                        </div>
+                                    </div>
+
                                 <div class="col-md-1">
                                     <div class="search-wrapper">
                                         <div class="input-holder">

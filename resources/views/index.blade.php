@@ -92,16 +92,9 @@ session_start();
                @endif
 
                 <div id="id02" class="modal" id="detailpopup"> 
-                    <form class="modal-content animate"> 
-                        <div class="main-card card">
-                            <div class="card-body"><h5 class="card-title"><i class="metismenu-icon pe-7s-lock">  Product Detail</i></h5>
-                            <span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close Modal">×</span> 
-                                <form >
+                    <form class="modal-content-detail"> 
                                     <div id="detailpop">
                                     </div>
-                                </form>
-                            </div>
-                        </div>
                     </form> 
                 </div> 
                 <div class="row">
@@ -233,7 +226,7 @@ session_start();
                         var text = "";
                         json.forEach(function(a) {
                             if(a.productCode == productcode){
-                                text = detailPopupGen(a.productDescription);
+                                text = detailPopupGen(a.productCode,a.productName,a.productScale,a.productVendor,a.quantityInStock,a.MSRP,a.productLine,a.productDescription);
                             }
                         });
                         document.getElementById("detailpop").innerHTML = text;

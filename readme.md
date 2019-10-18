@@ -5,11 +5,11 @@
 - Show products list filter&seacrh product and product detail popup for customers
 - add remove product for employees
 - Login for employees
-    Email = employees.email 
-    Password = employees.employeeNumber
-Example
-    Email = mgerard@classicmodelcars.com
-    Password = 1702
+-    Email = employees.email 
+-    Password = employees.employeeNumber
+- Example
+-    Email = mgerard@classicmodelcars.com
+-    Password = 1702
 
 ## License
 

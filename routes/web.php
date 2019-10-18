@@ -13,7 +13,9 @@ use Illuminate\Http\Request;
 
 
 Route::group(['middleware' => 'checkuser'],function(){
-    Route::get('/employees','DataController@indexem');
+    Route::get('/products','DataController@indexem');
+    Route::get('/customer','DataController@customer');
+
 });
 Route::group(['middleware' => 'guest'],function(){
     Route::get('/','DataController@index');
@@ -23,6 +25,7 @@ Route::group(['middleware' => 'guest'],function(){
 Route::delete('/{type}/{code}','DataController@deletepro');
 Route::post('/login','DataController@login');
 Route::post('/logout','DataController@logout');
+Route::get('/getcus','DataController@cus');
 
 
 

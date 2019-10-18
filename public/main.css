@@ -95,6 +95,12 @@ span.psw {
     border: 1px solid #888; 
     width: 40%; 
 } 
+.modal-content-detail { 
+    background-color: #fefefe; 
+    margin: 5% auto 15% auto; 
+    border: 1px solid #888; 
+    width: 60%; 
+} 
 
 /*style the close button*/ 
 .close { 

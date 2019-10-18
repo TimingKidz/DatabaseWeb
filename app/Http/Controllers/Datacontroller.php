@@ -11,29 +11,45 @@ class DataController extends Controller
     
     
     public function index()
-    {
-        
-        
-       
-        
+    { 
         $data = DB::select('select * from products');
+        $vendor = DB::select('select distinct productVendor from products');
+        $scale = DB::select('select distinct productScale from products');
         $jsproductlist = json_encode($data);
-      
-        
-        return view('index',['jsproductlist' => $jsproductlist]);
+        $jsvendor = json_encode($vendor);
+        $jsscale = json_encode($scale);
+        return view('index', ['jsproductlist' => $jsproductlist, 'jsvendor' => $jsvendor, 'jsscale' => $jsscale]);
+    }
+
+    public function customer()
+    {
+        $data = DB::select('select * from customers');
+        $jscustomerlist = json_encode($data);
+        return view('customer',['jscustomerlist' => $jscustomerlist]);
     }
 
     public function indexem()
     {
         $data = DB::select('select * from products');
+        $vendor = DB::select('select distinct productVendor from products');
+        $scale = DB::select('select distinct productScale from products');
         $jsproductlist = json_encode($data);
-        return view('indexem',['jsproductlist' => $jsproductlist]);
+        $jsvendor = json_encode($vendor);
+        $jsscale = json_encode($scale);
+        return view('products', ['jsproductlist' => $jsproductlist, 'jsvendor' => $jsvendor, 'jsscale' => $jsscale]);
     }
 
     public function deletepro($type,$code)
     {
         $deleted = DB::select("delete from $type where productCode = '$code'");
-        return redirect('/employees');
+        return redirect('/products');
+    }
+
+    public function cus()
+    {
+        $data = DB::select("select * from products where productCode = 'S18_1097'");
+        $jsscale = json_encode($data);
+        return $jsscale;
     }
 
     public function login(Request $request)
@@ -43,7 +59,7 @@ class DataController extends Controller
             $request->session()->put('status','1');
             $request->session()->put('email',$data[0]->email);
             $request->session()->put('name',$data[0]->firstName);
-            return redirect('/employees');
+            return redirect('/products');
             //return $data;
         }else{
             

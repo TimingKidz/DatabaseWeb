@@ -71,6 +71,7 @@ session_start();
                         </div>
                     </form> 
                 </div>
+
                 @if(session()->has('alert'))
                 <div id="id03" class="modal"> 
                     <form class="modal-content animate"> 
@@ -89,6 +90,7 @@ session_start();
                 </div>
                <script>document.getElementById('id03').style.display='block'</script>
                @endif
+
                 <div id="id02" class="modal" id="detailpopup"> 
                     <form class="modal-content animate"> 
                         <div class="main-card card">
@@ -109,6 +111,19 @@ session_start();
                                 <div class="col-md-1">
                                         Products
                                 </div>  
+                                <div class="dropdown d-inline-block">
+                                        <button type="button" aria-haspopup="true" aria-expanded="false" data-toggle="dropdown" id="btn" class="mb-2 mr-2 dropdown-toggle btn btn-outline-secondary">Vendors</button>
+                                        <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu" id="vendor">                                            
+                                        <!-- vender -->
+                                        </div>
+                                    </div>                               
+
+                                    <div class="dropdown d-inline-block">
+                                        <button type="button" aria-haspopup="true" aria-expanded="false" data-toggle="dropdown" id="scalebtn" class="mb-2 mr-2 dropdown-toggle btn btn-outline-secondary">Scale</button>
+                                        <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu" id="scale">
+                                          <!-- scale -->
+                                        </div>
+                                    </div>
                                 <div class="col-md-1">
                                     <div class="search-wrapper">
                                         <div class="input-holder">
@@ -119,7 +134,6 @@ session_start();
                                     </div>
                                 </div>
                             </div>
-                                    
                                     <div class="table-responsive">
                                         <table class="align-middle mb-0 table table-borderless table-striped table-hover">
                                             <thead>
@@ -133,258 +147,98 @@ session_start();
                                             </thead>
                                             
                                             <tbody id="tablelist">
-
-                                            
-                                           
+                                            <!-- tablelist -->
                                             </tbody>
                                         </table>
                                     </div> 
-                                 
                                 </div>
                             </div>
                         </div>
-                      
-                    
                     </div>
+                    <div id="demo"></div>
                  
-
+                    <script src="./assets/scripts/htmlGen.js" type="text/javascript"></script>
                     <script type="text/javascript"> 
-                  
                     
-                                                var tableproduct = "";
-                                                var i = 0;
-                                                var json = <?php echo $jsproductlist; ?> ;
-                                                json.forEach(function(a) {
-                                                    tableproduct += ` <tr>
-                                                            <td class="text-center text-muted"> ${++i}</td>
-                                                            <td>
-                                                                <div class="widget-content p-0">
-                                                                    <div class="widget-content-wrapper">
-                                                                        <div class="widget-content-left mr-3">
-                                                                            <div class="widget-content-left">
-                                                                                <img width="40" class="rounded-circle" src="assets/images/avatars/4.jpg">
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="widget-content-left flex2">
-                                                                                <div class="widget-heading">${a.productName}</div>
-                                                                                    <div class="widget-subheading opacity-7">${a.productLine}</div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </td>
-                                                                <td class="text-center">${a.quantityInStock}</td>
-                                                                <td class="text-center">
-                                                                    <div class="text-center">${a.MSRP}</div>
-                                                                </td>
-                                                                <td class="text-center">
-                                                                <button onclick="detailpopup(this)" type="button" id="${a.productCode}" type="button" id="PopoverCustomT-1" class="btn btn-primary btn-sm">Detail</button>
-                                                            </td>
-                                                        </tr>`
-                                                    
-                                                });
-                                                document.getElementById("tablelist").innerHTML = tableproduct;
-                                                document.querySelector('#searchinput').addEventListener('input',noti);
-                                                 function noti(e){
-                                                    var input = document.getElementById("searchinput");
-                                                    var filter = input.value.toUpperCase();
-                                                    var list = json;
-                                                    var i = 0 ;
-                                                    var tableproduct = "";
-                                                    json.forEach(function(a) {
-                                                        if (((a.productName.toString()).toUpperCase()).includes(filter)){
-                                                            tableproduct += ` <tr>
-                                                            <td class="text-center text-muted"> ${++i}</td>
-                                                            <td>
-                                                                <div class="widget-content p-0">
-                                                                    <div class="widget-content-wrapper">
-                                                                        <div class="widget-content-left mr-3">
-                                                                            <div class="widget-content-left">
-                                                                                <img width="40" class="rounded-circle" src="assets/images/avatars/4.jpg">
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="widget-content-left flex2">
-                                                                                <div class="widget-heading">${a.productName}</div>
-                                                                                    <div class="widget-subheading opacity-7">${a.productLine}</div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </td>
-                                                                <td class="text-center">${a.quantityInStock}</td>
-                                                                <td class="text-center">
-                                                                    <div class="text-center">${a.MSRP}</div>
-                                                                </td>
-                                                                <td class="text-center">
-                                                                    <button onclick="detailpopup(this)" type="button" id="${a.productCode}" type="button" id="PopoverCustomT-1" class="btn btn-primary btn-sm">Detail</button>
-                                                            </td>
-                                                        </tr>`
-                                                        }
-                                                    });
-                                                    document.getElementById("tablelist").innerHTML = tableproduct;
-                                                }
-                                                function detailpopup(products) {
+                        var vendorlist = '<button id="none" type="button" onclick="venderFilter(this)" tabindex="0" class="dropdown-item">None</button>';
+                        var json = <?php echo $jsvendor; ?> ;
+                        json.forEach(function(a) {
+                            vendorlist += `<button id="${a.productVendor}" type="button" onclick="venderFilter(this)" tabindex="0" class="dropdown-item">${a.productVendor}</button>`                                                    
+                        }); 
+                        document.getElementById("vendor").innerHTML = vendorlist;
+                        
+                        function venderFilter(e){
+                            document.getElementById("btn").click();
+                            i = 0;
+                            var productVendor = e.getAttribute("id");
+                            vendorlist = "";
+                            json.forEach(function(a) {
+                                if(productVendor == "none"){
+                                    vendorlist += tableGencus(++i,a.productName,a.productLine,a.quantityInStock,a.MSRP,a.productCode);
+                                }
+                                if(a.productVendor == productVendor){
+                                    vendorlist += tableGencus(++i,a.productName,a.productLine,a.quantityInStock,a.MSRP,a.productCode);   
+                                }
+                            });
+                            document.getElementById("tablelist").innerHTML = vendorlist;
+                        }
 
-                                                    document.getElementById('id02').style.display='block';
-                                                    var productcode = products.getAttribute("id");
-                                                    var text = "";
-                                                    json.forEach(function(a) {
-                                                        
-                                                       if(a.productCode == productcode){
-                                                            text = `
-            <div class="mb-3 card">
-                <div class="card-header-tab card-header-tab-animation card-header">
-                    <div class="card-header-title">
-                        <i class="header-icon lnr-apartment icon-gradient bg-love-kiss"> </i>
-                        Product Detail
-                    </div>
-                    <ul class="nav">
-                        <li class="nav-item"><a href="javascript:void(0);" class="active nav-link">Last</a></li>
-                        <li class="nav-item"><a href="javascript:void(0);" class="nav-link second-tab-toggle">Current</a></li>
-                    </ul>
-                </div>
-                <div class="card-body">
-                    <div class="tab-content">
-                        <div class="tab-pane fade show active" id="tabs-eg-77">
-                            <div class="card mb-3 widget-chart widget-chart2 text-left w-100">
-                                <div class="widget-chat-wrapper-outer">
-                                    <div class="widget-chart-wrapper widget-chart-wrapper-lg opacity-10 m-0">
-                                        <canvas id="canvas"></canvas>
-                                        ${a.productDescription}
-                                    </div>
-                                </div>
-                            </div>
-                            <h6 class="text-muted text-uppercase font-size-md opacity-5 font-weight-normal">Top Authors</h6>
-                            <div class="scroll-area-sm">
-                                <div class="scrollbar-container">
-                                    <ul class="rm-list-borders rm-list-borders-scroll list-group list-group-flush">
-                                        <li class="list-group-item">
-                                            <div class="widget-content p-0">
-                                                <div class="widget-content-wrapper">
-                                                    <div class="widget-content-left mr-3">
-                                                        <img width="42" class="rounded-circle" src="assets/images/avatars/9.jpg" alt="">
-                                                    </div>
-                                                    <div class="widget-content-left">
-                                                        <div class="widget-heading">Ella-Rose Henry</div>
-                                                        <div class="widget-subheading">Web Developer</div>
-                                                    </div>
-                                                    <div class="widget-content-right">
-                                                        <div class="font-size-xlg text-muted">
-                                                            <small class="opacity-5 pr-1">$</small>
-                                                            <span>129</span>
-                                                            <small class="text-danger pl-2">
-                                                                <i class="fa fa-angle-down"></i>
-                                                            </small>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li class="list-group-item">
-                                            <div class="widget-content p-0">
-                                                <div class="widget-content-wrapper">
-                                                    <div class="widget-content-left mr-3">
-                                                        <img width="42" class="rounded-circle" src="assets/images/avatars/5.jpg" alt="">
-                                                    </div>
-                                                    <div class="widget-content-left">
-                                                        <div class="widget-heading">Ruben Tillman</div>
-                                                        <div class="widget-subheading">UI Designer</div>
-                                                    </div>
-                                                    <div class="widget-content-right">
-                                                        <div class="font-size-xlg text-muted">
-                                                            <small class="opacity-5 pr-1">$</small>
-                                                            <span>54</span>
-                                                            <small class="text-success pl-2">
-                                                                <i class="fa fa-angle-up"></i>
-                                                            </small>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li class="list-group-item">
-                                            <div class="widget-content p-0">
-                                                <div class="widget-content-wrapper">
-                                                    <div class="widget-content-left mr-3">
-                                                        <img width="42" class="rounded-circle" src="assets/images/avatars/4.jpg" alt="">
-                                                    </div>
-                                                    <div class="widget-content-left">
-                                                        <div class="widget-heading">Vinnie Wagstaff</div>
-                                                        <div class="widget-subheading">Java Programmer</div>
-                                                    </div>
-                                                    <div class="widget-content-right">
-                                                        <div class="font-size-xlg text-muted">
-                                                            <small class="opacity-5 pr-1">$</small>
-                                                            <span>429</span>
-                                                            <small class="text-warning pl-2">
-                                                                <i class="fa fa-dot-circle"></i>
-                                                            </small>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li class="list-group-item">
-                                            <div class="widget-content p-0">
-                                                <div class="widget-content-wrapper">
-                                                    <div class="widget-content-left mr-3">
-                                                        <img width="42" class="rounded-circle" src="assets/images/avatars/3.jpg" alt="">
-                                                    </div>
-                                                    <div class="widget-content-left">
-                                                        <div class="widget-heading">Ella-Rose Henry</div>
-                                                        <div class="widget-subheading">Web Developer</div>
-                                                    </div>
-                                                    <div class="widget-content-right">
-                                                        <div class="font-size-xlg text-muted">
-                                                            <small class="opacity-5 pr-1">$</small>
-                                                            <span>129</span>
-                                                            <small class="text-danger pl-2">
-                                                                <i class="fa fa-angle-down"></i>
-                                                            </small>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li class="list-group-item">
-                                            <div class="widget-content p-0">
-                                                <div class="widget-content-wrapper">
-                                                    <div class="widget-content-left mr-3">
-                                                        <img width="42" class="rounded-circle" src="assets/images/avatars/2.jpg" alt="">
-                                                    </div>
-                                                    <div class="widget-content-left">
-                                                        <div class="widget-heading">Ruben Tillman</div>
-                                                        <div class="widget-subheading">UI Designer</div>
-                                                    </div>
-                                                    <div class="widget-content-right">
-                                                        <div class="font-size-xlg text-muted">
-                                                            <small class="opacity-5 pr-1">$</small>
-                                                            <span>54</span>
-                                                            <small class="text-success pl-2">
-                                                                <i class="fa fa-angle-up"></i>
-                                                            </small>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>`;
-                                                       }
-                                                       
-                                                    });
-                                                    document.getElementById("detailpop").innerHTML = text;
-                                                    console.log(text);
-
-                                                }
-                                            
-                    </script>
-                    
-                                               
-                                            
+                        var i = 0;
+                        var scalelist = '<button id="nonescale" type="button" onclick="scaleFilter(this)" tabindex="0" class="dropdown-item">None</button>';
+                        json = <?php echo $jsscale; ?> ;
+                        json.forEach(function(a) {
+                            scalelist += `<button id="${a.productScale}" type="button" onclick="scaleFilter(this)" tabindex="0" class="dropdown-item">${a.productScale}</button>`                                                    
+                        }); 
+                        document.getElementById("scale").innerHTML = scalelist;
+                        
+                        function scaleFilter(e){
+                            document.getElementById("scalebtn").click();
+                            i = 0;
+                            var productScale = e.getAttribute("id");
+                            scalelist = "";
+                            json.forEach(function(a) {
+                                if(productScale == "nonescale"){
+                                    scalelist += tableGencus(++i,a.productName,a.productLine,a.quantityInStock,a.MSRP,a.productCode);  
+                                }
+                                if(a.productScale == productScale){
+                                    scalelist += tableGencus(++i,a.productName,a.productLine,a.quantityInStock,a.MSRP,a.productCode);     
+                                }
+                            });
+                            document.getElementById("tablelist").innerHTML = scalelist;
+                        }
+                        var tableproduct = "";
+                        i = 0;
+                        json = <?php echo $jsproductlist; ?> ;
+                        json.forEach(function(a) {
+                            tableproduct += tableGencus(++i,a.productName,a.productLine,a.quantityInStock,a.MSRP,a.productCode);
+                        });
+                        document.getElementById("tablelist").innerHTML = tableproduct;
+                        document.querySelector('#searchinput').addEventListener('input',noti);
+                        function noti(e){
+                            var input = document.getElementById("searchinput");
+                            var filter = input.value.toUpperCase();
+                            var list = json;
+                            var i = 0 ;
+                            var tableproduct = "";
+                            json.forEach(function(a) {
+                                if (((a.productName.toString()).toUpperCase()).includes(filter)){
+                                    tableproduct += tableGencus(++i,a.productName,a.productLine,a.quantityInStock,a.MSRP,a.productCode);
+                                }
+                            });
+                            document.getElementById("tablelist").innerHTML = tableproduct;
+                        }
+                        function detailpopup(products) {
+                        document.getElementById('id02').style.display='block';
+                        var productcode = products.getAttribute("id");
+                        var text = "";
+                        json.forEach(function(a) {
+                            if(a.productCode == productcode){
+                                text = detailPopupGen(a.productDescription);
+                            }
+                        });
+                        document.getElementById("detailpop").innerHTML = text;
+                        }
+                    </script>                          
                 <script src="http://maps.google.com/maps/api/js?sensor=true"></script>
         </div>
     </div>

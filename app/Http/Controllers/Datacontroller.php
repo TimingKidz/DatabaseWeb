@@ -39,15 +39,15 @@ class DataController extends Controller
         return view('products', ['jsproductlist' => $jsproductlist, 'jsvendor' => $jsvendor, 'jsscale' => $jsscale]);
     }
 
-    public function deletepro($type,$code)
+    public function delete($code)
     {
-        $deleted = DB::select("delete from $type where productCode = '$code'");
-        return redirect('/products');
+        $deleted = DB::select("delete from products where productCode = '$code'");
+        return 'success';
     }
 
     public function cus()
     {
-        $data = DB::select("select * from products where productCode = 'S18_1097'");
+        $data = DB::select("select * from products");
         $jsscale = json_encode($data);
         return $jsscale;
     }

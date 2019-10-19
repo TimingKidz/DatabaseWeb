@@ -22,7 +22,7 @@ Route::group(['middleware' => 'guest'],function(){
 });
 
 // Route::get('/','DataController@index');
-Route::delete('/{type}/{code}','DataController@deletepro');
+Route::delete('/products/{code}','DataController@delete');
 Route::post('/login','DataController@login');
 Route::post('/logout','DataController@logout');
 Route::get('/getcus','DataController@cus');

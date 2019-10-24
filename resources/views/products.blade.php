@@ -207,17 +207,18 @@ session_start();
   </div> 
  
     <div id="id03" class="modal"> 
-        <div class="modal-content animate"> 
+        <div class="modal-content-del animate"> 
             <div class="main-card card">
-                <div class="card-body "><h4><i class="metismenu-icon pe-7s-lock">  Warning</i></h4>
+                <div class="card-body "><h4></h4>
                 <span onclick="document.getElementById('id03').style.display='none'" class="close" title="Close Modal">×</span> 
                     <div class="text-center">
                         <div>
-                        <div><h5>Are you sure ?</h5></div>
-                        
-                        <button type="button" class="btn btn-primary" id="delbut" name="" onclick="deleteitem(this)">YESs</button>
+                        <div class="mb-4 mt-4"><h5>Are you sure ?</h5></div>
+                        <div class="mb-4">
+                        <button type="button" class="btn btn-primary" id="delbut" name="" onclick="deleteitem(this)">YES</button>
                         
                         <button type="button" onclick="document.getElementById('id03').style.display='none'" class="btn btn-danger">Cancel</button>
+                        </div>
                         </div>
                     </div>
                 </div>

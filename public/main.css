@@ -369,6 +369,7 @@ button.bg-alternate:focus {
 }
 
 html {
+    overflow-y: scroll;
     font-family: sans-serif;
     line-height: 1.15;
     -webkit-text-size-adjust: 100%;
@@ -24517,6 +24518,12 @@ span.psw {
     border: 1px solid #888;
     width: 40%;
 }
+
+.modal-content-del {
+    margin: 5% auto 15% auto;
+    width: 25%;
+}
+
 
 .modal-content-detail {
     margin: 5% auto 15% auto;

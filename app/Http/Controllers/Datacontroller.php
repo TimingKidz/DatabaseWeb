@@ -60,29 +60,15 @@ class DataController extends Controller
             $request->session()->put('email',$data[0]->email);
             $request->session()->put('name',$data[0]->firstName);
             return redirect('/products');
-            //return $data;
         }else{
-            
             return redirect('/')->with('alert', 'Invalid username or password !!');
-       }
-       
-        
+       } 
     }
 
     public function logout(Request $request)
     {
-        // session_start();
-        // $data = DB::select("select * from employees where email like '$request->email' and employeeNumber = '$request->password'");
-        // if($data != null){
-        //     $data = DB::select('select * from products');
-        //     $jsproductlist = json_encode($data);
         $request->session()->flush();
-            //var_dump($request->session()->get('status'));
-    //    }else{
         return redirect('/');
-    //    }
-
-        
     }
 
     

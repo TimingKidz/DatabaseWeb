@@ -9,7 +9,7 @@
  * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
  /* */
 
- .border-primary {
+.border-primary {
     border-color: #3f6ad8
 }
 
@@ -24523,7 +24523,6 @@ span.psw {
     margin: 5% auto 15% auto;
     width: 25%;
 }
-
 
 .modal-content-detail {
     margin: 5% auto 15% auto;

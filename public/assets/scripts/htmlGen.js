@@ -1,4 +1,4 @@
-function tableGencus(i,col1,col2,col3,col4,code){
+function tableGencus(i, col1, col2, col3, col4, code) {
     return `<tr>
     <td class="text-center text-muted"> ${i}</td>
     <td>
@@ -23,11 +23,11 @@ function tableGencus(i,col1,col2,col3,col4,code){
         <td class="text-center">
             <button onclick="detailpopup(this)" type="button" id="${code}" type="button" id="PopoverCustomT-1" class="btn btn-primary btn-sm">Detail</button>
     </td>
-</tr>`  
+</tr>`
 }
 
 
-function tableGenem(i,col1,col2,col3,col4,code){
+function tableGenem(i, col1, col2, col3, col4, code) {
     return ` <tr>
     <td class="text-center text-muted"> ${i}</td>
     <td>
@@ -100,8 +100,4 @@ function detailPopupGen(productCode, productName, productScale, productVendor, q
             </div>
         </div>
     </div>`;
-}
-
-function test(dd){
-    return "test"+dd;
 }

@@ -95,6 +95,7 @@ session_start();
                     <form class="modal-content-detail"> 
                         <div id="detailpop">
                         </div>
+
                     </form> 
                 </div>
                 <div class="row">

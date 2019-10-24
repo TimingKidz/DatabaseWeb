@@ -39,15 +39,15 @@ class DataController extends Controller
         return view('products', ['jsproductlist' => $jsproductlist, 'jsvendor' => $jsvendor, 'jsscale' => $jsscale]);
     }
 
-    public function deletepro($type,$code)
+    public function delete($code)
     {
-        $deleted = DB::select("delete from $type where productCode = '$code'");
-        return redirect('/products');
+        $deleted = DB::select("delete from products where productCode = '$code'");
+        return 'success';
     }
 
     public function cus()
     {
-        $data = DB::select("select * from products where productCode = 'S18_1097'");
+        $data = DB::select("select * from products");
         $jsscale = json_encode($data);
         return $jsscale;
     }
@@ -60,29 +60,15 @@ class DataController extends Controller
             $request->session()->put('email',$data[0]->email);
             $request->session()->put('name',$data[0]->firstName);
             return redirect('/products');
-            //return $data;
         }else{
-            
             return redirect('/')->with('alert', 'Invalid username or password !!');
-       }
-       
-        
+       } 
     }
 
     public function logout(Request $request)
     {
-        // session_start();
-        // $data = DB::select("select * from employees where email like '$request->email' and employeeNumber = '$request->password'");
-        // if($data != null){
-        //     $data = DB::select('select * from products');
-        //     $jsproductlist = json_encode($data);
         $request->session()->flush();
-            //var_dump($request->session()->get('status'));
-    //    }else{
         return redirect('/');
-    //    }
-
-        
     }
 
     

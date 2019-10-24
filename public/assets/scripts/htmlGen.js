@@ -101,7 +101,3 @@ function detailPopupGen(productCode, productName, productScale, productVendor, q
         </div>
     </div>`;
 }
-
-function test(dd) {
-    return "test" + dd;
-}

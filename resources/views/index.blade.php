@@ -7,7 +7,7 @@ session_start();
 <html lang="en">
 
 <head>
-    <meta name="_token" content="{!! csrf_token() !!}" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta http-equiv="Content-Language" content="en">
@@ -91,12 +91,13 @@ session_start();
                <script>document.getElementById('id03').style.display='block'</script>
                @endif
 
-                <div id="id02" class="modal" id="detailpopup"> 
+               <div id="id02" class="modal" id="detailpopup"> 
                     <form class="modal-content-detail"> 
-                                    <div id="detailpop">
-                                    </div>
+                        <div id="detailpop">
+                        </div>
+
                     </form> 
-                </div> 
+                </div>
                 <div class="row">
                     <div class="col-md-12">
                         <div class="main-card mb-3 card">

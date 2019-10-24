@@ -7,7 +7,7 @@ session_start();
 <html lang="en">
 
 <head>
-    <meta name="_token" content="{!! csrf_token() !!}" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta http-equiv="Content-Language" content="en">
@@ -207,19 +207,18 @@ session_start();
   </div> 
  
     <div id="id03" class="modal"> 
-        <div class="modal-content animate"> 
+        <div class="modal-content-del animate"> 
             <div class="main-card card">
-                <div class="card-body "><h4><i class="metismenu-icon pe-7s-lock">  Warning</i></h4>
+                <div class="card-body "><h4></h4>
                 <span onclick="document.getElementById('id03').style.display='none'" class="close" title="Close Modal">×</span> 
                     <div class="text-center">
                         <div>
-                        <div><h5>Are you sure ?</h5></div>
-                        <form action="" method="post" class="btn" id="delpop">
-                        {{ csrf_field() }}
-                            <input name="_method" type="hidden" value="DELETE">
-                            <button class="btn btn-primary">YES</button>
-                        </form>
+                        <div class="mb-4 mt-4"><h5>Are you sure ?</h5></div>
+                        <div class="mb-4">
+                        <button type="button" class="btn btn-primary" id="delbut" name="" onclick="deleteitem(this)">YES</button>
+                        
                         <button type="button" onclick="document.getElementById('id03').style.display='none'" class="btn btn-danger">Cancel</button>
+                        </div>
                         </div>
                     </div>
                 </div>
@@ -228,18 +227,12 @@ session_start();
     </div>
               
                
-  <div id="id02" class="modal" id="detailpopup"> 
-
-      <form class="modal-content-detail animate"> 
-         
-        <div class="main-card card">
-            <div class="card-body"><h5 class="card-title"><i class="metismenu-icon pe-7s-lock">  Product Detail</i></h5>
-                <span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close Modal">×</span> 
-                <div id="detailpop"></div>
+    <div id="id02" class="modal" id="detailpopup"> 
+        <form class="modal-content-detail"> 
+            <div id="detailpop">
             </div>
-        </div>
-    </form> 
-  </div> 
+        </form> 
+    </div>
 
  
                         <div class="row">
@@ -291,12 +284,12 @@ session_start();
                                 </div>
                             </div>
                         </div>
-                      
-                    
                     </div>
                     
                     <script src="./assets/scripts/htmlGen.js" type="text/javascript"></script>
+                    <script src="./assets/scripts/jquery-3.4.1.js" type="text/javascript"></script>
                     <script type="text/javascript">
+                   
                         var vendorlist = '<button id="none" type="button" onclick="venderFilter(this)" tabindex="0" class="dropdown-item">None</button>';
                         var json = <?php echo $jsvendor; ?> ;
                         json.forEach(function(a) {
@@ -340,19 +333,23 @@ session_start();
                             });
                             document.getElementById("tablelist").innerHTML = scalelist;
                         }
-                        var tableproduct = "";
-                        var i = 0;
                         var json = <?php echo $jsproductlist; ?> ;
-                        json.forEach(function(a) {
-                            tableproduct += tableGenem(++i,a.productName,a.productLine,a.quantityInStock,a.MSRP,a.productCode);
-                        });
+                        
+                        function Gentable(){
+                            var tableproduct = "";
+                            var i = 0;
+                            json.forEach(function(a) {
+                                tableproduct += tableGenem(++i,a.productName,a.productLine,a.quantityInStock,a.MSRP,a.productCode);
+                            });
+                            document.getElementById("tablelist").innerHTML = tableproduct;
+                        }
+                        Gentable();
 
-                        document.getElementById("tablelist").innerHTML = tableproduct;
+                        
                         document.querySelector('#searchinput').addEventListener('input',noti);
                         function noti(e){
                             var input = document.getElementById("searchinput");
                             var filter = input.value.toUpperCase();
-                            var list = json;
                             var i = 0 ;
                             var tableproduct = "";
                             json.forEach(function(a) {
@@ -365,8 +362,27 @@ session_start();
                         function delalert(productCode){
                             var p = productCode.getAttribute("id");
                             document.getElementById('id03').style.display='block';
-                            document.getElementById('delpop').setAttribute("action", `/products/${p}`);
-                                                    
+                            document.getElementById('delbut').setAttribute("name",p);
+                                                 
+                        }
+                        $.ajaxSetup({
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            }
+                        });
+
+                        function deleteitem(a){
+                            var p = a.getAttribute("name");
+                            $.ajax({
+                                type: 'delete',
+                                url: '/products/'+p,
+                                success: function (data) {         
+                                    document.getElementById('id03').style.display='none';
+                                    const index = json.findIndex(x => x.productCode == p);
+                                    if (index !== undefined) json.splice(index, 1);
+                                    Gentable();
+                                }
+                            });
                         }
 
                         function detailpopup(products) {
@@ -375,7 +391,7 @@ session_start();
                             var text = "";
                             json.forEach(function(a) {
                                 if(a.productCode == productcode){
-                                    text = detailPopupGen(a.productDescription);
+                                    text = detailPopupGen(a.productCode,a.productName,a.productScale,a.productVendor,a.quantityInStock,a.MSRP,a.productLine,a.productDescription);
                                 }
                             });
                             document.getElementById("detailpop").innerHTML = text;

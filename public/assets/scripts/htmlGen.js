@@ -51,6 +51,7 @@ function tableGenem(i, col1, col2, col3, col4, code) {
         </td>
 
         <td class="text-center">
+            <button class="btn btn-warning btn-sm"  id="${code}" onclick="cartadd(this)">+ <i class="pe-7s-shopbag"></i></button>
             <button onclick="detailpopup(this)" type="button" id="${code}" type="button" class="btn btn-primary btn-sm">Detail</button>
             <button class="btn btn-danger btn-sm"  id="${code}" onclick="delalert(this)">X</button>
         </td>

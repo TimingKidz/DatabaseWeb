@@ -28,6 +28,12 @@ class DataController extends Controller
         return view('customer',['jscustomerlist' => $jscustomerlist]);
     }
 
+    public function customerdetail($id)
+    {
+        $data = DB::select("select * from customers where customerNumber = '$id'");
+        $jscustomerdetail = json_encode($data);
+        return view('customerdetail',['jscustomerdetail' => $jscustomerdetail]);
+    }
     public function indexem()
     {
         $data = DB::select('select * from products');
@@ -39,7 +45,7 @@ class DataController extends Controller
         return view('products', ['jsproductlist' => $jsproductlist, 'jsvendor' => $jsvendor, 'jsscale' => $jsscale]);
     }
 
-    public function delete($code)
+    public function deletepro($code)
     {
         $deleted = DB::select("delete from products where productCode = '$code'");
         return 'success';
@@ -60,29 +66,15 @@ class DataController extends Controller
             $request->session()->put('email',$data[0]->email);
             $request->session()->put('name',$data[0]->firstName);
             return redirect('/products');
-            //return $data;
         }else{
-            
             return redirect('/')->with('alert', 'Invalid username or password !!');
-       }
-       
-        
+       } 
     }
 
     public function logout(Request $request)
     {
-        // session_start();
-        // $data = DB::select("select * from employees where email like '$request->email' and employeeNumber = '$request->password'");
-        // if($data != null){
-        //     $data = DB::select('select * from products');
-        //     $jsproductlist = json_encode($data);
         $request->session()->flush();
-            //var_dump($request->session()->get('status'));
-    //    }else{
         return redirect('/');
-    //    }
-
-        
     }
 
     

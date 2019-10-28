@@ -26,7 +26,7 @@ session_start();
     =========================================================
     * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
     -->
-<link href="./main.css" rel="stylesheet"></head>
+<link href="../main.css" rel="stylesheet"></head>
 
 <body>
 
@@ -235,5 +235,5 @@ session_start();
                 <script src="http://maps.google.com/maps/api/js?sensor=true"></script>
         </div>
     </div>
-<script type="text/javascript" src="./assets/scripts/main.js"></script></body>
+<script type="text/javascript" src="../assets/scripts/main.js"></script></body>
 </html>

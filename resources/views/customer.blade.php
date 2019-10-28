@@ -221,28 +221,28 @@ session_start();
 
                                 <li class="app-sidebar__heading">Menu</li>
                                 <li>
-                                    <a href="/products" class="mm-active">
-                                        <i class="metismenu-icon pe-7s-display2"></i>
+                                    <a href="products">
+                                        <i class="metismenu-icon pe-7s-box2"></i>
                                         Products
                                     </a>
                                 </li>
                                
                                 <li>
-                                    <a href="/dashboard-boxes.html">
-                                        <i class="metismenu-icon pe-7s-display2"></i>
+                                    <a href="dashboard-boxes.html">
+                                        <i class="metismenu-icon pe-7s-box1"></i>
                                         Stock In
                                     </a>
                                 </li>
                                 
                                 <li>
-                                    <a href="/customer">
-                                        <i class="metismenu-icon pe-7s-display2"></i>
+                                    <a href="customer" class="mm-active">
+                                        <i class="metismenu-icon pe-7s-users"></i>
                                         Customers
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="/dashboard-boxes.html">
-                                        <i class="metismenu-icon pe-7s-display2"></i>
+                                    <a href="dashboard-boxes.html">
+                                        <i class="metismenu-icon pe-7s-note2"></i>
                                         Saleorder
                                     </a>
                                 </li>
@@ -343,7 +343,7 @@ session_start();
                             var i = 0 ;
                             var tableproduct = "";
                             json.forEach(function(a) {
-                                if (((a.productName.toString()).toUpperCase()).includes(filter)){
+                                if (((a.customerName.toString()).toUpperCase()).includes(filter)){
                                     tableproduct += tablecustomer(a.customerNumber,a.customerName,a.city,a.country,a.postalCode,a.contactFirstName,a.contactLastName,a.phone);
                                 }
                             });

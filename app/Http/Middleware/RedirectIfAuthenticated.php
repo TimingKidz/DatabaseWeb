@@ -18,7 +18,7 @@ class RedirectIfAuthenticated
     public function handle($request, Closure $next, $guard = null)
     {
         if($request->session()->get('status') != null){
-            return redirect('/employees');
+            return redirect('/products');
         }
         return $next($request);
     }

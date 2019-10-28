@@ -33,7 +33,7 @@ session_start();
 <body>
 
     <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
-        <div class="app-header header-shadow bg-slick-carbon header-text-light">
+        <div class="app-header header-shadow bg-mean-fruit header-text-light">
             <div class="app-header__logo">
                 <div class="logo-src"></div>
                 <div class="header__pane ml-auto" id="sidebar1">
@@ -176,7 +176,7 @@ session_start();
                 </div>
         </div>
         <div class="app-main">
-                <div class="app-sidebar sidebar-shadow bg-slick-carbon sidebar-text-light" id="sidebar">
+        <div class="app-sidebar sidebar-shadow bg-vicious-stance sidebar-text-light" id="sidebar">
                     <div class="app-header__logo">
                         <div class="logo-src"></div>
                         <div class="header__pane ml-auto">
@@ -283,7 +283,7 @@ session_start();
                             <div class="col-md-12">
                                 <div class="main-card mb-3 card">
                                     <div class="card-header">
-                                    <div class="col-md-1">
+                                    <div class="mr-2">
                                         Customers
                                     </div>  
                                     
@@ -312,7 +312,7 @@ session_start();
                                                 <!-- table -->
                                             </tbody>
                                         </table>
-                                    </div> 
+                                    </div>
                                 </div>
                             </div>
                         </div>

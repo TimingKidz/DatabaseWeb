@@ -31,7 +31,7 @@ session_start();
 <body>
 
     <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
-        <div class="app-header header-shadow bg-slick-carbon header-text-light">
+        <div class="app-header header-shadow bg-mean-fruit header-text-light">
             <div class="app-header__logo">
                 <div class="logo-src"></div>
             </div>  
@@ -41,7 +41,7 @@ session_start();
                         <div class="widget-content p-0">
                             <div class="widget-content-wrapper">
                                 <div class="widget-content-right header-user-info ml-3" id="login"> 
-                                    <button type="button" class="btn-shadow p-1 btn btn-dark btn-sm" onclick="document.getElementById('id01').style.display='block'" id="log">
+                                    <button type="button" class="btn-shadow p-1 btn btn-light btn-sm" onclick="document.getElementById('id01').style.display='block'" id="log">
                                     <i class="metismenu-icon pe-7s-lock" id="logbut"> LOGIN</i>
                                     </button>
                                 </div>
@@ -95,23 +95,24 @@ session_start();
                     <form class="modal-content-detail"> 
                         <div id="detailpop">
                         </div>
+
                     </form> 
                 </div>
                 <div class="row">
                     <div class="col-md-12">
                         <div class="main-card mb-3 card">
                             <div class="card-header">
-                                <div class="col-md-1">
+                                <div class="mr-3">
                                         Products
                                 </div>  
-                                <div class="dropdown d-inline-block">
+                                <div class="dropdown d-inline-block mt-2">
                                         <button type="button" aria-haspopup="true" aria-expanded="false" data-toggle="dropdown" id="btn" class="mb-2 mr-2 dropdown-toggle btn btn-outline-secondary">Vendors</button>
                                         <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu" id="vendor">                                            
                                         <!-- vender -->
                                         </div>
                                     </div>                               
 
-                                    <div class="dropdown d-inline-block">
+                                    <div class="dropdown d-inline-block mt-2">
                                         <button type="button" aria-haspopup="true" aria-expanded="false" data-toggle="dropdown" id="scalebtn" class="mb-2 mr-2 dropdown-toggle btn btn-outline-secondary">Scale</button>
                                         <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu" id="scale">
                                           <!-- scale -->

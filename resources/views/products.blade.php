@@ -33,7 +33,7 @@ session_start();
 <body>
 
     <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
-        <div class="app-header header-shadow bg-slick-carbon header-text-light">
+        <div class="app-header header-shadow bg-mean-fruit header-text-light">
             <div class="app-header__logo">
                 <div class="logo-src"></div>
                 <div class="header__pane ml-auto" id="sidebar1">
@@ -109,9 +109,67 @@ session_start();
                     </div>        
                 </div>
             </div>
-        </div>        
+        </div>    
+        <div class="ui-theme-settings">
+            <button type="button" id="TooltipDemo" class="btn-open-options btn btn-warning">
+                <div class="mt-2"><h2><i class="pe-7s-shopbag"></i></h2></div>
+            </button>
+            <div class="theme-settings__inner">
+                <div class="ml-3 mr-3">
+                    <h5 class="card-title pt-3">Cart</h5>
+                    <form class="">
+                        <div class="scrollbar-container ps--active-y">
+                            <!-- product -->
+                        </div>
+                        <div class="ml-3 mr-3 mb-4 fixed-bottom">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="pt-2">Customer :</h6>
+                                </div>
+                                <div class="col-sm-9">
+                                    <div class="position-relative form-group"><input name="" id="customernumber" placeholder="insert customer number" type="" class="form-control"></div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="pt-2">Address :</h6>
+                                </div>
+                                <div class="col-sm-9">
+                                    <div class="position-relative form-group"><select name="select" id="addr" class="form-control">
+                                        <option>1</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                        <option>5</option>
+                                    </select></div>
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-sm-3">
+                                    <h6 class="pt-2">Discount :</h6>
+                                </div>
+                                <div class="col-sm-9">
+                                    <div class="position-relative form-group"><input name="" id="discount" placeholder="insert discount code" type="" class="form-control"></div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="card-title pt-1">Total</h6>
+                                </div>
+                                <div class="col-sm-6">
+                                    <h4 class="">$0.00</h4>
+                                </div>
+                                <div class="col-sm-3">
+                                    <button class="pull-right mt-1 btn btn-warning">Check out</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div> 
         <div class="app-main">
-                <div class="app-sidebar sidebar-shadow bg-slick-carbon sidebar-text-light" id="sidebar">
+                <div class="app-sidebar sidebar-shadow bg-vicious-stance sidebar-text-light" id="sidebar">
                     <div class="app-header__logo">
                         <div class="logo-src"></div>
                         <div class="header__pane ml-auto">
@@ -156,28 +214,28 @@ session_start();
 
                                 <li class="app-sidebar__heading">Menu</li>
                                 <li>
-                                    <a href="/products" class="mm-active">
-                                        <i class="metismenu-icon pe-7s-display2"></i>
+                                    <a href="products" class="mm-active">
+                                        <i class="metismenu-icon pe-7s-box2"></i>
                                         Products
                                     </a>
                                 </li>
                                
                                 <li>
-                                    <a href="/dashboard-boxes.html">
-                                        <i class="metismenu-icon pe-7s-display2"></i>
+                                    <a href="dashboard-boxes.html">
+                                        <i class="metismenu-icon pe-7s-box1"></i>
                                         Stock In
                                     </a>
                                 </li>
                                 
                                 <li>
-                                    <a href="/customer">
-                                        <i class="metismenu-icon pe-7s-display2"></i>
+                                    <a href="customer">
+                                        <i class="metismenu-icon pe-7s-users"></i>
                                         Customers
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="/dashboard-boxes.html">
-                                        <i class="metismenu-icon pe-7s-display2"></i>
+                                    <a href="dashboard-boxes.html">
+                                        <i class="metismenu-icon pe-7s-note2"></i>
                                         Saleorder
                                     </a>
                                 </li>
@@ -224,17 +282,17 @@ session_start();
                             <div class="col-md-12">
                                 <div class="main-card mb-3 card">
                                     <div class="card-header">
-                                    <div class="col-md-1">
+                                    <div class="mr-3">
                                         Products
                                     </div>  
-                                    <div class="dropdown d-inline-block">
+                                    <div class="dropdown d-inline-block mt-2">
                                         <button type="button" aria-haspopup="true" aria-expanded="false" data-toggle="dropdown" id="btn" class="mb-2 mr-2 dropdown-toggle btn btn-outline-secondary">Vendors</button>
                                         <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu" id="vendor">                                            
                                                <!-- vender -->
                                         </div>
                                     </div>                               
 
-                                    <div class="dropdown d-inline-block">
+                                    <div class="dropdown d-inline-block mt-2">
                                         <button type="button" aria-haspopup="true" aria-expanded="false" data-toggle="dropdown" id="scalebtn" class="mb-2 mr-2 dropdown-toggle btn btn-outline-secondary">Scale</button>
                                         <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu" id="scale">
                                             <!-- scale -->
@@ -380,6 +438,10 @@ session_start();
                                 }
                             });
                             document.getElementById("detailpop").innerHTML = text;
+                        }
+
+                        function cartadd(productCode){
+                            
                         }
                                             
                     </script>

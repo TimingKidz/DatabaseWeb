@@ -1,4 +1,4 @@
-function tableGencus(i,col1,col2,col3,col4,code){
+function tableGencus(i, col1, col2, col3, col4, code) {
     return `<tr>
     <td class="text-center text-muted"> ${i}</td>
     <td>
@@ -23,7 +23,7 @@ function tableGencus(i,col1,col2,col3,col4,code){
         <td class="text-center">
             <button onclick="detailpopup(this)" type="button" id="${code}" type="button" id="PopoverCustomT-1" class="btn btn-primary btn-sm">Detail</button>
     </td>
-</tr>`  
+</tr>`
 }
 
 function tablecustomer(customerNumber,customerName,city,country,postalCode,contactFirstName,contactLastName,phone){
@@ -72,6 +72,7 @@ function tableGenem(i,col1,col2,col3,col4,code){
         </td>
 
         <td class="text-center">
+            <button class="btn btn-warning btn-sm"  id="${code}" onclick="cartadd(this)">+ <i class="pe-7s-shopbag"></i></button>
             <button onclick="detailpopup(this)" type="button" id="${code}" type="button" class="btn btn-primary btn-sm">Detail</button>
             <button class="btn btn-danger btn-sm"  id="${code}" onclick="delalert(this)">X</button>
         </td>
@@ -121,8 +122,4 @@ function detailPopupGen(productCode, productName, productScale, productVendor, q
             </div>
         </div>
     </div>`;
-}
-
-function test(dd){
-    return "test"+dd;
 }

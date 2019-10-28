@@ -28,6 +28,12 @@ class DataController extends Controller
         return view('customer',['jscustomerlist' => $jscustomerlist]);
     }
 
+    public function customerdetail($id)
+    {
+        $data = DB::select("select * from customers where customerNumber = '$id'");
+        $jscustomerdetail = json_encode($data);
+        return view('customerdetail',['jscustomerdetail' => $jscustomerdetail]);
+    }
     public function indexem()
     {
         $data = DB::select('select * from products');
@@ -39,7 +45,7 @@ class DataController extends Controller
         return view('products', ['jsproductlist' => $jsproductlist, 'jsvendor' => $jsvendor, 'jsscale' => $jsscale]);
     }
 
-    public function delete($code)
+    public function deletepro($code)
     {
         $deleted = DB::select("delete from products where productCode = '$code'");
         return 'success';

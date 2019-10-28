@@ -28,7 +28,7 @@ session_start();
     * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
     -->
     
-<link href="./main.css" rel="stylesheet"></head>
+<link href="../main.css" rel="stylesheet"></head>
 
 <body>
 
@@ -156,27 +156,27 @@ session_start();
 
                                 <li class="app-sidebar__heading">Menu</li>
                                 <li>
-                                    <a href="products" class="mm-active">
+                                    <a href="/products" class="mm-active">
                                         <i class="metismenu-icon pe-7s-display2"></i>
                                         Products
                                     </a>
                                 </li>
                                
                                 <li>
-                                    <a href="dashboard-boxes.html">
+                                    <a href="/dashboard-boxes.html">
                                         <i class="metismenu-icon pe-7s-display2"></i>
                                         Stock In
                                     </a>
                                 </li>
                                 
                                 <li>
-                                    <a href="customer">
+                                    <a href="/customer">
                                         <i class="metismenu-icon pe-7s-display2"></i>
                                         Customers
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="dashboard-boxes.html">
+                                    <a href="/dashboard-boxes.html">
                                         <i class="metismenu-icon pe-7s-display2"></i>
                                         Saleorder
                                     </a>
@@ -189,22 +189,7 @@ session_start();
                 </div>    <div class="app-main__outer">
                 
   
-  <div id="id01" class="modal"> 
-        <form class="modal-content animate" action="/login" method="post"> 
-            <div class="main-card card">
-                <div class="card-body"><h5 class="card-title"><i class="metismenu-icon pe-7s-lock">  LOGIN</i></h5>
-                    <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">×</span> 
-                        <form class="">
-                        {{ csrf_field() }}
-                        <div class="position-relative form-group"><label for="Username" class="">Username</label><input name="email" id="Users" placeholder="Enter Username ...." type="text" class="form-control"></div>
-                        <div class="position-relative form-group"><label for="Password" class="">Password</label><input name="password" id="Pass" placeholder="Enter Password ...." type="password"
-                                                                                                                                                           class="form-control"></div>
-                        <button class="mt-1 btn btn-dark">Login</button>
-                        </form>
-                </div>
-            </div>
-      </form> 
-  </div> 
+  
  
     <div id="id03" class="modal"> 
         <div class="modal-content-del animate"> 
@@ -404,5 +389,5 @@ session_start();
                 <script src="http://maps.google.com/maps/api/js?sensor=true"></script>
         </div>
     </div>
-<script type="text/javascript" src="./assets/scripts/main.js"></script></body>
+<script type="text/javascript" src="../assets/scripts/main.js"></script></body>
 </html>

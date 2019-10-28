@@ -15,6 +15,7 @@ use Illuminate\Http\Request;
 Route::group(['middleware' => 'checkuser'],function(){
     Route::get('/products','DataController@indexem');
     Route::get('/customer','DataController@customer');
+    Route::get('/customer/{id}','DataController@customerdetail');
 
 });
 Route::group(['middleware' => 'guest'],function(){
@@ -22,7 +23,7 @@ Route::group(['middleware' => 'guest'],function(){
 });
 
 // Route::get('/','DataController@index');
-Route::delete('/products/{code}','DataController@delete');
+Route::delete('/products/{code}','DataController@deletepro');
 Route::post('/login','DataController@login');
 Route::post('/logout','DataController@logout');
 Route::get('/getcus','DataController@cus');

@@ -26,7 +26,28 @@ function tableGencus(i,col1,col2,col3,col4,code){
 </tr>`  
 }
 
-
+function tablecustomer(customerNumber,customerName,city,country,postalCode,contactFirstName,contactLastName,phone){
+    return ` 
+    <tr>
+            <td class="text-center text-muted"> ${customerNumber}</td>
+            <td>
+                <div class="widget-content p-0">
+                    <div class="widget-content-wrapper">
+                        
+                        <div class="widget-content-left flex2">
+                            <div class="widget-heading">${customerName}</div>
+                                <div class="widget-subheading opacity-7">${city}, ${country}, ${postalCode}</div>
+                        </div>
+                    </div>
+            </td>
+                <td class="text-center">${contactFirstName} ${contactLastName}</td>
+                <td class="text-center">${phone}</td>                                                                
+                <td class="text-center">
+                <a href="customer/${customerNumber}"><button id="${customerNumber}" class="btn btn-primary btn-sm">Detail</button></a>
+                <button class="btn btn-danger btn-sm"  id="${customerNumber}" onclick="delalert(this)">X</button>
+                </td>
+        </tr>`
+}
 function tableGenem(i,col1,col2,col3,col4,code){
     return ` <tr>
     <td class="text-center text-muted"> ${i}</td>
@@ -34,7 +55,7 @@ function tableGenem(i,col1,col2,col3,col4,code){
         <div class="widget-content p-0">
             <div class="widget-content-wrapper">
                 <div class="widget-content-left mr-3">
-                    <div class="widget-content-left">
+                    <div class="widget-content-left ">
                         <img width="40" class="rounded-circle" src="assets/images/avatars/4.jpg">
                         </div>
                     </div>
@@ -44,7 +65,7 @@ function tableGenem(i,col1,col2,col3,col4,code){
                     </div>
                 </div>
             </div>
-        </td>
+    </td>
         <td class="text-center">${col3}</td>
         <td class="text-center">
             <div class="text-center">${col4}</div>

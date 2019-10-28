@@ -212,7 +212,7 @@ session_start();
                             </div>
                             <div class="row">
                                 <div class="col-md-6 ml-auto">
-                                    <div class="main-card mb-3 card">
+                                    <div class="main-card mb-2 card">
                                         <div class="card-body">
                                             <div class="row">
                                                 <div class="col-md-auto">
@@ -229,19 +229,19 @@ session_start();
 
                                 </div>
                                 <div class="col-md-6">
-                                    <div class="main-card mb-3 card">
+                                    <div class="main-card mb-2 card">
                                         <div class="card-body">
                                             <h5 class="card-title">Address</h5>
                                             <ul class="list-group">
                                                 <li class="list-group-item">
-                                                    <div id="addr"></div>
+                                                    <div id="addrdisp"></div>
                                                 </li>
                                             </ul>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
-                                    <div class="main-card mb-3 card">
+                                    <div class="main-card mb-2 card">
                                         <div class="card-body">
                                             <b class="card-title">Order</b>
                                         </div>
@@ -259,7 +259,31 @@ session_start();
                     <script src="../assets/scripts/htmlGen.js" type="text/javascript"></script>
                     <script src="../assets/scripts/jquery-3.4.1.js" type="text/javascript"></script>
                     <script type="text/javascript">
-
+                        var json = <?php echo $jscustomerdetail; ?>;
+                        json.forEach(function(a) {
+                            // detail name,tel,id
+                            document.getElementById('cusdetail').innerHTML = `<b>Customer ID : </b>${a.customerNumber}<br>
+                                <b>CustomerName : </b>${a.customerName}<br>
+                                <b>Tel : </b>${a.phone}<br>
+                                <b>ContactName : </b>${a.contactFirstName}  ${a.contactLastName}`;
+                            // address display
+                            // document.getElementById('addrdisp').innerHTML = `${a.addressLine1}<br>${a.addressLine2}<br>${a.city},${a.state},${a.country},${a.postalCode}`;
+                            if(a.addressLine2 == "" && (a.state == "" && a.postalCode != "")){ //001
+                                document.getElementById('addrdisp').innerHTML = `${a.addressLine1}<br>${a.city},${a.country},${a.postalCode}`;
+                            }else if(a.addressLine2 == "" && (a.state != "" && a.postalCode == "")){//010
+                                document.getElementById('addrdisp').innerHTML = `${a.addressLine1}<br>${a.city},${a.state},${a.country},${a.postalCode}`;
+                            }else if(a.addressLine2 == "" && (a.state != "" && a.postalCode != "")){//011
+                                document.getElementById('addrdisp').innerHTML = `${a.addressLine1}<br>${a.city},${a.state},${a.country},${a.postalCode}`;
+                            }else if(a.addressLine2 != "" && (a.state == "" && a.postalCode == "")){//100
+                                document.getElementById('addrdisp').innerHTML = `${a.addressLine1}<br>${a.addressLine2}<br>${a.city},${a.country}`;
+                            }else if(a.addressLine2 != "" && (a.state == "" && a.postalCode != "")){//101
+                                document.getElementById('addrdisp').innerHTML = `${a.addressLine1}<br>${a.addressLine2}<br>${a.city},${a.country},${a.postalCode}`;
+                            }else if(a.addressLine2 != "" && (a.state != "" && a.postalCode == "")){//110
+                                document.getElementById('addrdisp').innerHTML = `${a.addressLine1}<br>${a.addressLine2}<br>${a.city},${a.state},${a.country}`;
+                            }else if(a.addressLine2 != "" && (a.state != "" && a.postalCode != "")){//111
+                                document.getElementById('addrdisp').innerHTML = `${a.addressLine1}<br>${a.addressLine2}<br>${a.city},${a.state},${a.country},${a.postalCode}`;
+                            }
+                        });
                     </script>
 
 

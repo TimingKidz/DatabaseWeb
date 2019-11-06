@@ -16,6 +16,7 @@ Route::group(['middleware' => 'checkuser'],function(){
     Route::get('/products','DataController@indexem');
     Route::get('/customer','DataController@customer');
     Route::get('/customer/{id}','DataController@customerdetail');
+    Route::get('/stockin','DataController@stockin');
 
 });
 Route::group(['middleware' => 'guest'],function(){

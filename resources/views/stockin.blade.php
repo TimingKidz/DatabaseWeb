@@ -13,7 +13,7 @@ session_start();
     <meta http-equiv="Content-Language" content="en">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     
-    <title>Products</title>
+    <title>Stock-In</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
     <meta name="description" content="This is an example dashboard created using build-in elements and components.">
     <meta name="msapplication-tap-highlight" content="no">
@@ -102,74 +102,58 @@ session_start();
                                         </div>
                                     </div>
                                 </div>
-                               
-                               
                             </div>
                         </div>
                     </div>        
                 </div>
             </div>
-        </div>    
+        </div>        
         <div class="ui-theme-settings">
-            <button type="button" id="TooltipDemo" class="btn-open-options btn btn-warning">
-                <div class="mt-2"><h2><i class="pe-7s-shopbag"></i></h2></div>
+            <button type="button" id="TooltipDemo" class="btn-open-options btn btn-success">
+                <h2>+</h2>
             </button>
             <div class="theme-settings__inner">
-                <div class="ml-3 mr-3">
-                    <h5 class="card-title pt-3">Cart</h5>
-                    <form class="">
-                        <div class="scrollbar-container ps--active-y">
-                            <!-- product -->
-                        </div>
-                        <div class="ml-3 mr-3 mb-4 fixed-bottom">
-                            <div class="row">
-                                <div class="col-sm-3">
-                                    <h6 class="pt-2">Customer :</h6>
-                                </div>
-                                <div class="col-sm-9">
-                                    <div class="position-relative form-group"><input name="" id="customernumber" placeholder="insert customer number" type="" class="form-control"></div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-3">
-                                    <h6 class="pt-2">Address :</h6>
-                                </div>
-                                <div class="col-sm-9">
-                                    <div class="position-relative form-group"><select name="select" id="addr" class="form-control">
-                                        <option>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
-                                        <option>4</option>
-                                        <option>5</option>
-                                    </select></div>
-                                </div>
-                            </div>
-                            <div class="row mb-2">
-                                <div class="col-sm-3">
-                                    <h6 class="pt-2">Discount :</h6>
-                                </div>
-                                <div class="col-sm-9">
-                                    <div class="position-relative form-group"><input name="" id="discount" placeholder="insert discount code" type="" class="form-control"></div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-3">
-                                    <h6 class="card-title pt-1">Total</h6>
-                                </div>
-                                <div class="col-sm-6">
-                                    <h4 class="">$0.00</h4>
-                                </div>
-                                <div class="col-sm-3">
-                                    <button class="pull-right mt-1 btn btn-warning">Check out</button>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
+                <div class="main-card">
+                    <!--Add Stock--><div class="card-body"><h5 class="card-title">Stock-In</h5>
+                                        <form class="">
+                                            <div class="form-row">
+                                                <div class="col-md-5">
+                                                    <div class="position-relative form-group"><label for="exampleEmail11" class="">Date</label><input name="date" id="exampleEmail11" placeholder="DD/MM/YYYY" type="date" class="form-control"></div>
+                                                </div>
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="col-md-5">
+                                                    <div class="position-relative form-group"><label for="exampleEmail11" class="">ProductCode</label><input name="ProductCode" id="exampleEmail11" placeholder="eg.S10_1080" type="text" class="form-control"></div>
+                                                </div>
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="col-md-4">
+                                                    <div class="position-relative form-group"><label for="exampleEmail11" class="">Quantity</label><input name="Quantity" id="exampleEmail11" placeholder="" type="number" class="form-control"></div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="position-relative form-group"><label for="exampleEmail11" class="">PriceEach</label><input name="PriceEach" id="exampleEmail11" placeholder="" type="number" class="form-control"></div>
+                                                </div>
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="col-md-4">
+                                                    <div class="position-relative form-group"><label for="exampleEmail11" class="">QuantityOrdered</label><input name="QuantityOrdered" id="exampleEmail11" placeholder="" type="number" class="form-control"></div>
+                                                </div>
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="col-md-8">
+                                                    <div class="position-relative form-group"><label for="examplePassword11" class="">Comment</label><input name="comment" id="exampleEmail11" placeholder="..." type="text"class="form-control"></div>
+                                                </div>
+                                            </div>
+                                            <div class="text-right">
+                                            <button class="mt-2 btn btn-primary">Submit</button>
+                                            </div>
+                                        </form>
+                                    </div>
                 </div>
             </div>
-        </div> 
+        </div>
         <div class="app-main">
-                <div class="app-sidebar sidebar-shadow bg-vicious-stance sidebar-text-light" id="sidebar">
+        <div class="app-sidebar sidebar-shadow bg-vicious-stance sidebar-text-light" id="sidebar">
                     <div class="app-header__logo">
                         <div class="logo-src"></div>
                         <div class="header__pane ml-auto">
@@ -214,7 +198,7 @@ session_start();
 
                                 <li class="app-sidebar__heading">Menu</li>
                                 <li>
-                                    <a href="products" class="mm-active">
+                                    <a href="products">
                                         <i class="metismenu-icon pe-7s-box2"></i>
                                         Products
                                     </a>
@@ -228,7 +212,7 @@ session_start();
                                 </li>
                                 
                                 <li>
-                                    <a href="customer">
+                                    <a href="customer" class="mm-active">
                                         <i class="metismenu-icon pe-7s-users"></i>
                                         Customers
                                     </a>
@@ -269,35 +253,17 @@ session_start();
         </div> 
     </div>
               
-               
-    <div id="id02" class="modal" id="detailpopup"> 
-        <form class="modal-content-detail"> 
-            <div id="detailpop">
-            </div>
-        </form> 
-    </div>
+ 
 
  
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="main-card mb-3 card">
                                     <div class="card-header">
-                                    <div class="mr-3">
-                                        Products
+                                    <div class="mr-2">
+                                        Stock-In
                                     </div>  
-                                    <div class="dropdown d-inline-block mt-2">
-                                        <button type="button" aria-haspopup="true" aria-expanded="false" data-toggle="dropdown" id="btn" class="mb-2 mr-2 dropdown-toggle btn btn-outline-secondary">Vendors</button>
-                                        <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu" id="vendor">                                            
-                                               <!-- vender -->
-                                        </div>
-                                    </div>                               
-
-                                    <div class="dropdown d-inline-block mt-2">
-                                        <button type="button" aria-haspopup="true" aria-expanded="false" data-toggle="dropdown" id="scalebtn" class="mb-2 mr-2 dropdown-toggle btn btn-outline-secondary">Scale</button>
-                                        <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu" id="scale">
-                                            <!-- scale -->
-                                        </div>
-                                    </div>
+                                    
                                     <div class="col-md-1">
                                         <div class="search-wrapper">
                                             <div class="input-holder">
@@ -312,10 +278,10 @@ session_start();
                                         <table class="align-middle mb-0 table table-borderless table-striped table-hover">
                                             <thead>
                                             <tr>
-                                                <th class="text-center">#</th>
-                                                <th >Name</th>
-                                                <th class="text-center">In Stock</th>
-                                                <th class="text-center">Price</th>
+                                                <th class="text-center">Date</th>
+                                                <th class="text-center">ProductCode</th>
+                                                <th class="text-center">Quantity</th>
+                                                <th class="text-center">Comment</th>
                                                 <th class="text-center"></th>
                                             </tr>
                                             </thead>
@@ -323,66 +289,24 @@ session_start();
                                                 <!-- table -->
                                             </tbody>
                                         </table>
-                                    </div> 
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     
-                    <script src="./assets/scripts/htmlGen.js" type="text/javascript"></script>
-                    <script src="./assets/scripts/jquery-3.4.1.js" type="text/javascript"></script>
+                    <script src="../assets/scripts/htmlGen.js" type="text/javascript"></script>
+                    <script src="../assets/scripts/jquery-3.4.1.js" type="text/javascript"></script>
                     <script type="text/javascript">
                    
-                        var vendorlist = '<button id="none" type="button" onclick="venderFilter(this)" tabindex="0" class="dropdown-item">None</button>';
-                        var json = <?php echo $jsvendor; ?> ;
-                        json.forEach(function(a) {
-                            vendorlist += `<button id="${a.productVendor}" type="button" onclick="venderFilter(this)" tabindex="0" class="dropdown-item">${a.productVendor}</button>`                                                    
-                        }); 
-                        document.getElementById("vendor").innerHTML = vendorlist;
-                        function venderFilter(e){
-                            document.getElementById("btn").click();
-                            i = 0;
-                            var productVendor = e.getAttribute("id");
-                            vendorlist = "";
-                            json.forEach(function(a) {
-                                if(productVendor == "none"){
-                                    vendorlist += tableGenem(++i,a.productName,a.productLine,a.quantityInStock,a.MSRP,a.productCode);   
-                                }
-                                if(a.productVendor == productVendor){
-                                    vendorlist += tableGenem(++i,a.productName,a.productLine,a.quantityInStock,a.MSRP,a.productCode);       
-                                }
-                            });
-                            document.getElementById("tablelist").innerHTML = vendorlist;
-                        }
-
-                        var scalelist = '<button id="nonescale" type="button" onclick="scaleFilter(this)" tabindex="0" class="dropdown-item">None</button>';
-                        var json = <?php echo $jsscale; ?> ;
-                        json.forEach(function(a) {
-                            scalelist += `<button id="${a.productScale}" type="button" onclick="scaleFilter(this)" tabindex="0" class="dropdown-item">${a.productScale}</button>`                                                    
-                        }); 
-                        document.getElementById("scale").innerHTML = scalelist;
-                        function scaleFilter(e){
-                            document.getElementById("scalebtn").click();
-                            i = 0;
-                            var productScale = e.getAttribute("id");
-                            scalelist = "";
-                            json.forEach(function(a) {
-                                if(productScale == "nonescale"){
-                                    scalelist += tableGenem(++i,a.productName,a.productLine,a.quantityInStock,a.MSRP,a.productCode);  
-                                }
-                                if(a.productScale == productScale){
-                                    scalelist += tableGenem(++i,a.productName,a.productLine,a.quantityInStock,a.MSRP,a.productCode);      
-                                }
-                            });
-                            document.getElementById("tablelist").innerHTML = scalelist;
-                        }
+                       
                         var json = <?php echo $jsproductlist; ?> ;
                         
                         function Gentable(){
                             var tableproduct = "";
                             var i = 0;
                             json.forEach(function(a) {
-                                tableproduct += tableGenem(++i,a.productName,a.productLine,a.quantityInStock,a.MSRP,a.productCode);
+                                tableproduct += tablecustomer(a.customerNumber,a.customerName,a.city,a.country,a.postalCode,a.contactFirstName,a.contactLastName,a.phone);
                             });
                             document.getElementById("tablelist").innerHTML = tableproduct;
                         }
@@ -396,8 +320,8 @@ session_start();
                             var i = 0 ;
                             var tableproduct = "";
                             json.forEach(function(a) {
-                                if (((a.productName.toString()).toUpperCase()).includes(filter)){
-                                    tableproduct += tableGenem(++i,a.productName,a.productLine,a.quantityInStock,a.MSRP,a.productCode);
+                                if (((a.customerName.toString()).toUpperCase()).includes(filter)){
+                                    tableproduct += tablecustomer(a.customerNumber,a.customerName,a.city,a.country,a.postalCode,a.contactFirstName,a.contactLastName,a.phone);
                                 }
                             });
                             document.getElementById("tablelist").innerHTML = tableproduct;
@@ -418,7 +342,7 @@ session_start();
                             var p = a.getAttribute("name");
                             $.ajax({
                                 type: 'delete',
-                                url: '/products/'+p,
+                                url: '/customers/'+p,
                                 success: function (data) {         
                                     document.getElementById('id03').style.display='none';
                                     const index = json.findIndex(x => x.productCode == p);
@@ -426,22 +350,6 @@ session_start();
                                     Gentable();
                                 }
                             });
-                        }
-
-                        function detailpopup(products) {
-                            document.getElementById('id02').style.display='block';
-                            var productcode = products.getAttribute("id");
-                            var text = "";
-                            json.forEach(function(a) {
-                                if(a.productCode == productcode){
-                                    text = detailPopupGen(a.productCode,a.productName,a.productScale,a.productVendor,a.quantityInStock,a.MSRP,a.productLine,a.productDescription);
-                                }
-                            });
-                            document.getElementById("detailpop").innerHTML = text;
-                        }
-
-                        function cartadd(productCode){
-                            
                         }
                                             
                     </script>

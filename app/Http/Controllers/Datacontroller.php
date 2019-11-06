@@ -27,6 +27,12 @@ class DataController extends Controller
         $jscustomerlist = json_encode($data);
         return view('customer',['jscustomerlist' => $jscustomerlist]);
     }
+    public function stockin()
+    {
+        $data = DB::select('select * from products');
+        $jsproductlist = json_encode($data);
+        return view('stockin',['jsproductlist' => $jsproductlist]);
+    }
 
     public function customerdetail($id)
     {

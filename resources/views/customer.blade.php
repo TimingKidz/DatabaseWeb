@@ -228,7 +228,7 @@ session_start();
                                 </li>
                                
                                 <li>
-                                    <a href="dashboard-boxes.html">
+                                    <a href="stockin">
                                         <i class="metismenu-icon pe-7s-box1"></i>
                                         Stock In
                                     </a>

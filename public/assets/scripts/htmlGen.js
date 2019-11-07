@@ -123,3 +123,17 @@ function detailPopupGen(productCode, productName, productScale, productVendor, q
         </div>
     </div>`;
 }
+function tablestockin(stockNumber,stockDate,productCode,quantityOrdered,comments){
+    return ` 
+    <tr>
+            <td class="text-center text-muted"> ${stockNumber}</td>
+            <td> ${stockDate}</td>
+                <td class="text-center">${productCode}</td>
+                <td class="text-center">${quantityOrdered}</td>   
+                <td class="text-center">${comments}</td>                                                             
+                <td class="text-center">
+                <a href="stockin/${stockNumber}"><button id="${stockNumber}" class="btn btn-primary btn-sm">Detail</button></a>
+                <button class="btn btn-danger btn-sm"  id="${stockNumber}" onclick="delalert(this)">X</button>
+                </td>
+        </tr>`
+}

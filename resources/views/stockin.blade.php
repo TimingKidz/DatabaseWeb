@@ -205,14 +205,14 @@ session_start();
                                 </li>
                                
                                 <li>
-                                    <a href="stockin">
+                                    <a href="stockin" class="mm-active">
                                         <i class="metismenu-icon pe-7s-box1"></i>
                                         Stock In
                                     </a>
                                 </li>
                                 
                                 <li>
-                                    <a href="customer" class="mm-active">
+                                    <a href="customer">
                                         <i class="metismenu-icon pe-7s-users"></i>
                                         Customers
                                     </a>
@@ -278,7 +278,8 @@ session_start();
                                         <table class="align-middle mb-0 table table-borderless table-striped table-hover">
                                             <thead>
                                             <tr>
-                                                <th class="text-center">Date</th>
+                                                <th class="text-center">#</th>                                            
+                                                <th>Date</th>
                                                 <th class="text-center">ProductCode</th>
                                                 <th class="text-center">Quantity</th>
                                                 <th class="text-center">Comment</th>
@@ -300,15 +301,14 @@ session_start();
                     <script type="text/javascript">
                    
                        
-                        var json = <?php echo $jsproductlist; ?> ;
+                        var json = <?php echo $jsstockinHeaderList; ?> ;
                         
                         function Gentable(){
-                            var tableproduct = "";
-                            var i = 0;
+                            var tableStockin = "";
                             json.forEach(function(a) {
-                                tableproduct += tablecustomer(a.customerNumber,a.customerName,a.city,a.country,a.postalCode,a.contactFirstName,a.contactLastName,a.phone);
+                                tableStockin += tablestockin(a.stockNumber,a.stockDate,a.productCode,a.quantityOrdered,a.comments);
                             });
-                            document.getElementById("tablelist").innerHTML = tableproduct;
+                            document.getElementById("tablelist").innerHTML = tableStockin;
                         }
                         Gentable();
 
@@ -318,13 +318,13 @@ session_start();
                             var input = document.getElementById("searchinput");
                             var filter = input.value.toUpperCase();
                             var i = 0 ;
-                            var tableproduct = "";
+                            var tableStockin = "";
                             json.forEach(function(a) {
-                                if (((a.customerName.toString()).toUpperCase()).includes(filter)){
-                                    tableproduct += tablecustomer(a.customerNumber,a.customerName,a.city,a.country,a.postalCode,a.contactFirstName,a.contactLastName,a.phone);
+                                if (((a.stockNumber.toString()).toUpperCase()).includes(filter)){
+                                    tableStockin += tablestockin(a.stockNumber,a.stockDate,a.productCode,a.quantityOrdered,a.comments);
                                 }
                             });
-                            document.getElementById("tablelist").innerHTML = tableproduct;
+                            document.getElementById("tablelist").innerHTML = tableStockin;
                         }
                         function delalert(productCode){
                             var p = productCode.getAttribute("id");
@@ -342,7 +342,7 @@ session_start();
                             var p = a.getAttribute("name");
                             $.ajax({
                                 type: 'delete',
-                                url: '/customers/'+p,
+                                url: '/stockin/'+p,
                                 success: function (data) {         
                                     document.getElementById('id03').style.display='none';
                                     const index = json.findIndex(x => x.productCode == p);

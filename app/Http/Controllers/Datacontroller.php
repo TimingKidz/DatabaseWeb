@@ -29,9 +29,9 @@ class DataController extends Controller
     }
     public function stockin()
     {
-        $data = DB::select('select * from products');
-        $jsproductlist = json_encode($data);
-        return view('stockin',['jsproductlist' => $jsproductlist]);
+        $data = DB::select('select * from stockinHeader');
+        $jsstockinHeaderList = json_encode($data);
+        return view('stockin',['jsstockinHeaderList' => $jsstockinHeaderList]);
     }
 
     public function customerdetail($id)

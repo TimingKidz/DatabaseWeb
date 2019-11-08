@@ -115,10 +115,10 @@ session_start();
                 <h2>+</h2>
             </button>
             <div class="theme-settings__inner">
-            <div class="main-card">
-                                    <div class="card-body"><h5 class="card-title">Customer</h5>
-                                        <form class="">
-                                            
+                <div class="main-card pre-scroll">
+                    <div class="scrollbar-container ps--active-y">
+                                    <div class="card-body"><h5 class="card-title">Customer</h5>                                    
+                                        <form class="">                                        
                                             <div class="form-row">
                                                 <div class="col-md-2">
                                                     <div class="position-relative form-group"><label for="exampleEmail11" class="">Number</label><input name="email" id="exampleEmail11" placeholder="NO." type="email" class="form-control"></div>
@@ -170,9 +170,11 @@ session_start();
                                             <div class="text-right">
                                             <button class="mt-2 btn btn-primary">Submit</button>
                                     </div>
+                                    
                                         </form>
                                     </div>
                                 </div>
+                            </div>
                 </div>
         </div>
         <div class="app-main">

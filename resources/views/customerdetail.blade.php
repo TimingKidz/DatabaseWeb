@@ -156,21 +156,21 @@ session_start();
 
                                 <li class="app-sidebar__heading">Menu</li>
                                 <li>
-                                    <a href="products">
+                                    <a href="../products">
                                         <i class="metismenu-icon pe-7s-box2"></i>
                                         Products
                                     </a>
                                 </li>
                                
                                 <li>
-                                    <a href="dashboard-boxes.html">
+                                    <a href="../dashboard-boxes.html">
                                         <i class="metismenu-icon pe-7s-box1"></i>
                                         Stock In
                                     </a>
                                 </li>
                                 
                                 <li>
-                                    <a href="customer" class="mm-active">
+                                    <a href="../customer" class="mm-active">
                                         <i class="metismenu-icon pe-7s-users"></i>
                                         Customers
                                     </a>

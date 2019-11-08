@@ -13,7 +13,7 @@ session_start();
     <meta http-equiv="Content-Language" content="en">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     
-    <title>Products</title>
+    <title>Stock-In</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
     <meta name="description" content="This is an example dashboard created using build-in elements and components.">
     <meta name="msapplication-tap-highlight" content="no">
@@ -76,8 +76,11 @@ session_start();
                                     </div>
                                     <div class="widget-subheading">
                                         <?php
-                                        echo session('status');
-                                           
+                                        if(session('status')=="1"){
+                                            echo "Employee";
+                                        }else{
+                                            echo "Admin";
+                                        }
                                         ?>
                                     </div>
                                 </div>
@@ -99,8 +102,6 @@ session_start();
                                         </div>
                                     </div>
                                 </div>
-                               
-                               
                             </div>
                         </div>
                     </div>        
@@ -112,65 +113,44 @@ session_start();
                 <h2>+</h2>
             </button>
             <div class="theme-settings__inner">
-                <div class="main-card pre-scroll">
-                    <div class="scrollbar-container ps--active-y">
-                                    <div class="card-body"><h5 class="card-title">Customer</h5>                                    
-                                        <form class="">                                        
+                <div class="main-card">
+                    <!--Add Stock--><div class="card-body"><h5 class="card-title">Stock-In</h5>
+                                        <form class="">
                                             <div class="form-row">
-                                                
-                                                <div class="col-md-7">
-                                                    <div class="position-relative form-group"><label for="exampleEmail11" class="">Name</label><input id="A2" placeholder="Customer Name" type="text" class="form-control"></div>
-                                                </div>
                                                 <div class="col-md-5">
-                                                    <div class="position-relative form-group"><label for="exampleState" class="">Credit Limit</label><input name="state" placeholder="Credit" id="A12" type="text" class="form-control"></div>
+                                                    <div class="position-relative form-group"><label for="exampleEmail11" class="">Date</label><input name="date" id="exampleEmail11" placeholder="DD/MM/YYYY" type="date" class="form-control"></div>
                                                 </div>
-                                            </div>
-                                            <h5 class="card-title">Contact</h5>
-                                            <div class="form-row">
-                                                <div class="col-md-6">
-                                                    <div class="position-relative form-group"><label for="exampleEmail11" class="">Firstname</label><input name="firstname" id="A3" placeholder="Firstname" type="text" class="form-control"></div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="position-relative form-group"><label for="exampleEmail11" class="">Lastname</label><input name="lastname" id="A4" placeholder="Lastname" type="text" class="form-control"></div>
-                                                </div>
-                                            </div>
-                                            <div class="form-row">
-
-                                                <div class="col-md-8">
-                                                    <div class="position-relative form-group"><label for="examplePassword11" class="">Phone Number</label><input name="phonenumber" id="A5" placeholder="Phone Number" type="text"
-                                                                                                                                                             class="form-control"></div>
-                                                </div>
-                                            </div>
-                                            <h5 class="card-title">Address</h5>
-                                            <div class="position-relative form-group"><label for="exampleAddress" class="">Address Line 1</label><input name="address" id="A6" placeholder="1234 Main St" type="text" class="form-control"></div>
-                                            <div class="position-relative form-group"><label for="exampleAddress2" class="">Address Line 2</label><input name="address2" id="A7" placeholder="Apartment, studio, or floor" type="text" class="form-control">
                                             </div>
                                             <div class="form-row">
                                                 <div class="col-md-5">
-                                                    <div class="position-relative form-group"><label for="exampleCity" class="">City</label><input name="city" placeholder="City" id="A8" type="text" class="form-control"></div>
-                                                </div>
-                                                <div class="col-md-3">
-                                                    <div class="position-relative form-group"><label for="exampleState" class="">State</label><input name="state" placeholder="State" id="A9" type="text" class="form-control"></div>
-                                                </div>
-                                                <div class="col-md-3">
-                                                    <div class="position-relative form-group"><label for="exampleZip" class="">Zip</label><input name="zip" placeholder="Zipcode" id="A10" type="text" class="form-control"></div>
+                                                    <div class="position-relative form-group"><label for="exampleEmail11" class="">ProductCode</label><input name="ProductCode" id="exampleEmail11" placeholder="eg.S10_1080" type="text" class="form-control"></div>
                                                 </div>
                                             </div>
                                             <div class="form-row">
                                                 <div class="col-md-4">
-                                                    <div class="position-relative form-group"><label for="exampleCity" class="">Country</label><input name="country" placeholder="Country" id="A11" type="text" class="form-control"></div>
+                                                    <div class="position-relative form-group"><label for="exampleEmail11" class="">Quantity</label><input name="Quantity" id="exampleEmail11" placeholder="" type="number" class="form-control"></div>
                                                 </div>
-                                                <div class="col-md-4"></div>
-                                                <div class="ml-5 mt-4 text-right">
-                                                    <button class="mt-3 btn btn-primary" onclick="addcustomer()"> Submit </button>
+                                                <div class="col-md-4">
+                                                    <div class="position-relative form-group"><label for="exampleEmail11" class="">PriceEach</label><input name="PriceEach" id="exampleEmail11" placeholder="" type="number" class="form-control"></div>
                                                 </div>
                                             </div>
-                                      
-                                        
+                                            <div class="form-row">
+                                                <div class="col-md-4">
+                                                    <div class="position-relative form-group"><label for="exampleEmail11" class="">QuantityOrdered</label><input name="QuantityOrdered" id="exampleEmail11" placeholder="" type="number" class="form-control"></div>
+                                                </div>
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="col-md-8">
+                                                    <div class="position-relative form-group"><label for="examplePassword11" class="">Comment</label><input name="comment" id="exampleEmail11" placeholder="..." type="text"class="form-control"></div>
+                                                </div>
+                                            </div>
+                                            <div class="text-right">
+                                            <button class="mt-2 btn btn-primary">Submit</button>
+                                            </div>
+                                        </form>
                                     </div>
-                                </div>
-                            </div>
                 </div>
+            </div>
         </div>
         <div class="app-main">
         <div class="app-sidebar sidebar-shadow bg-vicious-stance sidebar-text-light" id="sidebar">
@@ -218,45 +198,31 @@ session_start();
 
                                 <li class="app-sidebar__heading">Menu</li>
                                 <li>
-                                    <a href="../products">
+                                    <a href="products">
                                         <i class="metismenu-icon pe-7s-box2"></i>
                                         Products
                                     </a>
                                 </li>
-                                <?php
-                                if(strpos(session('status'),'Sale') !== false){
-                                    echo '<li>
-                                    <a href="../stockin">
+                               
+                                <li>
+                                    <a href="stockin" class="mm-active">
                                         <i class="metismenu-icon pe-7s-box1"></i>
                                         Stock In
                                     </a>
-                                </li>';
-                                }
-                                ?>
-                                
+                                </li>
                                 
                                 <li>
-                                    <a href="../customer"  class="mm-active">
+                                    <a href="customer">
                                         <i class="metismenu-icon pe-7s-users"></i>
                                         Customers
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="../saleorder">
+                                    <a href="dashboard-boxes.html">
                                         <i class="metismenu-icon pe-7s-note2"></i>
                                         Saleorder
                                     </a>
                                 </li>
-                                <?php
-                                        if(session('status') != "Sales Rep"){
-                                        echo '<li>
-                                            <a href="../ERM">
-                                                <i class="metismenu-icon pe-7s-note2"></i>
-                                            ERM
-                                            </a>
-                                        </li>';
-                                        }
-                                ?>
                                 
                                
                             </ul>
@@ -295,7 +261,7 @@ session_start();
                                 <div class="main-card mb-3 card">
                                     <div class="card-header">
                                     <div class="mr-2">
-                                        Customers
+                                        Stock-In
                                     </div>  
                                     
                                     <div class="col-md-1">
@@ -312,10 +278,11 @@ session_start();
                                         <table class="align-middle mb-0 table table-borderless table-striped table-hover">
                                             <thead>
                                             <tr>
-                                                <th class="text-center">#</th>
-                                                <th >Name</th>
-                                                <th class="text-center">Contact</th>
-                                                <th class="text-center">Phone</th>
+                                                <th class="text-center">#</th>                                            
+                                                <th>Date</th>
+                                                <th class="text-center">ProductCode</th>
+                                                <th class="text-center">Quantity</th>
+                                                <th class="text-center">Comment</th>
                                                 <th class="text-center"></th>
                                             </tr>
                                             </thead>
@@ -328,36 +295,20 @@ session_start();
                             </div>
                         </div>
                     </div>
-                    <div id="ddd">
-                        
-                    </div>
                     
                     <script src="../assets/scripts/htmlGen.js" type="text/javascript"></script>
                     <script src="../assets/scripts/jquery-3.4.1.js" type="text/javascript"></script>
                     <script type="text/javascript">
-                        var json = 0;
-                        function getcustomer(){
-                            var data = 0;
-                            $.ajax({
-                                type: "get",
-                                url: "/getcus",
-                                success: function(response){
-                                    data = response;
-                                },
-                                async: false,
-                            });
-                            return JSON.parse(data);
-                        }
-
+                   
+                       
+                        var json = <?php echo $jsstockinHeaderList; ?> ;
                         
                         function Gentable(){
-                            json = getcustomer();
-                            var tableproduct = "";
-                            var i = 0;
+                            var tableStockin = "";
                             json.forEach(function(a) {
-                                tableproduct += tablecustomer(a.customerNumber,a.customerName,a.city,a.country,a.postalCode,a.contactFirstName,a.contactLastName,a.phone);
+                                tableStockin += tablestockin(a.stockNumber,a.stockDate,a.productCode,a.quantityOrdered,a.comments);
                             });
-                            document.getElementById("tablelist").innerHTML = tableproduct;
+                            document.getElementById("tablelist").innerHTML = tableStockin;
                         }
                         Gentable();
 
@@ -367,13 +318,13 @@ session_start();
                             var input = document.getElementById("searchinput");
                             var filter = input.value.toUpperCase();
                             var i = 0 ;
-                            var tableproduct = "";
+                            var tableStockin = "";
                             json.forEach(function(a) {
-                                if (((a.customerName.toString()).toUpperCase()).includes(filter)){
-                                    tableproduct += tablecustomer(a.customerNumber,a.customerName,a.city,a.country,a.postalCode,a.contactFirstName,a.contactLastName,a.phone);
+                                if (((a.stockNumber.toString()).toUpperCase()).includes(filter)){
+                                    tableStockin += tablestockin(a.stockNumber,a.stockDate,a.productCode,a.quantityOrdered,a.comments);
                                 }
                             });
-                            document.getElementById("tablelist").innerHTML = tableproduct;
+                            document.getElementById("tablelist").innerHTML = tableStockin;
                         }
                         function delalert(productCode){
                             var p = productCode.getAttribute("id");
@@ -391,43 +342,13 @@ session_start();
                             var p = a.getAttribute("name");
                             $.ajax({
                                 type: 'delete',
-                                url: '/customers/'+p,
+                                url: '/stockin/'+p,
                                 success: function (data) {         
                                     document.getElementById('id03').style.display='none';
+                                    const index = json.findIndex(x => x.productCode == p);
+                                    if (index !== undefined) json.splice(index, 1);
                                     Gentable();
                                 }
-                            });
-                        }
-                        
-                        function addcustomer(){
-                           console.log("helo");
-                            var customer =  { "customerNumber": document.getElementById("A1").value.toString(), 
-                                             "customerName": document.getElementById("A2").value.toString(),
-                                             "contactLastName":document.getElementById("A4").value.toString(),
-                                             "contactFirstName": document.getElementById("A3").value.toString(),
-                                             "phone":document.getElementById("A5").value.toString(),
-                                             "line1": document.getElementById("A6").value.toString(),
-                                             "city": document.getElementById("A8").value.toString(),
-                                             "line2": document.getElementById("A7").value.toString(),
-                                             "state": document.getElementById("A9").value.toString(),
-                                             "postalCode": document.getElementById("A10").value.toString(),
-                                             "country": document.getElementById("A11").value.toString(),
-                                             "saleRep": "",
-                                             "creditLimit": document.getElementById("A12").value.toString()};
-                            console.log(customer);
-                                            
-                            $.ajax({
-                                type: "post",
-                                url: "/customers",
-                                data: customer,
-                                success: function(response){
-                                    Gentable();
-                                },
-                                error: function (error) {
-                                alert(error.responseText);
-                                console.log(error.responseText);
-                            }
-
                             });
                         }
                                             

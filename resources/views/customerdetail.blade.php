@@ -33,7 +33,7 @@ session_start();
 <body>
 
     <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
-        <div class="app-header header-shadow bg-slick-carbon header-text-light">
+        <div class="app-header header-shadow bg-mean-fruit header-text-light">
             <div class="app-header__logo">
                 <div class="logo-src"></div>
                 <div class="header__pane ml-auto" id="sidebar1">
@@ -107,7 +107,7 @@ session_start();
             </div>
         </div>        
         <div class="app-main">
-                <div class="app-sidebar sidebar-shadow bg-slick-carbon sidebar-text-light" id="sidebar">
+                <div class="app-sidebar sidebar-shadow bg-vicious-stance sidebar-text-light" id="sidebar">
                     <div class="app-header__logo">
                         <div class="logo-src"></div>
                         <div class="header__pane ml-auto">
@@ -152,8 +152,8 @@ session_start();
 
                                 <li class="app-sidebar__heading">Menu</li>
                                 <li>
-                                    <a href="../products" class="mm-active">
-                                        <i class="metismenu-icon pe-7s-display2"></i>
+                                    <a href="../products">
+                                        <i class="metismenu-icon pe-7s-box2"></i>
                                         Products
                                     </a>
                                 </li>
@@ -162,7 +162,7 @@ session_start();
                                 if(strpos(session('status'),'Sale') !== false){
                                     echo '<li>
                                     <a href="/dashboard-boxes.html">
-                                        <i class="metismenu-icon pe-7s-display2"></i>
+                                        <i class="metismenu-icon pe-7s-box1"></i>
                                         Stock In
                                     </a>
                                 </li>';
@@ -170,14 +170,14 @@ session_start();
                                 ?>
                                 
                                 <li>
-                                    <a href="../customer">
-                                        <i class="metismenu-icon pe-7s-display2"></i>
+                                    <a href="../customer" class="mm-active">
+                                        <i class="metismenu-icon pe-7s-users"></i>
                                         Customers
                                     </a>
                                 </li>
                                 <li>
                                     <a href="../saleorder">
-                                        <i class="metismenu-icon pe-7s-display2"></i>
+                                        <i class="metismenu-icon pe-7s-note2"></i>
                                         Saleorder
                                     </a>
                                 </li>

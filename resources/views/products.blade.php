@@ -113,17 +113,37 @@ session_start();
             <div class="theme-settings__inner">
                 <div class="ml-3 mr-3">
                     <h5 class="card-title pt-3">Cart</h5>
-                    <form class="">
+                    <div class="scroll-area pre-scroll">
                         <div class="scrollbar-container ps--active-y">
-                            <!-- product -->
+                            <div class="ml-3 mr-3 mb-4">
+                                <div class="row">                                
+                                <table class="align-middle mb-0 table table-borderless table-striped table-hover">
+                                            <thead>
+                                            <tr>
+                                                <th class="text-center">#</th>
+                                                <th >Name</th>
+                                                <th class="text-center">Price</th>
+                                                <th class="text-center">Qty.</th>   
+                                                <th class="text-center">Total</th>                                    
+                                                <th class="text-center"></th>
+                                            </tr>
+                                            </thead>
+                                            <tbody id="cartp">
+                                                <!-- tableCart -->
+                                            </tbody>
+                                        </table>
+                                </div>
+                            </div>
                         </div>
+                    </div>
+                    <div class="row">
                         <div class="ml-3 mr-3 mb-4 fixed-bottom">
                             <div class="row">
                                 <div class="col-sm-3">
                                     <h6 class="pt-2">Customer :</h6>
                                 </div>
                                 <div class="col-sm-9">
-                                    <div class="position-relative form-group"><input name="" id="customernumber" placeholder="insert customer number" type="" class="form-control"></div>
+                                    <div class="position-relative form-group"><input onchange="cusAddr(this)" id="customernumber" placeholder="insert customer number" type="" class="form-control"></div>
                                 </div>
                             </div>
                             <div class="row">
@@ -131,21 +151,18 @@ session_start();
                                     <h6 class="pt-2">Address :</h6>
                                 </div>
                                 <div class="col-sm-9">
-                                    <div class="position-relative form-group"><select name="select" id="addr" class="form-control">
-                                        <option>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
-                                        <option>4</option>
-                                        <option>5</option>
+                                    <div class="position-relative form-group"><select disabled name="select" id="addr" class="form-control">
+                                        <!-- getAddr -->
                                     </select></div>
                                 </div>
                             </div>
                             <div class="row mb-2">
-                                <div class="col-sm-3">
-                                    <h6 class="pt-2">Discount :</h6>
+                                <div class="col-sm-6">
+                                    <!-- <h6 class="pt-2">Voucher :</h6> -->
+                                    <div class="position-relative form-group"><label for="reqdate">Required Date</label><input id="reqdate" type="date" class="form-control"></div>
                                 </div>
-                                <div class="col-sm-9">
-                                    <div class="position-relative form-group"><input name="" id="discount" placeholder="insert discount code" type="" class="form-control"></div>
+                                <div class="col-sm-6">
+                                    <div class="position-relative form-group"><label for="voucher">Voucher</label><input onchange="upVoucher(this)" id="voucher" placeholder="insert voucher code" class="form-control"></div>
                                 </div>
                             </div>
                             <div class="row">
@@ -153,14 +170,14 @@ session_start();
                                     <h6 class="card-title pt-1">Total</h6>
                                 </div>
                                 <div class="col-sm-6">
-                                    <h4 class="">$0.00</h4>
+                                    <h4 id="cartTotal">$0.00</h4>
                                 </div>
                                 <div class="col-sm-3">
-                                    <button class="pull-right mt-1 btn btn-warning">Check out</button>
+                                    <button onclick="proceed()" class="pull-right mt-1 btn btn-warning">Check out</button>
                                 </div>
                             </div>
                         </div>
-                    </form>
+                                    </div>
                 </div>
             </div>
         </div> 
@@ -220,7 +237,7 @@ session_start();
                                 if(strpos(session('status'),'Sale') !== false){
                                     echo '<li>
                                     <a href="/dashboard-boxes.html">
-                                        <i class="metismenu-icon pe-7s-display2"></i>
+                                        <i class="metismenu-icon pe-7s-box1"></i>
                                         Stock In
                                     </a>
                                 </li>';
@@ -338,7 +355,7 @@ session_start();
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div>                    
                     
                     <script src="./assets/scripts/htmlGen.js" type="text/javascript"></script>
                     <script src="./assets/scripts/jquery-3.4.1.js" type="text/javascript"></script>
@@ -386,19 +403,33 @@ session_start();
                                 }
                             });
                             document.getElementById("tablelist").innerHTML = scalelist;
-                        }
-                        var json = <?php echo $jsproductlist; ?> ;
+                        }    
+
+                        var json = 0;
+                        function getProduct(){
+                            var data = 0;
+                            $.ajax({
+                                url: 'getAllProducts',
+                                type: 'get',
+                                dataType: 'json',
+                                success: function(response){
+                                    data = response
+                                },
+                                async: false
+                            });
+                            return data;
+                        }                    
                         
                         function Gentable(){
+                            json = getProduct();
                             var tableproduct = "";
                             var i = 0;
                             json.forEach(function(a) {
                                 tableproduct += tableGenem(++i,a.productName,a.productLine,a.quantityInStock,a.MSRP,a.productCode);
                             });
-                            document.getElementById("tablelist").innerHTML = tableproduct;
+                            document.getElementById("tablelist").innerHTML = tableproduct;                            
                         }
-                        Gentable();
-
+                        Gentable();                        
                         
                         document.querySelector('#searchinput').addEventListener('input',noti);
                         function noti(e){
@@ -425,6 +456,186 @@ session_start();
                             }
                         });
 
+                        cartJSON = 0;
+                        function getCart(){
+                            var data = 0;
+                            $.ajax({
+                                url: 'getCart',
+                                type: 'get',
+                                success: function(response){
+                                    console.log(response);
+                                    data = response;
+                                },
+                                async: false
+                            });
+                            return data;
+                        }
+
+                        total = 0;
+                        function getCartTotal(){
+                            var data = 0;
+                            $.ajax({
+                                url: 'getCartTotal',
+                                type: 'get',
+                                success: function(response){
+                                    data = response;
+                                },
+                                async: false
+                            });
+                            return data;
+                        }
+
+                        function genCart(){
+                            cartJSON = getCart();
+                            total = getCartTotal();
+                            var idx = 0;
+                            if(!jQuery.isEmptyObject(cartJSON)){
+                                var tablecart = "";
+                                var data = $.parseJSON(cartJSON);
+                                jQuery.each(data, function(index, value){
+                                    tablecart += tableCart(++idx,data[index][0],data[index][1],data[index][2],data[index][3],data[index][4],data[index][5]);
+                                });
+                                document.getElementById("cartp").innerHTML = tablecart;   
+                                document.getElementById("cartTotal").innerHTML = "$"+total;                             
+                            }else{
+                                document.getElementById("cartp").innerHTML = "";
+                                document.getElementById("cartTotal").innerHTML = "$0.00";
+                            }
+                            
+                        }
+                        genCart();
+
+                        function addToCart(a, qty){
+                            var p = a.getAttribute("id");               
+                            $.ajax({
+                                type: 'post',
+                                url: '/getAddToCart/'+ p +'/'+ qty,
+                                success: function (data) {
+                                    genCart();
+                                    console.log(data);
+                                    // document.getElementById("cartTotal").innerHTML = "$"+data;
+                                }
+                            });
+                        }   
+
+                        function editQTY(a){
+                            if(a.value <= 0){
+                                addToCart(a, 1);
+                            }else{
+                                addToCart(a, a.value);
+                            }
+                        }
+
+                        function cusAddr(a){
+                            if(a.value != ""){
+                                $.ajax({
+                                    type: 'post',
+                                    url: '/getAddr/'+a.value,
+                                    dataType: 'json',
+                                    success: function (data) {
+                                        // console.log(data);
+                                        if(!jQuery.isEmptyObject(data)){
+                                            var addr = "";
+                                            data.forEach(function(a) {
+                                                addr += `<option id="${a.mapNumber}">${a.addressLine1} ${a.addressLine2}, ${a.city}, ${a.state}, ${a.postalCode}, ${a.country}</option>`;
+                                            });                                            
+                                            document.getElementById("addr").innerHTML = addr;
+                                            document.getElementById("addr").disabled = false;
+                                        }else{
+                                            document.getElementById("addr").innerHTML = "";
+                                            document.getElementById("addr").disabled = true;
+                                        }                                     
+                                    }
+                                });
+                            }else{
+                                document.getElementById("addr").innerHTML = "";
+                                document.getElementById("addr").disabled = true;
+                            }
+                        }
+
+                        var discountAmount = 0;
+                        function upVoucher(a){
+                            if(a.value == ""){
+                                var value = "null";
+                                discountAmount = 0;
+                            }else{
+                                var value = a.value;
+                            }
+                            $.ajax({
+                                type: 'post',
+                                url: '/getVoucher/'+value,
+                                dataType: 'json',
+                                success: function (data) {
+                                    console.log(data);
+                                    if(data == 0){
+                                        genCart();
+                                        discountAmount = 0;
+                                    }else if(data == 1){
+                                        alert('Out of code');
+                                        discountAmount = 0;
+                                    }else if (data == 2){
+                                        alert('Code expired');
+                                        discountAmount = 0;
+                                    }else{
+                                        discountAmount = data[0]["discountAmount"];
+                                        var newTotal = parseFloat(total) - discountAmount;
+                                        document.getElementById("cartTotal").innerHTML = "$"+newTotal.toFixed(2);
+                                    }                                     
+                                },
+                                error: function(err){
+                                    console.log(err);
+                                }
+                            });
+                        }
+
+                        function proceed(){
+                            var e = document.getElementById("addr");
+                            var cusProceed = {
+                                "cusnum": document.getElementById("customernumber").value.toString(),
+                                "addr": e.options[e.selectedIndex].value,
+                                "reqDate": document.getElementById("reqdate").value.toString(),
+                                "vcode": document.getElementById("voucher").value.toString(),
+                                "vdis": discountAmount,
+                                "addrnum": $("select#addr").children("option:selected").attr('id')
+                            }
+                            discountAmount = 0;
+                            console.log(cusProceed);
+                            $.ajax({
+                                type: 'put',
+                                data: cusProceed,
+                                url: '/proceed/',
+                                success: function(data) {
+                                    console.log(data);
+                                    if(data == 1){
+                                        alert('Cart Empty');
+                                    }
+                                    genCart();
+                                    Gentable();
+                                    $('#customernumber').val('');
+                                    $('#reqdate').val('');
+                                    $('#voucher').val('');
+                                    document.getElementById("addr").innerHTML = "";
+                                    document.getElementById("addr").disabled = true;
+                                    document.getElementById("TooltipDemo").click();
+                                },
+                                error: function(err){
+                                    console.log(err);
+                                }
+                            });
+                        }
+                        
+                        function deleteFromCart(a){
+                            var p = a.getAttribute("id");
+                            $.ajax({
+                                type: 'post',
+                                url: '/deleteFromCart/'+p,
+                                success: function (data) {
+                                    genCart();
+                                    console.log(data);
+                                }
+                            });
+                        }
+
                         function deleteitem(a){
                             var p = a.getAttribute("name");
                             $.ajax({
@@ -432,8 +643,6 @@ session_start();
                                 url: '/products/'+p,
                                 success: function (data) {         
                                     document.getElementById('id03').style.display='none';
-                                    const index = json.findIndex(x => x.productCode == p);
-                                    if (index !== undefined) json.splice(index, 1);
                                     Gentable();
                                 }
                             });
@@ -449,10 +658,6 @@ session_start();
                                 }
                             });
                             document.getElementById("detailpop").innerHTML = text;
-                        }
-
-                        function cartadd(productCode){
-                            
                         }
                                             
                     </script>

@@ -48,7 +48,7 @@ class DataController extends Controller
                     $request->session()->put('cart', $json);
 
                     $total += (float)$cart[$key][4];
-                    $request->session()->put('cartTotal', $total);
+                    $request->session()->put('cartTotal', number_format((float)$total, 2, '.', ''));
                     return $request->session()->get('cartTotal');
                 }
             }
@@ -59,7 +59,7 @@ class DataController extends Controller
         $request->session()->put('cart', $json);
 
         $total += (float)$data[0]->MSRP;
-        $request->session()->put('cartTotal', $total);
+        $request->session()->put('cartTotal', number_format((float)$total, 2, '.', ''));
         return $total;
     }
 
@@ -75,7 +75,7 @@ class DataController extends Controller
         }        
         $json = json_encode($cart);
         $request->session()->put('cart', $json);
-        $request->session()->put('cartTotal', $total);
+        $request->session()->put('cartTotal', number_format((float)$total, 2, '.', ''));
         return $total;
     }
 
@@ -84,19 +84,56 @@ class DataController extends Controller
         return json_encode($data);
     }
 
+    public function getVoucher(Request $request, $id){
+        if(!($request->session()->has('cart')) || $id == "null"){
+            return 0;
+        }
+        try{
+            $data = DB::select("select * from voucher where voucherNumber = '$id'");
+            $ex = DB::select("select sum(julianday(expireDate) - julianday(DATETIME('now'))) as ex from voucher where voucherNumber = '$id'");
+            $expired = (int)$ex[0]->ex;
+            $rem = $data[0]->remaining;
+            if($rem <= 0){
+                return 1;
+            }else if ($expired < 0){
+                return 2;
+            }else{
+                return json_encode($data);
+            }
+        }catch (Exception $e){
+            echo $e->getMessage();
+        }
+    }
+
     public function cartCheckout(Request $request) {
         if(!($request->session()->has('cart'))){
             return 1;
         }
         try{
             $cart = json_decode($request->session()->get('cart'));
-            $total = $request->session()->get('cartTotal');
-            if($request->vcode == ""){
-                DB::insert("insert into orders(orderDate,requiredDate,shippedDate,status,comments,customerNumber,totalprice)
-                values (DATETIME('now'), '$request->reqDate', '', 'In Process', '', '$request->cusnum', '$total');");
+            if($request->vdis == "0"){
+                $total = $request->session()->get('cartTotal');
             }else{
-                DB::insert("insert into orders(orderDate,requiredDate,shippedDate,status,comments,customerNumber,voucherNumber,totalprice)
-                values (DATETIME('now'), '$request->reqDate', '', 'In Process', '', '$request->cusnum', '$request->vcode', '$total');");
+                $total = $request->session()->get('cartTotal') - $request->vdis;
+                DB::update("update voucher
+                set remaining = remaining - 1
+                where voucherNumber = '$request->vcode'");
+            }
+
+            $addr = DB::select("select * from customerAddress where mapNumber = '$request->addrnum'");
+            $l1 = $addr[0]->addressLine1;
+            $l2 = $addr[0]->addressLine2;
+            $city = $addr[0]->city;
+            $state = $addr[0]->state;
+            $postal = $addr[0]->postalCode;
+            $country = $addr[0]->country;
+
+            if($request->vcode == ""){
+                DB::insert("insert into orders(orderDate,requiredDate,shippedDate,status,comments,customerNumber,totalprice,addressLine1,addressLine2,city,state,postalCode,country)
+                values (DATETIME('now'),'$request->reqDate','','In Process','','$request->cusnum','$total','$l1','$l2','$city','$state','$postal','$country');");
+            }else{
+                DB::insert("insert into orders(orderDate,requiredDate,shippedDate,status,comments,customerNumber,voucherNumber,totalprice,addressLine1,addressLine2,city,state,postalCode,country)
+                values (DATETIME('now'),'$request->reqDate','','In Process','','$request->cusnum','$request->vcode','$total','$l1','$l2','$city','$state','$postal','$country');");
             }
             $orderNumberObj = DB::select("select seq from sqlite_sequence where name = 'orders'");
             $orderNumber = $orderNumberObj[0]->seq;

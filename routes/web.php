@@ -16,6 +16,7 @@ Route::group(['middleware' => 'checkuser'],function(){
     Route::get('/getCart','DataController@getCart');
     Route::get('/getCartTotal','DataController@getCartTotal');
     Route::post('/getAddr/{id}','DataController@getAddr');
+    Route::post('/getVoucher/{id}','DataController@getVoucher');
     Route::post('/getAddToCart/{id}/{qty}','DataController@getAddToCart');  
     Route::post('/deleteFromCart/{id}','DataController@deleteFromCart');  
     Route::put('/proceed','DataController@cartCheckout');

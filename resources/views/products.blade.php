@@ -155,7 +155,7 @@ session_start();
                                     <h6 class="pt-2">Address :</h6>
                                 </div>
                                 <div class="col-sm-9">
-                                    <div class="position-relative form-group"><select name="select" id="addr" class="form-control">
+                                    <div class="position-relative form-group"><select disabled name="select" id="addr" class="form-control">
                                         <!-- getAddr -->
                                     </select></div>
                                 </div>
@@ -166,7 +166,7 @@ session_start();
                                     <div class="position-relative form-group"><label for="reqdate">Required Date</label><input id="reqdate" type="date" class="form-control"></div>
                                 </div>
                                 <div class="col-sm-6">
-                                    <div class="position-relative form-group"><label for="voucher">Voucher</label><input id="voucher" placeholder="insert voucher code" class="form-control"></div>
+                                    <div class="position-relative form-group"><label for="voucher">Voucher</label><input onchange="upVoucher(this)" id="voucher" placeholder="insert voucher code" class="form-control"></div>
                                 </div>
                             </div>
                             <div class="row">
@@ -478,7 +478,7 @@ session_start();
                             cartJSON = getCart();
                             total = getCartTotal();
                             var idx = 0;
-                            if(cartJSON != ""){
+                            if(!jQuery.isEmptyObject(cartJSON)){
                                 var tablecart = "";
                                 var data = $.parseJSON(cartJSON);
                                 jQuery.each(data, function(index, value){
@@ -522,18 +522,59 @@ session_start();
                                     url: '/getAddr/'+a.value,
                                     dataType: 'json',
                                     success: function (data) {
-                                        console.log(data);
-                                        var addr = "";
-                                        data.forEach(function(a) {
-                                            addr += `<option>${a.addressLine1} ${a.addressLine2}, ${a.city}, ${a.state}, ${a.postalCode}, ${a.country}</option>`;
-                                        });
-                                        document.getElementById("addr").innerHTML = addr;
-                                        document.getElementById("addr").disabled = false;
+                                        // console.log(data);
+                                        if(!jQuery.isEmptyObject(data)){
+                                            var addr = "";
+                                            data.forEach(function(a) {
+                                                addr += `<option id="${a.mapNumber}">${a.addressLine1} ${a.addressLine2}, ${a.city}, ${a.state}, ${a.postalCode}, ${a.country}</option>`;
+                                            });                                            
+                                            document.getElementById("addr").innerHTML = addr;
+                                            document.getElementById("addr").disabled = false;
+                                        }else{
+                                            document.getElementById("addr").innerHTML = "";
+                                            document.getElementById("addr").disabled = true;
+                                        }                                     
                                     }
                                 });
                             }else{
+                                document.getElementById("addr").innerHTML = "";
                                 document.getElementById("addr").disabled = true;
                             }
+                        }
+
+                        var discountAmount = 0;
+                        function upVoucher(a){
+                            if(a.value == ""){
+                                var value = "null";
+                                discountAmount = 0;
+                            }else{
+                                var value = a.value;
+                            }
+                            $.ajax({
+                                type: 'post',
+                                url: '/getVoucher/'+value,
+                                dataType: 'json',
+                                success: function (data) {
+                                    console.log(data);
+                                    if(data == 0){
+                                        genCart();
+                                        discountAmount = 0;
+                                    }else if(data == 1){
+                                        alert('Out of code');
+                                        discountAmount = 0;
+                                    }else if (data == 2){
+                                        alert('Code expired');
+                                        discountAmount = 0;
+                                    }else{
+                                        discountAmount = data[0]["discountAmount"];
+                                        var newTotal = parseFloat(total) - discountAmount;
+                                        document.getElementById("cartTotal").innerHTML = "$"+newTotal.toFixed(2);
+                                    }                                     
+                                },
+                                error: function(err){
+                                    console.log(err);
+                                }
+                            });
                         }
 
                         function proceed(){
@@ -542,8 +583,11 @@ session_start();
                                 "cusnum": document.getElementById("customernumber").value.toString(),
                                 "addr": e.options[e.selectedIndex].value,
                                 "reqDate": document.getElementById("reqdate").value.toString(),
-                                "vcode": document.getElementById("voucher").value.toString()
+                                "vcode": document.getElementById("voucher").value.toString(),
+                                "vdis": discountAmount,
+                                "addrnum": $("select#addr").children("option:selected").attr('id')
                             }
+                            discountAmount = 0;
                             console.log(cusProceed);
                             $.ajax({
                                 type: 'put',
@@ -555,9 +599,12 @@ session_start();
                                         alert('Cart Empty');
                                     }
                                     genCart();
+                                    Gentable();
                                     $('#customernumber').val('');
                                     $('#reqdate').val('');
                                     $('#voucher').val('');
+                                    document.getElementById("addr").innerHTML = "";
+                                    document.getElementById("addr").disabled = true;
                                     document.getElementById("TooltipDemo").click();
                                 },
                                 error: function(err){
@@ -573,7 +620,7 @@ session_start();
                                 url: '/deleteFromCart/'+p,
                                 success: function (data) {
                                     genCart();
-                                    // console.log(data);
+                                    console.log(data);
                                 }
                             });
                         }

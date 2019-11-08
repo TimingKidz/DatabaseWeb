@@ -1,4 +1,6 @@
 <?php
+
+use App\Http\Controllers\DataController;
 use Illuminate\Http\Request;
 /*
 |--------------------------------------------------------------------------
@@ -26,7 +28,11 @@ Route::group(['middleware' => 'guest'],function(){
 Route::delete('/products/{code}','DataController@deletepro');
 Route::post('/login','DataController@login');
 Route::post('/logout','DataController@logout');
+Route::post('/customerAddr','DataController@addMulAddr');
+Route::put('/customerAddrupdate','DataController@updateMulAddr');
+Route::post('/customerAddrdelete/{map}','DataController@deleteMulAddr');
 Route::get('/getcus','DataController@cus');
+Route::post('/customer/{id}','DataController@customerdetail_id');
 
 
 

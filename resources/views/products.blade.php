@@ -11,8 +11,8 @@ session_start();
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta http-equiv="Content-Language" content="en">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
     <title>Products</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
     <meta name="description" content="This is an example dashboard created using build-in elements and components.">
@@ -27,8 +27,9 @@ session_start();
     =========================================================
     * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
     -->
-    
-<link href="../main.css" rel="stylesheet"></head>
+
+    <link href="../main.css" rel="stylesheet">
+</head>
 
 <body>
 
@@ -63,29 +64,29 @@ session_start();
                         </span>
                     </button>
                 </span>
-            </div>    
-            <div class="app-header__content" >
+            </div>
+            <div class="app-header__content">
                 <div class="app-header-right">
                     <div class="header-btn-lg pr-0">
                         <div class="widget-content p-0">
                             <div class="widget-content-wrapper">
-                            <!-- <div class="widget-heading">&nbsp</div> -->
+                                <!-- <div class="widget-heading">&nbsp</div> -->
                                 <div class="widget-content-left  header-user-info">
                                     <div class="widget-heading">
-                                    <?php echo session('name'); ?>
+                                        <?php echo session('name'); ?>
                                     </div>
                                     <div class="widget-subheading">
                                         <?php
-                                        if(session('status')=="1"){
+                                        if (session('status') == "1") {
                                             echo "Employee";
-                                        }else{
+                                        } else {
                                             echo "Admin";
                                         }
                                         ?>
                                     </div>
                                 </div>
                                 <div class="widget-content-left ml-3" id="sidebar4">
-                                
+
                                     <div class="btn-group">
                                         <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="p-0 btn">
                                             <img width="42" class="rounded-circle" src="assets/images/avatars/1.jpg" alt="">
@@ -93,26 +94,28 @@ session_start();
                                         </a>
                                         <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu dropdown-menu-right">
                                             <button type="button" tabindex="0" class="dropdown-item"><?php echo session('email'); ?></button>
-                                            <form action="/logout" method="post"> 
+                                            <form action="/logout" method="post">
                                                 {{ csrf_field() }}
                                                 <button tabindex="0" class="dropdown-item pe-7s-unlock">&nbsp Logout</button>
                                                 </button>
                                             </form>
-                                            
+
                                         </div>
                                     </div>
                                 </div>
-                               
-                               
+
+
                             </div>
                         </div>
-                    </div>        
+                    </div>
                 </div>
             </div>
-        </div>    
+        </div>
         <div class="ui-theme-settings">
             <button type="button" id="TooltipDemo" class="btn-open-options btn btn-warning">
-                <div class="mt-2"><h2><i class="pe-7s-shopbag"></i></h2></div>
+                <div class="mt-2">
+                    <h2><i class="pe-7s-shopbag"></i></h2>
+                </div>
             </button>
             <div class="theme-settings__inner">
                 <div class="ml-3 mr-3">
@@ -136,12 +139,12 @@ session_start();
                                 </div>
                                 <div class="col-sm-9">
                                     <div class="position-relative form-group"><select name="select" id="addr" class="form-control">
-                                        <option>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
-                                        <option>4</option>
-                                        <option>5</option>
-                                    </select></div>
+                                            <option>1</option>
+                                            <option>2</option>
+                                            <option>3</option>
+                                            <option>4</option>
+                                            <option>5</option>
+                                        </select></div>
                                 </div>
                             </div>
                             <div class="row mb-2">
@@ -167,289 +170,298 @@ session_start();
                     </form>
                 </div>
             </div>
-        </div> 
+        </div>
         <div class="app-main">
-                <div class="app-sidebar sidebar-shadow bg-vicious-stance sidebar-text-light" id="sidebar">
-                    <div class="app-header__logo">
-                        <div class="logo-src"></div>
-                        <div class="header__pane ml-auto">
-                            <div>
-                                <button type="button" class="hamburger close-sidebar-btn hamburger--elastic" data-class="closed-sidebar">
-                                    <span class="hamburger-box">
-                                        <span class="hamburger-inner"></span>
-                                    </span>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="app-header__mobile-menu">
+            <div class="app-sidebar sidebar-shadow bg-vicious-stance sidebar-text-light" id="sidebar">
+                <div class="app-header__logo">
+                    <div class="logo-src"></div>
+                    <div class="header__pane ml-auto">
                         <div>
-                            <button type="button" class="hamburger hamburger--elastic mobile-toggle-nav">
+                            <button type="button" class="hamburger close-sidebar-btn hamburger--elastic" data-class="closed-sidebar">
                                 <span class="hamburger-box">
                                     <span class="hamburger-inner"></span>
                                 </span>
                             </button>
                         </div>
                     </div>
-                    <div class="app-header__menu">
-                        <span>
-                            <button type="button" class="btn-icon btn-icon-only btn btn-primary btn-sm mobile-toggle-header-nav">
-                                <span class="btn-icon-wrapper">
-                                    <i class="fa fa-ellipsis-v fa-w-6"></i>
-                                </span>
-                            </button>
-                        </span>
-                    </div>    <div class="scrollbar-sidebar">
-                        <div class="app-sidebar__inner">
-                            <ul class="vertical-nav-menu">
-                                
+                </div>
+                <div class="app-header__mobile-menu">
+                    <div>
+                        <button type="button" class="hamburger hamburger--elastic mobile-toggle-nav">
+                            <span class="hamburger-box">
+                                <span class="hamburger-inner"></span>
+                            </span>
+                        </button>
+                    </div>
+                </div>
+                <div class="app-header__menu">
+                    <span>
+                        <button type="button" class="btn-icon btn-icon-only btn btn-primary btn-sm mobile-toggle-header-nav">
+                            <span class="btn-icon-wrapper">
+                                <i class="fa fa-ellipsis-v fa-w-6"></i>
+                            </span>
+                        </button>
+                    </span>
+                </div>
+                <div class="scrollbar-sidebar">
+                    <div class="app-sidebar__inner">
+                        <ul class="vertical-nav-menu">
+
                             <li class="app-sidebar__heading">Dashboard</li>
                             <li>
-                                    <a href="dashboard-boxes.html">
-                                        <i class="metismenu-icon pe-7s-display2"></i>
-                                        Dashboard
-                                    </a>
-                                </li>
+                                <a href="dashboard-boxes.html">
+                                    <i class="metismenu-icon pe-7s-display2"></i>
+                                    Dashboard
+                                </a>
+                            </li>
 
 
-                                <li class="app-sidebar__heading">Menu</li>
-                                <li>
-                                    <a href="products" class="mm-active">
-                                        <i class="metismenu-icon pe-7s-box2"></i>
-                                        Products
-                                    </a>
-                                </li>
-                               
-                                <li>
-                                    <a href="dashboard-boxes.html">
-                                        <i class="metismenu-icon pe-7s-box1"></i>
-                                        Stock In
-                                    </a>
-                                </li>
-                                
-                                <li>
-                                    <a href="customer">
-                                        <i class="metismenu-icon pe-7s-users"></i>
-                                        Customers
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="dashboard-boxes.html">
-                                        <i class="metismenu-icon pe-7s-note2"></i>
-                                        Saleorder
-                                    </a>
-                                </li>
-                                
-                               
-                            </ul>
-                        </div>
-                    </div>
-                </div>    <div class="app-main__outer">
-                
-  
-  
- 
-    <div id="id03" class="modal"> 
-        <div class="modal-content-del animate"> 
-            <div class="main-card card">
-                <div class="card-body "><h4></h4>
-                <span onclick="document.getElementById('id03').style.display='none'" class="close" title="Close Modal">×</span> 
-                    <div class="text-center">
-                        <div>
-                        <div class="mb-4 mt-4"><h5>Are you sure ?</h5></div>
-                        <div class="mb-4">
-                        <button type="button" class="btn btn-primary" id="delbut" name="" onclick="deleteitem(this)">YES</button>
-                        
-                        <button type="button" onclick="document.getElementById('id03').style.display='none'" class="btn btn-danger">Cancel</button>
-                        </div>
-                        </div>
+                            <li class="app-sidebar__heading">Menu</li>
+                            <li>
+                                <a href="products" class="mm-active">
+                                    <i class="metismenu-icon pe-7s-box2"></i>
+                                    Products
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="dashboard-boxes.html">
+                                    <i class="metismenu-icon pe-7s-box1"></i>
+                                    Stock In
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="customer">
+                                    <i class="metismenu-icon pe-7s-users"></i>
+                                    Customers
+                                </a>
+                            </li>
+                            <li>
+                                <a href="dashboard-boxes.html">
+                                    <i class="metismenu-icon pe-7s-note2"></i>
+                                    Saleorder
+                                </a>
+                            </li>
+
+
+                        </ul>
                     </div>
                 </div>
             </div>
-        </div> 
-    </div>
-              
-               
-    <div id="id02" class="modal" id="detailpopup"> 
-        <form class="modal-content-detail"> 
-            <div id="detailpop">
-            </div>
-        </form> 
-    </div>
+            <div class="app-main__outer">
 
- 
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="main-card mb-3 card">
-                                    <div class="card-header">
-                                    <div class="mr-3">
-                                        Products
-                                    </div>  
-                                    <div class="dropdown d-inline-block mt-2">
-                                        <button type="button" aria-haspopup="true" aria-expanded="false" data-toggle="dropdown" id="btn" class="mb-2 mr-2 dropdown-toggle btn btn-outline-secondary">Vendors</button>
-                                        <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu" id="vendor">                                            
-                                               <!-- vender -->
+
+
+
+                <div id="id03" class="modal">
+                    <div class="modal-content-del animate">
+                        <div class="main-card card">
+                            <div class="card-body ">
+                                <h4></h4>
+                                <span onclick="document.getElementById('id03').style.display='none'" class="close" title="Close Modal">×</span>
+                                <div class="text-center">
+                                    <div>
+                                        <div class="mb-4 mt-4">
+                                            <h5>Are you sure ?</h5>
                                         </div>
-                                    </div>                               
+                                        <div class="mb-4">
+                                            <button type="button" class="btn btn-primary" id="delbut" name="" onclick="deleteitem(this)">YES</button>
 
-                                    <div class="dropdown d-inline-block mt-2">
-                                        <button type="button" aria-haspopup="true" aria-expanded="false" data-toggle="dropdown" id="scalebtn" class="mb-2 mr-2 dropdown-toggle btn btn-outline-secondary">Scale</button>
-                                        <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu" id="scale">
-                                            <!-- scale -->
+                                            <button type="button" onclick="document.getElementById('id03').style.display='none'" class="btn btn-danger">Cancel</button>
                                         </div>
                                     </div>
-                                    <div class="col-md-1">
-                                        <div class="search-wrapper">
-                                            <div class="input-holder">
-                                                <input type="text" class="search-input" placeholder="Type to search" id="searchinput">
-                                                <button class="search-icon"><span></span></button>
-                                            </div>
-                                            <button class="close"></button>
-                                        </div>
-                                    </div>
-                                </div>
-                                    <div class="table-responsive">
-                                        <table class="align-middle mb-0 table table-borderless table-striped table-hover">
-                                            <thead>
-                                            <tr>
-                                                <th class="text-center">#</th>
-                                                <th >Name</th>
-                                                <th class="text-center">In Stock</th>
-                                                <th class="text-center">Price</th>
-                                                <th class="text-center"></th>
-                                            </tr>
-                                            </thead>
-                                            <tbody id="tablelist">
-                                                <!-- table -->
-                                            </tbody>
-                                        </table>
-                                    </div> 
                                 </div>
                             </div>
                         </div>
                     </div>
-                    
-                    <script src="./assets/scripts/htmlGen.js" type="text/javascript"></script>
-                    <script src="./assets/scripts/jquery-3.4.1.js" type="text/javascript"></script>
-                    <script type="text/javascript">
-                   
-                        var vendorlist = '<button id="none" type="button" onclick="venderFilter(this)" tabindex="0" class="dropdown-item">None</button>';
-                        var json = <?php echo $jsvendor; ?> ;
-                        json.forEach(function(a) {
-                            vendorlist += `<button id="${a.productVendor}" type="button" onclick="venderFilter(this)" tabindex="0" class="dropdown-item">${a.productVendor}</button>`                                                    
-                        }); 
-                        document.getElementById("vendor").innerHTML = vendorlist;
-                        function venderFilter(e){
-                            document.getElementById("btn").click();
-                            i = 0;
-                            var productVendor = e.getAttribute("id");
-                            vendorlist = "";
-                            json.forEach(function(a) {
-                                if(productVendor == "none"){
-                                    vendorlist += tableGenem(++i,a.productName,a.productLine,a.quantityInStock,a.MSRP,a.productCode);   
-                                }
-                                if(a.productVendor == productVendor){
-                                    vendorlist += tableGenem(++i,a.productName,a.productLine,a.quantityInStock,a.MSRP,a.productCode);       
-                                }
-                            });
-                            document.getElementById("tablelist").innerHTML = vendorlist;
-                        }
+                </div>
 
-                        var scalelist = '<button id="nonescale" type="button" onclick="scaleFilter(this)" tabindex="0" class="dropdown-item">None</button>';
-                        var json = <?php echo $jsscale; ?> ;
-                        json.forEach(function(a) {
-                            scalelist += `<button id="${a.productScale}" type="button" onclick="scaleFilter(this)" tabindex="0" class="dropdown-item">${a.productScale}</button>`                                                    
-                        }); 
-                        document.getElementById("scale").innerHTML = scalelist;
-                        function scaleFilter(e){
-                            document.getElementById("scalebtn").click();
-                            i = 0;
-                            var productScale = e.getAttribute("id");
-                            scalelist = "";
-                            json.forEach(function(a) {
-                                if(productScale == "nonescale"){
-                                    scalelist += tableGenem(++i,a.productName,a.productLine,a.quantityInStock,a.MSRP,a.productCode);  
-                                }
-                                if(a.productScale == productScale){
-                                    scalelist += tableGenem(++i,a.productName,a.productLine,a.quantityInStock,a.MSRP,a.productCode);      
-                                }
-                            });
-                            document.getElementById("tablelist").innerHTML = scalelist;
-                        }
-                        var json = <?php echo $jsproductlist; ?> ;
-                        
-                        function Gentable(){
-                            var tableproduct = "";
-                            var i = 0;
-                            json.forEach(function(a) {
-                                tableproduct += tableGenem(++i,a.productName,a.productLine,a.quantityInStock,a.MSRP,a.productCode);
-                            });
-                            document.getElementById("tablelist").innerHTML = tableproduct;
-                        }
-                        Gentable();
 
-                        
-                        document.querySelector('#searchinput').addEventListener('input',noti);
-                        function noti(e){
-                            var input = document.getElementById("searchinput");
-                            var filter = input.value.toUpperCase();
-                            var i = 0 ;
-                            var tableproduct = "";
-                            json.forEach(function(a) {
-                                if (((a.productName.toString()).toUpperCase()).includes(filter)){
-                                    tableproduct += tableGenem(++i,a.productName,a.productLine,a.quantityInStock,a.MSRP,a.productCode);
-                                }
-                            });
-                            document.getElementById("tablelist").innerHTML = tableproduct;
-                        }
-                        function delalert(productCode){
-                            var p = productCode.getAttribute("id");
-                            document.getElementById('id03').style.display='block';
-                            document.getElementById('delbut').setAttribute("name",p);
-                                                 
-                        }
-                        $.ajaxSetup({
-                            headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                            }
-                        });
+                <div id="id02" class="modal" id="detailpopup">
+                    <form class="modal-content-detail">
+                        <div id="detailpop">
+                        </div>
+                    </form>
+                </div>
 
-                        function deleteitem(a){
-                            var p = a.getAttribute("name");
-                            $.ajax({
-                                type: 'delete',
-                                url: '/products/'+p,
-                                success: function (data) {         
-                                    document.getElementById('id03').style.display='none';
-                                    const index = json.findIndex(x => x.productCode == p);
-                                    if (index !== undefined) json.splice(index, 1);
-                                    Gentable();
-                                }
-                            });
-                        }
 
-                        function detailpopup(products) {
-                            document.getElementById('id02').style.display='block';
-                            var productcode = products.getAttribute("id");
-                            var text = "";
-                            json.forEach(function(a) {
-                                if(a.productCode == productcode){
-                                    text = detailPopupGen(a.productCode,a.productName,a.productScale,a.productVendor,a.quantityInStock,a.MSRP,a.productLine,a.productDescription);
-                                }
-                            });
-                            document.getElementById("detailpop").innerHTML = text;
-                        }
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="main-card mb-3 card">
+                            <div class="card-header">
+                                <div class="mr-3">
+                                    Products
+                                </div>
+                                <div class="dropdown d-inline-block mt-2">
+                                    <button type="button" aria-haspopup="true" aria-expanded="false" data-toggle="dropdown" id="btn" class="mb-2 mr-2 dropdown-toggle btn btn-outline-secondary">Vendors</button>
+                                    <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu" id="vendor">
+                                        <!-- vender -->
+                                    </div>
+                                </div>
 
-                        function cartadd(productCode){
-                            
+                                <div class="dropdown d-inline-block mt-2">
+                                    <button type="button" aria-haspopup="true" aria-expanded="false" data-toggle="dropdown" id="scalebtn" class="mb-2 mr-2 dropdown-toggle btn btn-outline-secondary">Scale</button>
+                                    <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu" id="scale">
+                                        <!-- scale -->
+                                    </div>
+                                </div>
+                                <div class="col-md-1">
+                                    <div class="search-wrapper">
+                                        <div class="input-holder">
+                                            <input type="text" class="search-input" placeholder="Type to search" id="searchinput">
+                                            <button class="search-icon"><span></span></button>
+                                        </div>
+                                        <button class="close"></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="align-middle mb-0 table table-borderless table-striped table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center">#</th>
+                                            <th>Name</th>
+                                            <th class="text-center">In Stock</th>
+                                            <th class="text-center">Price</th>
+                                            <th class="text-center"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tablelist">
+                                        <!-- table -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <script src="./assets/scripts/htmlGen.js" type="text/javascript"></script>
+            <script src="./assets/scripts/jquery-3.4.1.js" type="text/javascript"></script>
+            <script type="text/javascript">
+                var vendorlist = '<button id="none" type="button" onclick="venderFilter(this)" tabindex="0" class="dropdown-item">None</button>';
+                var json = <?php echo $jsvendor; ?>;
+                json.forEach(function(a) {
+                    vendorlist += `<button id="${a.productVendor}" type="button" onclick="venderFilter(this)" tabindex="0" class="dropdown-item">${a.productVendor}</button>`
+                });
+                document.getElementById("vendor").innerHTML = vendorlist;
+
+                function venderFilter(e) {
+                    document.getElementById("btn").click();
+                    i = 0;
+                    var productVendor = e.getAttribute("id");
+                    vendorlist = "";
+                    json.forEach(function(a) {
+                        if (productVendor == "none") {
+                            vendorlist += tableGenem(++i, a.productName, a.productLine, a.quantityInStock, a.MSRP, a.productCode);
                         }
-                                            
-                    </script>
-                    
-                                               
-                                            
-                <script src="http://maps.google.com/maps/api/js?sensor=true"></script>
+                        if (a.productVendor == productVendor) {
+                            vendorlist += tableGenem(++i, a.productName, a.productLine, a.quantityInStock, a.MSRP, a.productCode);
+                        }
+                    });
+                    document.getElementById("tablelist").innerHTML = vendorlist;
+                }
+
+                var scalelist = '<button id="nonescale" type="button" onclick="scaleFilter(this)" tabindex="0" class="dropdown-item">None</button>';
+                var json = <?php echo $jsscale; ?>;
+                json.forEach(function(a) {
+                    scalelist += `<button id="${a.productScale}" type="button" onclick="scaleFilter(this)" tabindex="0" class="dropdown-item">${a.productScale}</button>`
+                });
+                document.getElementById("scale").innerHTML = scalelist;
+
+                function scaleFilter(e) {
+                    document.getElementById("scalebtn").click();
+                    i = 0;
+                    var productScale = e.getAttribute("id");
+                    scalelist = "";
+                    json.forEach(function(a) {
+                        if (productScale == "nonescale") {
+                            scalelist += tableGenem(++i, a.productName, a.productLine, a.quantityInStock, a.MSRP, a.productCode);
+                        }
+                        if (a.productScale == productScale) {
+                            scalelist += tableGenem(++i, a.productName, a.productLine, a.quantityInStock, a.MSRP, a.productCode);
+                        }
+                    });
+                    document.getElementById("tablelist").innerHTML = scalelist;
+                }
+                var json = <?php echo $jsproductlist; ?>;
+
+                function Gentable() {
+                    var tableproduct = "";
+                    var i = 0;
+                    json.forEach(function(a) {
+                        tableproduct += tableGenem(++i, a.productName, a.productLine, a.quantityInStock, a.MSRP, a.productCode);
+                    });
+                    document.getElementById("tablelist").innerHTML = tableproduct;
+                }
+                Gentable();
+
+
+                document.querySelector('#searchinput').addEventListener('input', noti);
+
+                function noti(e) {
+                    var input = document.getElementById("searchinput");
+                    var filter = input.value.toUpperCase();
+                    var i = 0;
+                    var tableproduct = "";
+                    json.forEach(function(a) {
+                        if (((a.productName.toString()).toUpperCase()).includes(filter)) {
+                            tableproduct += tableGenem(++i, a.productName, a.productLine, a.quantityInStock, a.MSRP, a.productCode);
+                        }
+                    });
+                    document.getElementById("tablelist").innerHTML = tableproduct;
+                }
+
+                function delalert(productCode) {
+                    var p = productCode.getAttribute("id");
+                    document.getElementById('id03').style.display = 'block';
+                    document.getElementById('delbut').setAttribute("name", p);
+
+                }
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+
+                function deleteitem(a) {
+                    var p = a.getAttribute("name");
+                    $.ajax({
+                        type: 'delete',
+                        url: '/products/' + p,
+                        success: function(data) {
+                            document.getElementById('id03').style.display = 'none';
+                            const index = json.findIndex(x => x.productCode == p);
+                            if (index !== undefined) json.splice(index, 1);
+                            Gentable();
+                        }
+                    });
+                }
+
+                function detailpopup(products) {
+                    document.getElementById('id02').style.display = 'block';
+                    var productcode = products.getAttribute("id");
+                    var text = "";
+                    json.forEach(function(a) {
+                        if (a.productCode == productcode) {
+                            text = detailPopupGen(a.productCode, a.productName, a.productScale, a.productVendor, a.quantityInStock, a.MSRP, a.productLine, a.productDescription);
+                        }
+                    });
+                    document.getElementById("detailpop").innerHTML = text;
+                }
+
+                function cartadd(productCode) {
+
+                }
+            </script>
+
+
+
+            <script src="http://maps.google.com/maps/api/js?sensor=true"></script>
         </div>
     </div>
-<script type="text/javascript" src="../assets/scripts/main.js"></script></body>
+    <script type="text/javascript" src="../assets/scripts/main.js"></script>
+</body>
+
 </html>

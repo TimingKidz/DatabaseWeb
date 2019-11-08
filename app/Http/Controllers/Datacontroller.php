@@ -30,10 +30,16 @@ class DataController extends Controller
 
     public function customerdetail($id)
     {
-        $data = DB::select("select * from customers where customerNumber = '$id'");
-        $jscustomerdetail = json_encode($data);
-        return view('customerdetail',['jscustomerdetail' => $jscustomerdetail]);
+        return view('customerdetail',['id' => $id]);
     }
+
+    public function customerdetail_id($id){
+        $data = DB::select("select * from customers join customerAddress using(customerNumber) where customerNumber = '$id'");
+        $jscustomerdetail = json_encode($data);
+        return $jscustomerdetail;
+    }
+
+    
     public function indexem()
     {
         $data = DB::select('select * from products');
@@ -77,5 +83,20 @@ class DataController extends Controller
         return redirect('/');
     }
 
+    public function addMulAddr(Request $request){
+        DB::insert("insert into customerAddress (addressLine1,addressLine2,city,state,postalCode,country,customerNumber) 
+        values ('$request->addressLine1','$request->addressLine2','$request->city','$request->state','$request->postalCode','$request->country','$request->customerNumber')");
+        
+    }
+
+    public function updateMulAddr(Request $request){
+        DB::update("update customerAddress set addressLine1 = '$request->addressLine1', 
+        addressLine2 = '$request->addressLine2', city = '$request->city', state = '$request->state', 
+        postalCode = '$request->postalCode', country = '$request->country' where customerNumber = $request->customerNumber and mapNumber = $request->mapNumber");
+    }
+
+    public function deleteMulAddr($map){
+        DB::delete("delete from customerAddress where mapNumber = $map");
+    }
     
 }

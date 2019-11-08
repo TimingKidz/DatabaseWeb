@@ -55,16 +55,16 @@ session_start();
                    
             <div class="app-main__inner">
                 <div id="id01" class="modal"> 
-                    <form class="modal-content animate" action="/login" method="post">
+                    <form class="modal-content animate" action="/login" method="post" id="loginform"> 
                         <div class="main-card card">
                             <div class="card-body"><h5 class="card-title"><i class="metismenu-icon pe-7s-lock">  LOGIN</i></h5>
                             <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">×</span> 
                                     <form class="">
                                     {{ csrf_field() }}
                                         <div class="position-relative form-group"><label for="Username" class="">E-mail</label><input name="email"  placeholder="Enter Email ...." type="email" class="form-control"></div>
-                                        <div class="position-relative form-group"><label for="Password" class="">Password</label><input name="password"  placeholder="Enter Password ...." type="password" class="form-control"></div>
+                                        <div class="position-relative form-group"><label for="Password" class="">Password</label><input name="password" id="pass" placeholder="Enter Password ...." type="password" class="form-control"></div>
                                         <div class="text-right">
-                                        <button class="mt-0 btn btn-dark">Login</button>
+                                        <button class="mt-0 btn btn-dark" onclick="login()" type="button">Login</button>
                                         </div>
                                     </form>
                             </div>
@@ -150,8 +150,11 @@ session_start();
                         </div>
                     </div>
                     <div id="demo"></div>
-                 
-                    <script src="./assets/scripts/htmlGen.js" type="text/javascript"></script>
+                    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/components/core.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/md5.js"></script>
+
+                    <script src="../assets/scripts/htmlGen.js" type="text/javascript"></script>
                     <script type="text/javascript"> 
                     
                         var vendorlist = '<button id="none" type="button" onclick="venderFilter(this)" tabindex="0" class="dropdown-item">None</button>';
@@ -177,6 +180,7 @@ session_start();
                             document.getElementById("tablelist").innerHTML = vendorlist;
                         }
 
+                        
                         var i = 0;
                         var scalelist = '<button id="nonescale" type="button" onclick="scaleFilter(this)" tabindex="0" class="dropdown-item">None</button>';
                         json = <?php echo $jsscale; ?> ;
@@ -231,6 +235,11 @@ session_start();
                             }
                         });
                         document.getElementById("detailpop").innerHTML = text;
+                        }
+                        function login(){
+                            var md =  CryptoJS.MD5(document.getElementById("pass").value);
+                            document.getElementById("pass").value = md.toString();
+                            document.getElementById("loginform").submit();
                         }
                     </script>                          
                 <script src="http://maps.google.com/maps/api/js?sensor=true"></script>

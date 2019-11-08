@@ -49,7 +49,60 @@ function tablecustomer(customerNumber, customerName, city, country, postalCode, 
         </tr>`
 }
 
-function tableGenem(i, col1, col2, col3, col4, code) {
+function tableERM(a,b,c,e,f,g,h,op)
+{
+   
+        return ` 
+        <tr>
+                <td class="text-center text-muted"> ${a}</td>
+                <td>
+                    <div class="widget-content p-0">
+                        <div class="widget-content-wrapper">
+                            
+                            <div class="widget-content-left flex2">
+                                <div class="widget-heading">${b} ${c}</div>
+                                <div class="widget-subheading opacity-7">Office : ${g} ${h}</div>
+                            </div>
+                        </div>
+                </td>
+                    <td class="text-center">${e}</td>
+                    <td class="text-center">${f}</td>                                                                
+                    <td class="text-center">
+                    
+                    <button class="btn btn-success btn-sm"  id="${a}" onclick="popup(this)"><i class="pe-7s-angle-up"></i></button>
+                    
+                    <button class="btn btn-danger btn-sm"  id="${a}" onclick="downn(this)"><i class="pe-7s-angle-down"></i></button>
+                    </td>
+            </tr>`
+ 
+   
+}
+
+function tablesale(a,b,c,d,e,f){
+    return ` 
+    <tr>
+            <td class="text-center text-muted"> ${a}</td>
+            <td>
+                <div class="widget-content p-0">
+                    <div class="widget-content-wrapper">
+                        
+                        <div class="widget-content-left flex2">
+                            <div class="widget-heading">${b}</div>
+                        </div>
+                    </div>
+            </td>
+                <td class="text-center">${c}</td>
+                <td class="text-center">${d}</td>
+                <td class="text-center">${e}</td>    
+                <td class="text-center">${f}</td>                                                                  
+                <td class="text-center">
+                <a href="saleorder/${a}"><button id="${a}" class="btn btn-primary btn-sm">Detail</button></a>
+                <button class="btn btn-success btn-sm"  id="${a}" onclick="update(this)">Edit</button>
+                </td>
+        </tr>`
+}
+
+function tableGenem(i,col1,col2,col3,col4,code){
     return ` <tr>
     <td class="text-center text-muted"> ${i}</td>
     <td>

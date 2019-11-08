@@ -26,6 +26,26 @@ Route::group(['middleware' => 'checkuser'],function(){
     Route::get('/products','DataController@indexem');
     Route::get('/customer','DataController@customer');
     Route::get('/customer/{id}','DataController@customerdetail');
+    Route::group(['middleware' => 'checkauth'],function(){
+        Route::get('/ERM','DataController@erm');
+        Route::get('/ermReq','DataController@ermReq');
+    
+    });
+    Route::group(['middleware' => 'checkauthsale'],function(){
+       
+    
+    });
+    Route::delete('/products/{code}','DataController@deletepro');
+    Route::delete('/customers/{code}','DataController@deletecus');
+   
+    Route::post('/logout','DataController@logout');
+    Route::post('/customers','DataController@addcus');
+    Route::put('/updateorder','DataController@updateorder');
+    Route::get('/getcus','DataController@getcustomer');
+    Route::get('/saleorder','DataController@orders');
+    Route::get('/saleorderreq','DataController@saleorder');
+    Route::get('/saleorder/{id}','DataController@saleorderdetail');
+
     Route::get('/stockin','DataController@stockin');
 
 });
@@ -33,8 +53,6 @@ Route::group(['middleware' => 'guest'],function(){
     Route::get('/','DataController@index');
 });
 
-// Route::get('/','DataController@index');
-Route::delete('/products/{code}','DataController@deletepro');
 Route::post('/login','DataController@login');
 Route::post('/logout','DataController@logout');
 Route::post('/customerAddr','DataController@addMulAddr');
@@ -42,6 +60,10 @@ Route::put('/customerAddrupdate','DataController@updateMulAddr');
 Route::post('/customerAddrdelete/{map}','DataController@deleteMulAddr');
 Route::get('/getcus','DataController@cus');
 Route::post('/customer/{id}','DataController@customerdetail_id');
+Route::get('/getpass','DataController@passGen');
+
+Route::put('/employees','DataController@updateerm');
+// Route::get('/','DataController@index');
 
 
 

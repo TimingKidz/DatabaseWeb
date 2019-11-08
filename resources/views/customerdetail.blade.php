@@ -77,11 +77,7 @@ session_start();
                                     </div>
                                     <div class="widget-subheading">
                                         <?php
-                                        if (session('status') == "1") {
-                                            echo "Employee";
-                                        } else {
-                                            echo "Admin";
-                                        }
+                                            echo session('status');
                                         ?>
                                     </div>
                                 </div>
@@ -149,43 +145,57 @@ session_start();
 
                             <li class="app-sidebar__heading">Dashboard</li>
                             <li>
-                                <a href="../dashboard-boxes.html">
-                                    <i class="metismenu-icon pe-7s-display2"></i>
-                                    Dashboard
-                                </a>
-                            </li>
+                                    <a href="dashboard-boxes.html">
+                                        <i class="metismenu-icon pe-7s-display2"></i>
+                                        Dashboard
+                                    </a>
+                                </li>
 
 
-                            <li class="app-sidebar__heading">Menu</li>
-                            <li>
-                                <a href="../products">
-                                    <i class="metismenu-icon pe-7s-box2"></i>
-                                    Products
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="../dashboard-boxes.html">
-                                    <i class="metismenu-icon pe-7s-box1"></i>
-                                    Stock In
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="../customer" class="mm-active">
-                                    <i class="metismenu-icon pe-7s-users"></i>
-                                    Customers
-                                </a>
-                            </li>
-                            <li>
-                                <a href="../dashboard-boxes.html">
-                                    <i class="metismenu-icon pe-7s-note2"></i>
-                                    Saleorder
-                                </a>
-                            </li>
-
-
-                        </ul>
+                                <li class="app-sidebar__heading">Menu</li>
+                                <li>
+                                    <a href="../products">
+                                        <i class="metismenu-icon pe-7s-box2"></i>
+                                        Products
+                                    </a>
+                                </li>
+                               
+                                <?php
+                                if(strpos(session('status'),'Sale') !== false){
+                                    echo '<li>
+                                    <a href="/dashboard-boxes.html">
+                                        <i class="metismenu-icon pe-7s-box1"></i>
+                                        Stock In
+                                    </a>
+                                </li>';
+                                }
+                                ?>
+                                
+                                <li>
+                                    <a href="../customer" class="mm-active">
+                                        <i class="metismenu-icon pe-7s-users"></i>
+                                        Customers
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="../saleorder">
+                                        <i class="metismenu-icon pe-7s-note2"></i>
+                                        Saleorder
+                                    </a>
+                                </li>
+                                <?php
+                                        if(session('status') != "Sales Rep"){
+                                        echo '<li>
+                                            <a href="../ERM">
+                                                <i class="metismenu-icon pe-7s-note2"></i>
+                                            ERM
+                                            </a>
+                                        </li>';
+                                        }
+                                ?>
+                               
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>

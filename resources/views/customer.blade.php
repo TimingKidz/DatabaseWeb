@@ -115,7 +115,7 @@ session_start();
                 <div class="main-card pre-scroll">
                     <div class="scrollbar-container ps--active-y">
                                     <div class="card-body"><h5 class="card-title">Customer</h5>                                    
-                                        <form class="">                                        
+                                                                         
                                             <div class="form-row">
                                                 
                                                 <div class="col-md-7">
@@ -401,7 +401,7 @@ session_start();
                         
                         function addcustomer(){
                            console.log("helo");
-                            var customer =  { "customerNumber": document.getElementById("A1").value.toString(), 
+                            var customer =  { 
                                              "customerName": document.getElementById("A2").value.toString(),
                                              "contactLastName":document.getElementById("A4").value.toString(),
                                              "contactFirstName": document.getElementById("A3").value.toString(),

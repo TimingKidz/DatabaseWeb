@@ -191,7 +191,7 @@ class DataController extends Controller
 
     public function getcustomer()
     {
-        $data = DB::select('select * from customers join customerAddress using(customerNumber)');
+        $data = DB::select('select c.customerNumber,c.customerName,c.contactFirstName,c.contactLastName,c.phone,a.addressLine1,a.addressLine2,a.city,a.state,a.country,a.postalCode from customers as c join customerAddress as a using(customerNumber) GROUP by c.customerNumber');
         return json_encode($data);
     }
     public function stockin()
@@ -286,10 +286,12 @@ class DataController extends Controller
         try
         {
             $code = $request->session()->get('code');
-            $data = DB::insert("insert into customers (customerNumber,customerName,contactLastName,contactFirstName,phone,salesRepEmployeeNumber,creditLimit) 
-            values ('$request->customerNumber', '$request->customerName', '$request->contactLastName', '$request->contactFirstName', '$request->phone', '$code','$request->creditLimit');");
-            $data = DB::insert("insert into customerAddress (addressLine1,addressLine2,city,state,postalCode,country,CustomerNumber) 
-            values ($request->line1','$request->line2','$request->city','$request->state','$request->postalCode','$request->country','$request->customerNumber')");
+            DB::insert("insert into customers (customerName,contactLastName,contactFirstName,phone,salesRepEmployeeNumber,creditLimit) 
+            values ( '$request->customerName', '$request->contactLastName', '$request->contactFirstName', '$request->phone', '$code','$request->creditLimit');");
+            $data = DB::select("select * from sqlite_sequence where name = 'customers'");
+            $no = $data[0]->seq;
+            DB::insert("insert into customerAddress (addressLine1,addressLine2,city,state,postalCode,country,CustomerNumber) 
+            values ('$request->line1','$request->line2','$request->city','$request->state','$request->postalCode','$request->country','$no');");
         }
         catch(Exception $e)
         {

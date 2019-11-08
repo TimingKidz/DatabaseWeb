@@ -218,7 +218,7 @@ session_start();
                                     </div>  
                                   
                                 </div>
-                                    <?php echo $jscustomerdetail ?>
+                                    <?php echo $jsorder ?>
                                 </div>
                             </div>
                         </div>

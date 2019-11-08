@@ -3,23 +3,24 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Illuminate\Support\Facades\Auth;
 
-class RedirectIfAuthenticated
+class Checkauthensale
 {
     /**
      * Handle an incoming request.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure  $next
-     * @param  string|null  $guard
      * @return mixed
      */
-    public function handle($request, Closure $next, $guard = null)
+    public function handle($request, Closure $next)
     {
-        if($request->session()->get('status') != null){
+        
+        if(strpos($request->session()->get('status'),'Sale') !== false){
             return redirect('/products');
         }
-        return $next($request);
+       
+    
+    return $next($request);
     }
 }

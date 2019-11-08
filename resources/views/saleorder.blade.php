@@ -76,7 +76,8 @@ session_start();
                                     </div>
                                     <div class="widget-subheading">
                                         <?php
-                                            echo session('status');
+                                        echo session('status');
+                                           
                                         ?>
                                     </div>
                                 </div>
@@ -105,67 +106,10 @@ session_start();
                     </div>        
                 </div>
             </div>
-        </div>    
-        <div class="ui-theme-settings">
-            <button type="button" id="TooltipDemo" class="btn-open-options btn btn-warning">
-                <div class="mt-2"><h2><i class="pe-7s-shopbag"></i></h2></div>
-            </button>
-            <div class="theme-settings__inner">
-                <div class="ml-3 mr-3">
-                    <h5 class="card-title pt-3">Cart</h5>
-                    <form class="">
-                        <div class="scrollbar-container ps--active-y">
-                            <!-- product -->
-                        </div>
-                        <div class="ml-3 mr-3 mb-4 fixed-bottom">
-                            <div class="row">
-                                <div class="col-sm-3">
-                                    <h6 class="pt-2">Customer :</h6>
-                                </div>
-                                <div class="col-sm-9">
-                                    <div class="position-relative form-group"><input name="" id="customernumber" placeholder="insert customer number" type="" class="form-control"></div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-3">
-                                    <h6 class="pt-2">Address :</h6>
-                                </div>
-                                <div class="col-sm-9">
-                                    <div class="position-relative form-group"><select name="select" id="addr" class="form-control">
-                                        <option>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
-                                        <option>4</option>
-                                        <option>5</option>
-                                    </select></div>
-                                </div>
-                            </div>
-                            <div class="row mb-2">
-                                <div class="col-sm-3">
-                                    <h6 class="pt-2">Discount :</h6>
-                                </div>
-                                <div class="col-sm-9">
-                                    <div class="position-relative form-group"><input name="" id="discount" placeholder="insert discount code" type="" class="form-control"></div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-3">
-                                    <h6 class="card-title pt-1">Total</h6>
-                                </div>
-                                <div class="col-sm-6">
-                                    <h4 class="">$0.00</h4>
-                                </div>
-                                <div class="col-sm-3">
-                                    <button class="pull-right mt-1 btn btn-warning">Check out</button>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div> 
+        </div>        
+        
         <div class="app-main">
-                <div class="app-sidebar sidebar-shadow bg-vicious-stance sidebar-text-light" id="sidebar">
+        <div class="app-sidebar sidebar-shadow bg-vicious-stance sidebar-text-light" id="sidebar">
                     <div class="app-header__logo">
                         <div class="logo-src"></div>
                         <div class="header__pane ml-auto">
@@ -211,11 +155,10 @@ session_start();
                                 <li class="app-sidebar__heading">Menu</li>
                                 <li>
                                     <a href="../products" class="mm-active">
-                                        <i class="metismenu-icon pe-7s-box2"></i>
+                                        <i class="metismenu-icon pe-7s-display2"></i>
                                         Products
                                     </a>
                                 </li>
-                               
                                 <?php
                                 if(strpos(session('status'),'Sale') !== false){
                                     echo '<li>
@@ -227,16 +170,16 @@ session_start();
                                 }
                                 ?>
                                 
+                                
                                 <li>
                                     <a href="../customer">
-                                        <i class="metismenu-icon pe-7s-users"></i>
+                                        <i class="metismenu-icon pe-7s-display2"></i>
                                         Customers
                                     </a>
                                 </li>
-
                                 <li>
                                     <a href="../saleorder">
-                                        <i class="metismenu-icon pe-7s-note2"></i>
+                                        <i class="metismenu-icon pe-7s-display2"></i>
                                         Saleorder
                                     </a>
                                 </li>
@@ -257,7 +200,43 @@ session_start();
                     </div>
                 </div>    <div class="app-main__outer">
                 
-  
+     
+    <div id="id04" class="modal"> 
+        <div class="modal-content animate"> 
+            <div class="main-card card">
+                <div class="card-body "><h4></h4>
+                <span onclick="document.getElementById('id04').style.display='none'" class="close" title="Close Modal">×</span> 
+                    <div class="">
+                    <div class="main-card">
+                                    <div class="card-body"><h5 class="card-title">EDIT</h5>
+                                            <div class="form-row">
+                                                <div class="col-md-5">
+                                                <div class="position-relative form-group"><label for="exampleEmail11" class="">Status</label> 
+                                                <select name="select" id="select" class="form-control">
+                                                    
+                                                    
+                                                </select>
+                                                </div>
+                                               
+                                                </div>
+                                                <div class="col-md-7">
+                                                    <div class="position-relative form-group" id="dateup"></div>
+                                                </div>
+                                                
+                                            </div>
+                                            <div class="form-row">
+                                             <div class="col-md-12 text-right">
+                        <button type="button" onclick="sendupdate()" class="btn btn-success">Update</button>
+                                    </div>
+                                    </div>
+                                            
+                                    </div>
+                                </div>
+                    </div>
+                </div>
+            </div>
+        </div> 
+    </div>
   
  
     <div id="id03" class="modal"> 
@@ -280,35 +259,17 @@ session_start();
         </div> 
     </div>
               
-               
-    <div id="id02" class="modal" id="detailpopup"> 
-        <form class="modal-content-detail"> 
-            <div id="detailpop">
-            </div>
-        </form> 
-    </div>
+ 
 
  
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="main-card mb-3 card">
                                     <div class="card-header">
-                                    <div class="mr-3">
-                                        Products
+                                    <div class="mr-2">
+                                        Customers
                                     </div>  
-                                    <div class="dropdown d-inline-block mt-2">
-                                        <button type="button" aria-haspopup="true" aria-expanded="false" data-toggle="dropdown" id="btn" class="mb-2 mr-2 dropdown-toggle btn btn-outline-secondary">Vendors</button>
-                                        <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu" id="vendor">                                            
-                                               <!-- vender -->
-                                        </div>
-                                    </div>                               
-
-                                    <div class="dropdown d-inline-block mt-2">
-                                        <button type="button" aria-haspopup="true" aria-expanded="false" data-toggle="dropdown" id="scalebtn" class="mb-2 mr-2 dropdown-toggle btn btn-outline-secondary">Scale</button>
-                                        <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu" id="scale">
-                                            <!-- scale -->
-                                        </div>
-                                    </div>
+                                    
                                     <div class="col-md-1">
                                         <div class="search-wrapper">
                                             <div class="input-holder">
@@ -323,77 +284,52 @@ session_start();
                                         <table class="align-middle mb-0 table table-borderless table-striped table-hover">
                                             <thead>
                                             <tr>
-                                                <th class="text-center">#</th>
-                                                <th >Name</th>
-                                                <th class="text-center">In Stock</th>
-                                                <th class="text-center">Price</th>
-                                                <th class="text-center"></th>
+                                                <th class="text-center">Order NO.</th>
+                                                <th >Customer Name</th>
+                                                <th class="text-center">Order Date</th>
+                                                <th class="text-center">Required Date</th>
+                                                <th class="text-center">Shipped Date</th>
+                                                <th class="text-center">Status</th>
                                             </tr>
                                             </thead>
                                             <tbody id="tablelist">
                                                 <!-- table -->
                                             </tbody>
                                         </table>
-                                    </div> 
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <div id="ddd">
+                        
+                    </div>
                     
-                    <script src="./assets/scripts/htmlGen.js" type="text/javascript"></script>
-                    <script src="./assets/scripts/jquery-3.4.1.js" type="text/javascript"></script>
+                    <script src="../assets/scripts/htmlGen.js" type="text/javascript"></script>
+                    <script src="../assets/scripts/jquery-3.4.1.js" type="text/javascript"></script>
                     <script type="text/javascript">
-                   
-                        var vendorlist = '<button id="none" type="button" onclick="venderFilter(this)" tabindex="0" class="dropdown-item">None</button>';
-                        var json = <?php echo $jsvendor; ?> ;
-                        json.forEach(function(a) {
-                            vendorlist += `<button id="${a.productVendor}" type="button" onclick="venderFilter(this)" tabindex="0" class="dropdown-item">${a.productVendor}</button>`                                                    
-                        }); 
-                        document.getElementById("vendor").innerHTML = vendorlist;
-                        function venderFilter(e){
-                            document.getElementById("btn").click();
-                            i = 0;
-                            var productVendor = e.getAttribute("id");
-                            vendorlist = "";
-                            json.forEach(function(a) {
-                                if(productVendor == "none"){
-                                    vendorlist += tableGenem(++i,a.productName,a.productLine,a.quantityInStock,a.MSRP,a.productCode);   
-                                }
-                                if(a.productVendor == productVendor){
-                                    vendorlist += tableGenem(++i,a.productName,a.productLine,a.quantityInStock,a.MSRP,a.productCode);       
-                                }
+                        
+                        var json = 0;
+                        function getorders(){
+                            var data = 0;
+                            $.ajax({
+                                type: "get",
+                                url: "/saleorderreq",
+                                success: function(response){
+                                    data = response;
+                                },
+                                async: false,
                             });
-                            document.getElementById("tablelist").innerHTML = vendorlist;
+                            return JSON.parse(data);
                         }
 
-                        var scalelist = '<button id="nonescale" type="button" onclick="scaleFilter(this)" tabindex="0" class="dropdown-item">None</button>';
-                        var json = <?php echo $jsscale; ?> ;
-                        json.forEach(function(a) {
-                            scalelist += `<button id="${a.productScale}" type="button" onclick="scaleFilter(this)" tabindex="0" class="dropdown-item">${a.productScale}</button>`                                                    
-                        }); 
-                        document.getElementById("scale").innerHTML = scalelist;
-                        function scaleFilter(e){
-                            document.getElementById("scalebtn").click();
-                            i = 0;
-                            var productScale = e.getAttribute("id");
-                            scalelist = "";
-                            json.forEach(function(a) {
-                                if(productScale == "nonescale"){
-                                    scalelist += tableGenem(++i,a.productName,a.productLine,a.quantityInStock,a.MSRP,a.productCode);  
-                                }
-                                if(a.productScale == productScale){
-                                    scalelist += tableGenem(++i,a.productName,a.productLine,a.quantityInStock,a.MSRP,a.productCode);      
-                                }
-                            });
-                            document.getElementById("tablelist").innerHTML = scalelist;
-                        }
-                        var json = <?php echo $jsproductlist; ?> ;
                         
                         function Gentable(){
+                            json = getorders();
                             var tableproduct = "";
                             var i = 0;
                             json.forEach(function(a) {
-                                tableproduct += tableGenem(++i,a.productName,a.productLine,a.quantityInStock,a.MSRP,a.productCode);
+                                tableproduct += tablesale(a.orderNumber,a.customerName,a.orderDate,a.requiredDate,a.shippedDate,a.status);
                             });
                             document.getElementById("tablelist").innerHTML = tableproduct;
                         }
@@ -407,8 +343,8 @@ session_start();
                             var i = 0 ;
                             var tableproduct = "";
                             json.forEach(function(a) {
-                                if (((a.productName.toString()).toUpperCase()).includes(filter)){
-                                    tableproduct += tableGenem(++i,a.productName,a.productLine,a.quantityInStock,a.MSRP,a.productCode);
+                                if (((a.customerName.toString()).toUpperCase()).includes(filter)){
+                                    tableproduct += tablesale(a.orderNumber,a.customerName,a.orderDate,a.requiredDate,a.shippedDate,a.status);
                                 }
                             });
                             document.getElementById("tablelist").innerHTML = tableproduct;
@@ -417,7 +353,6 @@ session_start();
                             var p = productCode.getAttribute("id");
                             document.getElementById('id03').style.display='block';
                             document.getElementById('delbut').setAttribute("name",p);
-                                                 
                         }
                         $.ajaxSetup({
                             headers: {
@@ -429,32 +364,57 @@ session_start();
                             var p = a.getAttribute("name");
                             $.ajax({
                                 type: 'delete',
-                                url: '/products/'+p,
+                                url: '/customers/'+p,
                                 success: function (data) {         
                                     document.getElementById('id03').style.display='none';
-                                    const index = json.findIndex(x => x.productCode == p);
-                                    if (index !== undefined) json.splice(index, 1);
                                     Gentable();
                                 }
                             });
-                        }
-
-                        function detailpopup(products) {
-                            document.getElementById('id02').style.display='block';
-                            var productcode = products.getAttribute("id");
-                            var text = "";
+                        }        
+                        var order = 0;
+                        function update(a){
+                            var orederNumber = a.getAttribute("id");
+                            document.getElementById('id04').style.display='block';  
+                            document.getElementById("select").innerHTML = `
+                                                        <option id="Cancelled">Cancelled</option>
+                                                        <option id="Disputed">Disputed</option>
+                                                        <option id="In Process">In Process</option>
+                                                        <option id="On Hold">On Hold</option>
+                                                        <option id="Resolved">Resolved</option>
+                                                        <option id="Shipped">Shipped</option>` ;         
+                                      
                             json.forEach(function(a) {
-                                if(a.productCode == productcode){
-                                    text = detailPopupGen(a.productCode,a.productName,a.productScale,a.productVendor,a.quantityInStock,a.MSRP,a.productLine,a.productDescription);
+                                if(a.orderNumber == orederNumber){
+                                    order = a;
                                 }
                             });
-                            document.getElementById("detailpop").innerHTML = text;
+                            document.getElementById(`${order.status}`).setAttribute("selected", "selected");
+                            var date = order.shippedDate.split("-");
+                            document.getElementById("dateup").innerHTML = `<label for="exampleEmail11" class="">Shipped Date</label><input id="dateship" placeholder="Customer Name" type="date" class="form-control" value="${date[0]}-${date[1]}-${date[2]}">`
+                           
                         }
 
-                        function cartadd(productCode){
-                            
+                        function sendupdate(){
+                            document.getElementById('id04').style.display='none';  
+                            var update =  { "date": document.getElementById("dateship").value.toString(), 
+                                             "status": document.getElementById("select").value.toString(),
+                                             "orderNumber": order.orderNumber.toString()
+                                             };
+                            $.ajax({
+                                type: "put",
+                                url: "/updateorder",
+                                data: update,
+                                success: function(response){
+                                    Gentable();
+                                },
+                                error: function (error) {
+                                    console.log(error);
+                                 alert(error.responseText);
+                                
+                            }
+
+                            });
                         }
-                                            
                     </script>
                     
                                                

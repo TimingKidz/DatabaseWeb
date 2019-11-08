@@ -76,11 +76,8 @@ session_start();
                                     </div>
                                     <div class="widget-subheading">
                                         <?php
-                                        if(session('status')=="1"){
-                                            echo "Employee";
-                                        }else{
-                                            echo "Admin";
-                                        }
+                                        echo session('status');
+                                           
                                         ?>
                                     </div>
                                 </div>
@@ -117,60 +114,59 @@ session_start();
             <div class="theme-settings__inner">
             <div class="main-card">
                                     <div class="card-body"><h5 class="card-title">Customer</h5>
-                                        <form class="">
+                                        
                                             
                                             <div class="form-row">
-                                                <div class="col-md-2">
-                                                    <div class="position-relative form-group"><label for="exampleEmail11" class="">Number</label><input name="email" id="exampleEmail11" placeholder="NO." type="email" class="form-control"></div>
+                                                
+                                                <div class="col-md-7">
+                                                    <div class="position-relative form-group"><label for="exampleEmail11" class="">Name</label><input id="A2" placeholder="Customer Name" type="text" class="form-control"></div>
                                                 </div>
-                                                <div class="col-md-10">
-                                                    <div class="position-relative form-group"><label for="exampleEmail11" class="">Name</label><input name="email" id="exampleEmail11" placeholder="Customer Name" type="email" class="form-control"></div>
+                                                <div class="col-md-5">
+                                                    <div class="position-relative form-group"><label for="exampleState" class="">Credit Limit</label><input name="state" placeholder="Credit" id="A12" type="text" class="form-control"></div>
                                                 </div>
                                             </div>
                                             <h5 class="card-title">Contact</h5>
                                             <div class="form-row">
                                                 <div class="col-md-6">
-                                                    <div class="position-relative form-group"><label for="exampleEmail11" class="">Firstname</label><input name="email" id="exampleEmail11" placeholder="Firstname" type="email" class="form-control"></div>
+                                                    <div class="position-relative form-group"><label for="exampleEmail11" class="">Firstname</label><input name="firstname" id="A3" placeholder="Firstname" type="text" class="form-control"></div>
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <div class="position-relative form-group"><label for="exampleEmail11" class="">Lastname</label><input name="email" id="exampleEmail11" placeholder="Lastname" type="email" class="form-control"></div>
+                                                    <div class="position-relative form-group"><label for="exampleEmail11" class="">Lastname</label><input name="lastname" id="A4" placeholder="Lastname" type="text" class="form-control"></div>
                                                 </div>
                                             </div>
                                             <div class="form-row">
 
                                                 <div class="col-md-8">
-                                                    <div class="position-relative form-group"><label for="examplePassword11" class="">Phone Number</label><input name="password" id="examplePassword11" placeholder="Phone Number" type="password"
+                                                    <div class="position-relative form-group"><label for="examplePassword11" class="">Phone Number</label><input name="phonenumber" id="A5" placeholder="Phone Number" type="text"
                                                                                                                                                              class="form-control"></div>
                                                 </div>
                                             </div>
                                             <h5 class="card-title">Address</h5>
-                                            <div class="position-relative form-group"><label for="exampleAddress" class="">Address Line 1</label><input name="address" id="exampleAddress" placeholder="1234 Main St" type="text" class="form-control"></div>
-                                            <div class="position-relative form-group"><label for="exampleAddress2" class="">Address Line 2</label><input name="address2" id="exampleAddress2" placeholder="Apartment, studio, or floor" type="text" class="form-control">
+                                            <div class="position-relative form-group"><label for="exampleAddress" class="">Address Line 1</label><input name="address" id="A6" placeholder="1234 Main St" type="text" class="form-control"></div>
+                                            <div class="position-relative form-group"><label for="exampleAddress2" class="">Address Line 2</label><input name="address2" id="A7" placeholder="Apartment, studio, or floor" type="text" class="form-control">
                                             </div>
                                             <div class="form-row">
-                                                <div class="col-md-6">
-                                                    <div class="position-relative form-group"><label for="exampleCity" class="">City</label><input name="city" id="exampleCity" type="text" class="form-control"></div>
+                                                <div class="col-md-5">
+                                                    <div class="position-relative form-group"><label for="exampleCity" class="">City</label><input name="city" placeholder="City" id="A8" type="text" class="form-control"></div>
                                                 </div>
-                                                <div class="col-md-4">
-                                                    <div class="position-relative form-group"><label for="exampleState" class="">State</label><input name="state" id="exampleState" type="text" class="form-control"></div>
+                                                <div class="col-md-3">
+                                                    <div class="position-relative form-group"><label for="exampleState" class="">State</label><input name="state" placeholder="State" id="A9" type="text" class="form-control"></div>
                                                 </div>
-                                                <div class="col-md-2">
-                                                    <div class="position-relative form-group"><label for="exampleZip" class="">Zip</label><input name="zip" id="exampleZip" type="text" class="form-control"></div>
+                                                <div class="col-md-3">
+                                                    <div class="position-relative form-group"><label for="exampleZip" class="">Zip</label><input name="zip" placeholder="Zipcode" id="A10" type="text" class="form-control"></div>
                                                 </div>
                                             </div>
                                             <div class="form-row">
                                                 <div class="col-md-4">
-                                                    <div class="position-relative form-group"><label for="exampleCity" class="">Country</label><input name="country" id="exampleCity" type="text" class="form-control"></div>
+                                                    <div class="position-relative form-group"><label for="exampleCity" class="">Country</label><input name="country" placeholder="Country" id="A11" type="text" class="form-control"></div>
                                                 </div>
-                                                <div class="col-md-6">
-                                                    <div class="position-relative form-group"><label for="exampleState" class="">Credit Limit</label><input name="state" id="exampleState" type="text" class="form-control"></div>
+                                                <div class="col-md-4"></div>
+                                                <div class="ml-5 mt-4 text-right">
+                                                    <button class="mt-3 btn btn-primary" onclick="addcustomer()"> Submit </button>
                                                 </div>
-                                                
                                             </div>
-                                            <div class="text-right">
-                                            <button class="mt-2 btn btn-primary">Submit</button>
-                                    </div>
-                                        </form>
+                                      
+                                        
                                     </div>
                                 </div>
                 </div>
@@ -221,31 +217,45 @@ session_start();
 
                                 <li class="app-sidebar__heading">Menu</li>
                                 <li>
-                                    <a href="/products" class="mm-active">
+                                    <a href="../products" class="mm-active">
                                         <i class="metismenu-icon pe-7s-display2"></i>
                                         Products
                                     </a>
                                 </li>
-                               
-                                <li>
-                                    <a href="/dashboard-boxes.html">
+                                <?php
+                                if(strpos(session('status'),'Sale') !== false){
+                                    echo '<li>
+                                    <a href="../stockin">
                                         <i class="metismenu-icon pe-7s-display2"></i>
                                         Stock In
                                     </a>
-                                </li>
+                                </li>';
+                                }
+                                ?>
+                                
                                 
                                 <li>
-                                    <a href="/customer">
+                                    <a href="../customer">
                                         <i class="metismenu-icon pe-7s-display2"></i>
                                         Customers
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="/dashboard-boxes.html">
+                                    <a href="../saleorder">
                                         <i class="metismenu-icon pe-7s-display2"></i>
                                         Saleorder
                                     </a>
                                 </li>
+                                <?php
+                                        if(session('status') != "Sales Rep"){
+                                        echo '<li>
+                                            <a href="../ERM">
+                                                <i class="metismenu-icon pe-7s-note2"></i>
+                                            ERM
+                                            </a>
+                                        </li>';
+                                        }
+                                ?>
                                 
                                
                             </ul>
@@ -317,15 +327,30 @@ session_start();
                             </div>
                         </div>
                     </div>
+                    <div id="ddd">
+                        
+                    </div>
                     
                     <script src="../assets/scripts/htmlGen.js" type="text/javascript"></script>
                     <script src="../assets/scripts/jquery-3.4.1.js" type="text/javascript"></script>
                     <script type="text/javascript">
-                   
-                       
-                        var json = <?php echo $jscustomerlist; ?> ;
+                        var json = 0;
+                        function getcustomer(){
+                            var data = 0;
+                            $.ajax({
+                                type: "get",
+                                url: "/getcus",
+                                success: function(response){
+                                    data = response;
+                                },
+                                async: false,
+                            });
+                            return JSON.parse(data);
+                        }
+
                         
                         function Gentable(){
+                            json = getcustomer();
                             var tableproduct = "";
                             var i = 0;
                             json.forEach(function(a) {
@@ -343,7 +368,7 @@ session_start();
                             var i = 0 ;
                             var tableproduct = "";
                             json.forEach(function(a) {
-                                if (((a.productName.toString()).toUpperCase()).includes(filter)){
+                                if (((a.customerName.toString()).toUpperCase()).includes(filter)){
                                     tableproduct += tablecustomer(a.customerNumber,a.customerName,a.city,a.country,a.postalCode,a.contactFirstName,a.contactLastName,a.phone);
                                 }
                             });
@@ -368,10 +393,40 @@ session_start();
                                 url: '/customers/'+p,
                                 success: function (data) {         
                                     document.getElementById('id03').style.display='none';
-                                    const index = json.findIndex(x => x.productCode == p);
-                                    if (index !== undefined) json.splice(index, 1);
                                     Gentable();
                                 }
+                            });
+                        }
+                        
+                        function addcustomer(){
+                           console.log("helo");
+                            var customer =  { "customerNumber": document.getElementById("A1").value.toString(), 
+                                             "customerName": document.getElementById("A2").value.toString(),
+                                             "contactLastName":document.getElementById("A4").value.toString(),
+                                             "contactFirstName": document.getElementById("A3").value.toString(),
+                                             "phone":document.getElementById("A5").value.toString(),
+                                             "line1": document.getElementById("A6").value.toString(),
+                                             "city": document.getElementById("A8").value.toString(),
+                                             "line2": document.getElementById("A7").value.toString(),
+                                             "state": document.getElementById("A9").value.toString(),
+                                             "postalCode": document.getElementById("A10").value.toString(),
+                                             "country": document.getElementById("A11").value.toString(),
+                                             "saleRep": "",
+                                             "creditLimit": document.getElementById("A12").value.toString()};
+                            console.log(customer);
+                                            
+                            $.ajax({
+                                type: "post",
+                                url: "/customers",
+                                data: customer,
+                                success: function(response){
+                                    Gentable();
+                                },
+                                error: function (error) {
+                                alert(error.responseText);
+                                console.log(error.responseText);
+                            }
+
                             });
                         }
                                             

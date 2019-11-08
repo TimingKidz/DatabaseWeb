@@ -15,9 +15,18 @@ use Illuminate\Http\Request;
 
 
 Route::group(['middleware' => 'checkuser'],function(){
+    Route::get('/getCart','DataController@getCart');
+    Route::get('/getCartTotal','DataController@getCartTotal');
+    Route::post('/getAddr/{id}','DataController@getAddr');
+    Route::post('/getVoucher/{id}','DataController@getVoucher');
+    Route::post('/getAddToCart/{id}/{qty}','DataController@getAddToCart');  
+    Route::post('/deleteFromCart/{id}','DataController@deleteFromCart');  
+    Route::put('/proceed','DataController@cartCheckout');
+    Route::get('/getAllProducts','DataController@getAllProduct');
     Route::get('/products','DataController@indexem');
     Route::get('/customer','DataController@customer');
     Route::get('/customer/{id}','DataController@customerdetail');
+    Route::get('/stockin','DataController@stockin');
 
 });
 Route::group(['middleware' => 'guest'],function(){

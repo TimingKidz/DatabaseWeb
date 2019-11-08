@@ -55,7 +55,7 @@ session_start();
                    
             <div class="app-main__inner">
                 <div id="id01" class="modal"> 
-                    <form class="modal-content animate" action="/login" method="post"> 
+                    <form class="modal-content animate" action="/login" method="post">
                         <div class="main-card card">
                             <div class="card-body"><h5 class="card-title"><i class="metismenu-icon pe-7s-lock">  LOGIN</i></h5>
                             <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">×</span> 

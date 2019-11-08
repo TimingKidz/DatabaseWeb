@@ -894,6 +894,11 @@ pre code {
     overflow-y: scroll
 }
 
+.pre-scroll {
+    height: 100%;
+    overflow-y: visible
+}
+
 .container {
     width: 100%;
     padding-right: 15px;

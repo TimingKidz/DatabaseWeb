@@ -46,6 +46,7 @@ Route::group(['middleware' => 'checkuser'], function () {
     Route::put('/customerAddrupdate', 'DataController@updateMulAddr');
     Route::post('/customerAddrdelete/{map}', 'DataController@deleteMulAddr');
     Route::post('/customer/{id}', 'DataController@customerdetail_id');
+    Route::put('/comment/{id}','DataController@editComment');
 });
 Route::group(['middleware' => 'guest'], function () {
     Route::get('/', 'DataController@index');

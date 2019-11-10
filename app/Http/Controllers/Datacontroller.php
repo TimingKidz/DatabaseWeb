@@ -207,7 +207,7 @@ class DataController extends Controller
     }
 
     public function customerdetail_id($id){
-        $data = DB::select("select * from customers join customerAddress using(customerNumber) where customerNumber = '$id'");
+        $data = DB::select("select * from customers join customerAddress using(customerNumber) where customerNumber = '$id' and delete_at is NULL");
         $jscustomerdetail = json_encode($data);
         return $jscustomerdetail;
     }
@@ -221,11 +221,11 @@ class DataController extends Controller
     public function updateMulAddr(Request $request){
         DB::update("update customerAddress set addressLine1 = '$request->addressLine1', 
         addressLine2 = '$request->addressLine2', city = '$request->city', state = '$request->state', 
-        postalCode = '$request->postalCode', country = '$request->country' where customerNumber = $request->customerNumber and mapNumber = $request->mapNumber");
+        postalCode = '$request->postalCode', country = '$request->country' where customerNumber = '$request->customerNumber' and mapNumber = '$request->mapNumber'");
     }
 
     public function deleteMulAddr($map){
-        DB::delete("delete from customerAddress where mapNumber = $map");
+        DB::update("update customerAddress set delete_at = DATETIME('now') where mapNumber = '$map'");
     }
     public function indexem()
     {
@@ -293,7 +293,11 @@ class DataController extends Controller
     public function saleorderdetail($id){
         $data = DB::select("select * from orderdetails where orderNumber = '$id'");
         
-        return view('orderdetail', ['jsorder' => json_encode($data)]);
+        return view('orderdetail', ['jsorder' => json_encode($data)], ['id' => $id]);
+    }
+
+    public function editComment(Request $request){
+        DB::update("update orders set comments = '$request->comments' where orderNumber = '$request->orderNumber'");
     }
 
     public function saleorder(){

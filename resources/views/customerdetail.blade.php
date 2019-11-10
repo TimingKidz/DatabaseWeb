@@ -178,7 +178,7 @@ session_start();
                                 </a>
                             </li>
                             <li>
-                                <a href="../dashboard-boxes.html">
+                                <a href="../saleorder">
                                     <i class="metismenu-icon pe-7s-note2"></i>
                                     Saleorder
                                 </a>
@@ -210,6 +210,68 @@ session_start();
                 <div id="id02_delete" class="modal" id="detailpopup_delete">
                     <div class="modal-content-detail">
                         <div id="detailpop_delete">
+                        </div>
+                    </div>
+                </div>
+
+                <div id="id03" class="modal">
+                    <div class="modal-content-del animate">
+                        <div class="main-card card">
+                            <div class="card-body ">
+                                <h4></h4>
+                                <span onclick="document.getElementById('id03').style.display='none'" class="close" title="Close Modal">×</span>
+                                <div class="text-center">
+                                    <div>
+                                        <div class="mb-4 mt-4">
+                                            <h5>Are you sure ?</h5>
+                                        </div>
+                                        <div class="mb-4">
+                                            <button type="button" class="btn btn-primary" id="delbut" name="" onclick="deleteitem(this)">YES</button>
+
+                                            <button type="button" onclick="document.getElementById('id03').style.display='none'" class="btn btn-danger">Cancel</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="id04" class="modal">
+                    <div class="modal-content animate">
+                        <div class="main-card card">
+                            <div class="card-body ">
+                                <h4></h4>
+                                <span onclick="document.getElementById('id04').style.display='none'" class="close" title="Close Modal">×</span>
+                                <div class="">
+                                    <div class="main-card">
+                                        <div class="card-body">
+                                            <h5 class="card-title">EDIT</h5>
+                                            <div class="form-row">
+                                                <div class="col-md-5">
+                                                    <div class="position-relative form-group"><label for="exampleEmail11" class="">Status</label>
+                                                        <select name="select" id="select" class="form-control">
+
+
+                                                        </select>
+                                                    </div>
+
+                                                </div>
+                                                <div class="col-md-7">
+                                                    <div class="position-relative form-group" id="dateup"></div>
+                                                </div>
+
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="col-md-12 text-right">
+                                                    <button type="button" onclick="sendupdate()" class="btn btn-success">Update</button>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -262,99 +324,230 @@ session_start();
                                     <div class="main-card mb-2 card">
                                         <div class="card-body">
                                             <b class="card-title">Order</b>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="main-card mb-3 card">
+                                                        
+                                                        <div class="table-responsive">
+                                                            <table class="align-middle mb-0 table table-borderless table-striped table-hover">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th class="text-center">Order NO.</th>
+                                                                        <th>Customer Name</th>
+                                                                        <th class="text-center">Order Date</th>
+                                                                        <th class="text-center">Required Date</th>
+                                                                        <th class="text-center">Shipped Date</th>
+                                                                        <th class="text-center">Status</th>
+                                                                        <th class="text-center">Point</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody id="tablelist">
+                                                                    <!-- table -->
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div id="ddd">
+
                                         </div>
                                     </div>
-
                                 </div>
 
                             </div>
 
-
                         </div>
+
+
                     </div>
+                </div>
 
 
-                    <script src="../assets/scripts/htmlGen.js" type="text/javascript"></script>
-                    <script src="../assets/scripts/jquery-3.4.1.js" type="text/javascript"></script>
-                    <script type="text/javascript">
-                        var json = 0;
+                <script src="../assets/scripts/htmlGen.js" type="text/javascript"></script>
+                <script src="../assets/scripts/jquery-3.4.1.js" type="text/javascript"></script>
+                <script type="text/javascript">
+                var customerID =0;
+                var json = 0;
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
+
+                    function ajaxget() {
+                        var data = 0;
+                        $.ajax({
+                            type: "post",
+                            url: "/customer/" + <?php echo $id; ?>,
+                            success: function(response) {
+                                data = response;
+                            },
+                            async: false
+
+                        });
+                        return JSON.parse(data);
+                    }
+
+                    function checkAddrDisplay(a) {
+                        // address display
+                        // document.getElementById('addrdisp').innerHTML = `${a.addressLine1}<br>${a.addressLine2}<br>${a.city},${a.state},${a.country},${a.postalCode}`;
+                        if (a.addressLine2 == "" && (a.state == "" && a.postalCode != "")) { //001
+                            return `${a.addressLine1}<br>${a.city},${a.country},${a.postalCode}`;
+                        } else if (a.addressLine2 == "" && (a.state != "" && a.postalCode == "")) { //010
+                            return `${a.addressLine1}<br>${a.city},${a.state},${a.country},${a.postalCode}`;
+                        } else if (a.addressLine2 == "" && (a.state != "" && a.postalCode != "")) { //011
+                            return `${a.addressLine1}<br>${a.city},${a.state},${a.country},${a.postalCode}`;
+                        } else if (a.addressLine2 != "" && (a.state == "" && a.postalCode == "")) { //100
+                            return `${a.addressLine1}<br>${a.addressLine2}<br>${a.city},${a.country}`;
+                        } else if (a.addressLine2 != "" && (a.state == "" && a.postalCode != "")) { //101
+                            return `${a.addressLine1}<br>${a.addressLine2}<br>${a.city},${a.country},${a.postalCode}`;
+                        } else if (a.addressLine2 != "" && (a.state != "" && a.postalCode == "")) { //110
+                            return `${a.addressLine1}<br>${a.addressLine2}<br>${a.city},${a.state},${a.country}`;
+                        } else if (a.addressLine2 != "" && (a.state != "" && a.postalCode != "")) { //111
+                            return `${a.addressLine1}<br>${a.addressLine2}<br>${a.city},${a.state},${a.country},${a.postalCode}`;
+                        }
+                    }
+
+                    function Genaddr() {
+                        json = ajaxget();
+                        console.log("showjson",json);
+                        var temp = "";
+                        var t = "";
+
+                        console.log(json.length)
+                        for (var i = 0; i < json.length; i++) {
+                            console.log("show map", json[i].mapNumber);
+                            console.log(json[i].addressLine1);
+                            t += '<li class="list-group-item" >';
+                            t += checkAddrDisplay(json[i]);
+                            t += `<button onclick="detailpopup_edit(this)" type="button" id="${json[i].mapNumber}" name="mapedit" class="mb-2 mr-2 ml-5 btn-transition btn btn-outline-warning">edit</button><button onclick="detailpopup_delete(this)" type="button" id="${json[i].mapNumber}" name="mapedit" class="mb-2 mr-2 btn-transition btn btn-outline-danger">delete</button></li>`;
+                        }
+
+
+
+                        json.forEach(function(a) {
+                            // detail name,tel,id
+                            customerID = a.customerNumber;
+                            document.getElementById('cusdetail').innerHTML = `<b>Customer ID : </b>${a.customerNumber}<br>
+                                <b>CustomerName : </b>${a.customerName}<br>
+                                <b>Tel : </b>${a.phone}<br>
+                                <b>ContactName : </b>${a.contactFirstName}  ${a.contactLastName}<br>
+                                <b>MemberPoint : </b>${a.memberPoint}`;
+                        });
+
+                        //add
+                        temp += t + '<li class="list-group-item"><button onclick="detailpopup_add(this)" type="button" id="add_popup" class="mb-2 mr-2 btn-transition btn btn-outline-primary">add</button></li>'
+                        // console.log(temp)
+                        document.getElementById('addrdisp').innerHTML = temp;
+                    }
+                    //gendisplay Address
+                    Genaddr();
+                    ///make orders
+                    
+                    var json = 0;
+                    
+                        function getorders(){
+                            var data = 0;
+                            $.ajax({
+                                type: "get",
+                                url: "/saleorderreq",
+                                success: function(response){
+                                    data = response;
+                                },
+                                async: false,
+                            });
+                            return JSON.parse(data);
+                        }
+
+                        
+                        function Gentable(){
+                            json = getorders();
+                            var tableproduct = "";
+                            var i = 0;
+                            console.log(json);
+                            json.forEach(function(a) {
+                                if(customerID === a.customerNumber)
+                                tableproduct += tablesaleincustomerdetail(a.orderNumber,a.customerName,a.orderDate,a.requiredDate,a.shippedDate,a.status,a.pointEarn);
+                            });
+                            document.getElementById("tablelist").innerHTML = tableproduct;
+                        }
+                        Gentable();
+
+                        function delalert(productCode){
+                            var p = productCode.getAttribute("id");
+                            document.getElementById('id03').style.display='block';
+                            document.getElementById('delbut').setAttribute("name",p);
+                        }
                         $.ajaxSetup({
                             headers: {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                             }
                         });
 
-                        function ajaxget() {
-                            var data = 0;
+                        function deleteitem(a){
+                            var p = a.getAttribute("name");
                             $.ajax({
-                                type: "post",
-                                url: "/customer/" + <?php echo $id; ?>,
-                                success: function(response) {
-                                    data = response;
-                                },
-                                async: false
-
+                                type: 'delete',
+                                url: '/customers/'+p,
+                                success: function (data) {         
+                                    document.getElementById('id03').style.display='none';
+                                    Gentable();
+                                }
                             });
-                            return JSON.parse(data);
-                        }
-
-                        function checkAddrDisplay(a) {
-                            // address display
-                            // document.getElementById('addrdisp').innerHTML = `${a.addressLine1}<br>${a.addressLine2}<br>${a.city},${a.state},${a.country},${a.postalCode}`;
-                            if (a.addressLine2 == "" && (a.state == "" && a.postalCode != "")) { //001
-                                return `${a.addressLine1}<br>${a.city},${a.country},${a.postalCode}`;
-                            } else if (a.addressLine2 == "" && (a.state != "" && a.postalCode == "")) { //010
-                                return `${a.addressLine1}<br>${a.city},${a.state},${a.country},${a.postalCode}`;
-                            } else if (a.addressLine2 == "" && (a.state != "" && a.postalCode != "")) { //011
-                                return `${a.addressLine1}<br>${a.city},${a.state},${a.country},${a.postalCode}`;
-                            } else if (a.addressLine2 != "" && (a.state == "" && a.postalCode == "")) { //100
-                                return `${a.addressLine1}<br>${a.addressLine2}<br>${a.city},${a.country}`;
-                            } else if (a.addressLine2 != "" && (a.state == "" && a.postalCode != "")) { //101
-                                return `${a.addressLine1}<br>${a.addressLine2}<br>${a.city},${a.country},${a.postalCode}`;
-                            } else if (a.addressLine2 != "" && (a.state != "" && a.postalCode == "")) { //110
-                                return `${a.addressLine1}<br>${a.addressLine2}<br>${a.city},${a.state},${a.country}`;
-                            } else if (a.addressLine2 != "" && (a.state != "" && a.postalCode != "")) { //111
-                                return `${a.addressLine1}<br>${a.addressLine2}<br>${a.city},${a.state},${a.country},${a.postalCode}`;
-                            }
-                        }
-
-                        function Genaddr() {
-                            json = ajaxget();
-                            var temp = "";
-                            var t = "";
-
-                            console.log(json.length)
-                            for (var i = 0; i < json.length; i++) {
-                                console.log("show map", json[i].mapNumber);
-                                console.log(json[i].addressLine1);
-                                t += '<li class="list-group-item" >';
-                                t += checkAddrDisplay(json[i]);
-                                t += `<button onclick="detailpopup_edit(this)" type="button" id="${json[i].mapNumber}" name="mapedit" class="mb-2 mr-2 ml-5 btn-transition btn btn-outline-warning">edit</button><button onclick="detailpopup_delete(this)" type="button" id="${json[i].mapNumber}" name="mapedit" class="mb-2 mr-2 btn-transition btn btn-outline-danger">delete</button></li>`;
-                            }
-
-
-
+                        }        
+                        var order = 0;
+                        function update(utag){
+                            var orederNumber = utag.getAttribute("id");
+                            console.log(orederNumber)
+                            document.getElementById('id04').style.display='block';  
+                            document.getElementById("select").innerHTML = `
+                                                        <option id="Cancelled">Cancelled</option>
+                                                        <option id="Disputed">Disputed</option>
+                                                        <option id="In Process">In Process</option>
+                                                        <option id="On Hold">On Hold</option>
+                                                        <option id="Resolved">Resolved</option>
+                                                        <option id="Shipped">Shipped</option>` ;         
+                                      
                             json.forEach(function(a) {
-                                // detail name,tel,id
-                                customerID = a.customerNumber;
-                                document.getElementById('cusdetail').innerHTML = `<b>Customer ID : </b>${a.customerNumber}<br>
-                                <b>CustomerName : </b>${a.customerName}<br>
-                                <b>Tel : </b>${a.phone}<br>
-                                <b>ContactName : </b>${a.contactFirstName}  ${a.contactLastName}`;
+                                if(a.orderNumber == orederNumber){
+                                    order = a;
+                                }
                             });
-
-                            //add
-                            temp += t + '<li class="list-group-item"><button onclick="detailpopup_add(this)" type="button" id="add_popup" class="mb-2 mr-2 btn-transition btn btn-outline-primary">add</button></li>'
-                            // console.log(temp)
-                            document.getElementById('addrdisp').innerHTML = temp;
+                            document.getElementById(`${order.status}`).setAttribute("selected", "selected");
+                            var date = order.shippedDate.split("-");
+                            document.getElementById("dateup").innerHTML = `<label for="exampleEmail11" class="">Shipped Date</label><input id="dateship" placeholder="Customer Name" type="date" class="form-control" value="${date[0]}-${date[1]}-${date[2]}">`
+                           
                         }
-                        //gendisplay Address
-                        Genaddr();
-                        //add
-                        function detailpopup_add() {
-                            document.getElementById('id02_add').style.display = 'block';
 
-                            var text = `<div class="mb-3 card">
+                        function sendupdate(){
+                            document.getElementById('id04').style.display='none';  
+                            var update =  { "date": document.getElementById("dateship").value.toString(), 
+                                             "status": document.getElementById("select").value.toString(),
+                                             "orderNumber": order.orderNumber.toString()
+                                             };
+                            $.ajax({
+                                type: "put",
+                                url: "/updateorder",
+                                data: update,
+                                success: function(response){
+                                    Gentable();
+                                },
+                                error: function (error) {
+                                    console.log(error);
+                                 alert(error.responseText);
+                                
+                            }
+
+                            });
+                        }
+                
+                    //add
+                    function detailpopup_add() {
+                        document.getElementById('id02_add').style.display = 'block';
+
+                        var text = `<div class="mb-3 card">
                         <div class="card-header-tab card-header-tab-animation card-header">
                             <div class="card-header-title">
                                 <i class="header-icon lnr-apartment icon-gradient bg-love-kiss"> </i>
@@ -387,35 +580,35 @@ session_start();
                         </div>
                     </div>`;
 
-                            document.getElementById("detailpop_add").innerHTML = text;
-                        }
-                        //edit
-                        function detailpopup_edit(tag) {
-                            document.getElementById('id02_edit').style.display = 'block';
-                            var x = tag.getAttribute("id");
-                            var addrLine1 = 0;
-                            var addrLine2 = 0;
-                            var city = 0;
-                            var state = 0;
-                            var country = 0;
-                            var postalCode = 0;
-                            var customerNumber = 0;
-                            // console.log("show x",x);
-                            json = ajaxget();
-                            for (var i = 0; i < json.length; i++) {
-                                if (json[i].mapNumber === x) {
-                                    addrLine1 = json[i].addressLine1;
-                                    addrLine2 = json[i].addressLine2;
-                                    city = json[i].city;
-                                    state = json[i].state;
-                                    country = json[i].country;
-                                    postalCode = json[i].country;
-                                    customerNumber = json[i].customerNumber;
-                                    console.log("mapnumber", json[i].mapNumber);
-                                }
+                        document.getElementById("detailpop_add").innerHTML = text;
+                    }
+                    //edit
+                    function detailpopup_edit(tag) {
+                        document.getElementById('id02_edit').style.display = 'block';
+                        var x = tag.getAttribute("id");
+                        var addrLine1 = 0;
+                        var addrLine2 = 0;
+                        var city = 0;
+                        var state = 0;
+                        var country = 0;
+                        var postalCode = 0;
+                        var customerNumber = 0;
+                        // console.log("show x",x);
+                        json = ajaxget();
+                        for (var i = 0; i < json.length; i++) {
+                            if (json[i].mapNumber === x) {
+                                addrLine1 = json[i].addressLine1;
+                                addrLine2 = json[i].addressLine2;
+                                city = json[i].city;
+                                state = json[i].state;
+                                country = json[i].country;
+                                postalCode = json[i].country;
+                                customerNumber = json[i].customerNumber;
+                                console.log("mapnumber", json[i].mapNumber);
                             }
+                        }
 
-                            var text = `<div class="mb-3 card">
+                        var text = `<div class="mb-3 card">
                         <div class="card-header-tab card-header-tab-animation card-header">
                             <div class="card-header-title">
                                 <i class="header-icon lnr-apartment icon-gradient bg-love-kiss"> </i>
@@ -448,15 +641,15 @@ session_start();
                         </div>
                     </div>`;
 
-                            document.getElementById("detailpop_edit").innerHTML = text;
-                        }
-                        //delete
-                        function detailpopup_delete(d) {
-                            document.getElementById('id02_delete').style.display = 'block';
-                            var x = d.getAttribute("id");
-                            json = ajaxget();
-                            if (json.length === 1) {
-                                var text = `<div class="mb-3 card">
+                        document.getElementById("detailpop_edit").innerHTML = text;
+                    }
+                    //delete
+                    function detailpopup_delete(d) {
+                        document.getElementById('id02_delete').style.display = 'block';
+                        var x = d.getAttribute("id");
+                        json = ajaxget();
+                        if (json.length === 1) {
+                            var text = `<div class="mb-3 card">
                         <div class="card-header-tab card-header-tab-animation card-header">
                             <div class="card-header-title">
                                 <i class="header-icon lnr-apartment icon-gradient bg-love-kiss"> </i>
@@ -471,11 +664,12 @@ session_start();
                         <button type="button" onclick="document.getElementById('id02_delete').style.display='none'" class="btn btn-primary">OK</button>
                         </div>
                         </div>
-                    </div>`;
+                    </div>
+                    `;
 
-                                document.getElementById("detailpop_delete").innerHTML = text;
-                            } else {
-                                var text = `<div class="mb-3 card">
+                            document.getElementById("detailpop_delete").innerHTML = text;
+                        } else {
+                            var text = `<div class="mb-3 card">
                         <div class="card-header-tab card-header-tab-animation card-header">
                             <div class="card-header-title">
                                 <i class="header-icon lnr-apartment icon-gradient bg-love-kiss"> </i>
@@ -494,90 +688,90 @@ session_start();
                         </div>
                     </div>`;
 
-                                document.getElementById("detailpop_delete").innerHTML = text;
+                            document.getElementById("detailpop_delete").innerHTML = text;
+                        }
+
+                    }
+
+                    function submitform() {
+                        var Address = {
+                            "addressLine1": document.getElementById("Address").value.toString(),
+                            "addressLine2": document.getElementById("Address2").value.toString(),
+                            "city": document.getElementById("City").value.toString(),
+                            "state": document.getElementById("State").value.toString(),
+                            "country": document.getElementById("Country").value.toString(),
+                            "postalCode": document.getElementById("PostalCode").value.toString(),
+                            "customerNumber": customerID.toString()
+                        };
+                        console.log("add", Address);
+                        $.ajax({
+                            type: "post",
+                            url: "/customerAddr",
+                            data: Address,
+                            success: function(response) {
+                                //gennaddr
+                                Genaddr();
+                            },
+                            error: function(error) {
+                                alert(error.responseText);
+                                console.log(error.responseText);
                             }
+                        });
+                        document.getElementById('id02_add').style.display = 'none';
+                    }
 
-                        }
+                    function editform(mapNumber, customerID) {
+                        console.log("in edit", customerID);
+                        var Address = {
+                            "addressLine1": document.getElementById("Address").value.toString(),
+                            "addressLine2": document.getElementById("Address2").value.toString(),
+                            "city": document.getElementById("City").value.toString(),
+                            "state": document.getElementById("State").value.toString(),
+                            "country": document.getElementById("Country").value.toString(),
+                            "postalCode": document.getElementById("PostalCode").value.toString(),
+                            "customerNumber": customerID.toString(),
+                            "mapNumber": mapNumber.toString()
+                        };
+                        console.log("edit", Address);
+                        $.ajax({
+                            type: "put",
+                            url: "/customerAddrupdate/",
+                            data: Address,
+                            success: function(response) {
+                                //gennaddr
+                                Genaddr();
+                            },
+                            error: function(error) {
+                                alert(error.responseText);
+                                console.log(error.responseText);
+                            }
+                        });
+                        document.getElementById('id02_edit').style.display = 'none';
+                    }
 
-                        function submitform() {
-                            var Address = {
-                                "addressLine1": document.getElementById("Address").value.toString(),
-                                "addressLine2": document.getElementById("Address2").value.toString(),
-                                "city": document.getElementById("City").value.toString(),
-                                "state": document.getElementById("State").value.toString(),
-                                "country": document.getElementById("Country").value.toString(),
-                                "postalCode": document.getElementById("PostalCode").value.toString(),
-                                "customerNumber": customerID.toString()
-                            };
-                            console.log("add", Address);
-                            $.ajax({
-                                type: "post",
-                                url: "/customerAddr",
-                                data: Address,
-                                success: function(response) {
-                                    //gennaddr
-                                    Genaddr();
-                                },
-                                error: function(error) {
-                                    alert(error.responseText);
-                                    console.log(error.responseText);
-                                }
-                            });
-                            document.getElementById('id02_add').style.display = 'none';
-                        }
-
-                        function editform(mapNumber, customerID) {
-                            console.log("in edit", customerID);
-                            var Address = {
-                                "addressLine1": document.getElementById("Address").value.toString(),
-                                "addressLine2": document.getElementById("Address2").value.toString(),
-                                "city": document.getElementById("City").value.toString(),
-                                "state": document.getElementById("State").value.toString(),
-                                "country": document.getElementById("Country").value.toString(),
-                                "postalCode": document.getElementById("PostalCode").value.toString(),
-                                "customerNumber": customerID.toString(),
-                                "mapNumber": mapNumber.toString()
-                            };
-                            console.log("edit", Address);
-                            $.ajax({
-                                type: "put",
-                                url: "/customerAddrupdate/",
-                                data: Address,
-                                success: function(response) {
-                                    //gennaddr
-                                    Genaddr();
-                                },
-                                error: function(error) {
-                                    alert(error.responseText);
-                                    console.log(error.responseText);
-                                }
-                            });
-                            document.getElementById('id02_edit').style.display = 'none';
-                        }
-
-                        function deleteform(mapNumber) {
-                            $.ajax({
-                                type: "post",
-                                url: "/customerAddrdelete/" + mapNumber,
-                                success: function(response) {
-                                    //gennaddr
-                                    Genaddr();
-                                },
-                                error: function(error) {
-                                    alert(error.responseText);
-                                    console.log(error.responseText);
-                                }
-                            });
-                            document.getElementById('id02_delete').style.display = 'none';
-                        }
-                    </script>
+                    function deleteform(mapNumber) {
+                        $.ajax({
+                            type: "post",
+                            url: "/customerAddrdelete/" + mapNumber,
+                            success: function(response) {
+                                //gennaddr
+                                Genaddr();
+                            },
+                            error: function(error) {
+                                alert(error.responseText);
+                                console.log(error.responseText);
+                            }
+                        });
+                        document.getElementById('id02_delete').style.display = 'none';
+                    }
+                </script>
 
 
 
-                    <script src="http://maps.google.com/maps/api/js?sensor=true"></script>
-                </div>
+                <script src="http://maps.google.com/maps/api/js?sensor=true"></script>
             </div>
-            <script type="text/javascript" src="../assets/scripts/main.js"></script>
+        </div>
+        <script type="text/javascript" src="../assets/scripts/main.js"></script>
 
 </body>
 

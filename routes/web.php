@@ -15,13 +15,15 @@ use Illuminate\Http\Request;
 
 
 Route::group(['middleware' => 'checkuser'],function(){
-    Route::get('/getCart','DataController@getCart');
-    Route::get('/getCartTotal','DataController@getCartTotal');
-    Route::post('/getAddr/{id}','DataController@getAddr');
-    Route::post('/getVoucher/{id}','DataController@getVoucher');
-    Route::post('/getAddToCart/{id}/{qty}','DataController@getAddToCart');  
-    Route::post('/deleteFromCart/{id}','DataController@deleteFromCart');  
-    Route::put('/proceed','DataController@cartCheckout');
+    //...Cart Route
+    Route::get('/getCart','CartController@getCart');
+    Route::get('/getCartTotal','CartController@getCartTotal');
+    Route::post('/getAddr/{id}','CartController@getAddr');
+    Route::post('/getVoucher/{id}','CartController@getVoucher');
+    Route::post('/getAddToCart/{id}/{qty}','CartController@getAddToCart');  
+    Route::post('/deleteFromCart/{id}','CartController@deleteFromCart');  
+    Route::put('/proceed','CartController@cartCheckout');
+
     Route::get('/getAllProducts','DataController@getAllProduct');
     Route::get('/products','DataController@indexem');
     Route::get('/customer','DataController@customer');
@@ -29,7 +31,6 @@ Route::group(['middleware' => 'checkuser'],function(){
     Route::group(['middleware' => 'checkauth'],function(){
         Route::get('/ERM','DataController@erm');
         Route::get('/ermReq','DataController@ermReq');
-    
     });
     Route::group(['middleware' => 'checkauthsale'],function(){
        
@@ -58,7 +59,7 @@ Route::post('/logout','DataController@logout');
 Route::post('/customerAddr','DataController@addMulAddr');
 Route::put('/customerAddrupdate','DataController@updateMulAddr');
 Route::post('/customerAddrdelete/{map}','DataController@deleteMulAddr');
-Route::get('/getcus','DataController@cus');
+// Route::get('/getcus','DataController@cus');
 Route::post('/customer/{id}','DataController@customerdetail_id');
 Route::get('/getpass','DataController@passGen');
 

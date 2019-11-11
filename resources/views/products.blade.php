@@ -1,7 +1,5 @@
 <?php
-
 session_start();
-
 ?>
 <!doctype html>
 <html lang="en">
@@ -11,8 +9,8 @@ session_start();
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta http-equiv="Content-Language" content="en">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    
     <title>Products</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
     <meta name="description" content="This is an example dashboard created using build-in elements and components.">
@@ -27,9 +25,8 @@ session_start();
     =========================================================
     * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
     -->
-
-    <link href="../main.css" rel="stylesheet">
-</head>
+    
+<link href="../main.css" rel="stylesheet"></head>
 
 <body>
 
@@ -64,33 +61,25 @@ session_start();
                         </span>
                     </button>
                 </span>
-            </div>
-            <div class="app-header__content">
+            </div>    
+            <div class="app-header__content" >
                 <div class="app-header-right">
                     <div class="header-btn-lg pr-0">
                         <div class="widget-content p-0">
                             <div class="widget-content-wrapper">
-                                <!-- <div class="widget-heading">&nbsp</div> -->
+                            <!-- <div class="widget-heading">&nbsp</div> -->
                                 <div class="widget-content-left  header-user-info">
                                     <div class="widget-heading">
-                                        <?php echo session('name'); ?>
+                                    <?php echo session('name'); ?>
                                     </div>
                                     <div class="widget-subheading">
                                         <?php
-<<<<<<< HEAD
-                                        if (session('status') == "1") {
-                                            echo "Employee";
-                                        } else {
-                                            echo "Admin";
-                                        }
-=======
                                             echo session('status');
->>>>>>> 1a47e0d271b926a917bee0280fa0bf1fe1ce58b7
                                         ?>
                                     </div>
                                 </div>
                                 <div class="widget-content-left ml-3" id="sidebar4">
-
+                                
                                     <div class="btn-group">
                                         <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="p-0 btn">
                                             <img width="42" class="rounded-circle" src="assets/images/avatars/1.jpg" alt="">
@@ -98,28 +87,26 @@ session_start();
                                         </a>
                                         <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu dropdown-menu-right">
                                             <button type="button" tabindex="0" class="dropdown-item"><?php echo session('email'); ?></button>
-                                            <form action="/logout" method="post">
+                                            <form action="/logout" method="post"> 
                                                 {{ csrf_field() }}
                                                 <button tabindex="0" class="dropdown-item pe-7s-unlock">&nbsp Logout</button>
                                                 </button>
                                             </form>
-
+                                            
                                         </div>
                                     </div>
                                 </div>
-
-
+                               
+                               
                             </div>
                         </div>
-                    </div>
+                    </div>        
                 </div>
             </div>
-        </div>
+        </div>    
         <div class="ui-theme-settings">
             <button type="button" id="TooltipDemo" class="btn-open-options btn btn-warning">
-                <div class="mt-2">
-                    <h2><i class="pe-7s-shopbag"></i></h2>
-                </div>
+                <div class="mt-2"><h2><i class="pe-7s-shopbag"></i></h2></div>
             </button>
             <div class="theme-settings__inner">
                 <div class="ml-3 mr-3">
@@ -158,11 +145,13 @@ session_start();
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-sm-3">
-                                    <h6 class="pt-2">Address :</h6>
+                                <div class="col-sm-6">
+                                    <div class="position-relative form-group"><label for="addr">Shipping Address</label><select disabled name="select" id="shipaddr" class="form-control">
+                                        <!-- getAddr -->
+                                    </select></div>
                                 </div>
-                                <div class="col-sm-9">
-                                    <div class="position-relative form-group"><select disabled name="select" id="addr" class="form-control">
+                                <div class="col-sm-6">
+                                    <div class="position-relative form-group"><label for="addr">Billing Address</label><select disabled name="select" id="billaddr" class="form-control">
                                         <!-- getAddr -->
                                     </select></div>
                                 </div>
@@ -191,43 +180,42 @@ session_start();
                                     </div>
                 </div>
             </div>
-        </div>
+        </div> 
         <div class="app-main">
-            <div class="app-sidebar sidebar-shadow bg-vicious-stance sidebar-text-light" id="sidebar">
-                <div class="app-header__logo">
-                    <div class="logo-src"></div>
-                    <div class="header__pane ml-auto">
+                <div class="app-sidebar sidebar-shadow bg-vicious-stance sidebar-text-light" id="sidebar">
+                    <div class="app-header__logo">
+                        <div class="logo-src"></div>
+                        <div class="header__pane ml-auto">
+                            <div>
+                                <button type="button" class="hamburger close-sidebar-btn hamburger--elastic" data-class="closed-sidebar">
+                                    <span class="hamburger-box">
+                                        <span class="hamburger-inner"></span>
+                                    </span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="app-header__mobile-menu">
                         <div>
-                            <button type="button" class="hamburger close-sidebar-btn hamburger--elastic" data-class="closed-sidebar">
+                            <button type="button" class="hamburger hamburger--elastic mobile-toggle-nav">
                                 <span class="hamburger-box">
                                     <span class="hamburger-inner"></span>
                                 </span>
                             </button>
                         </div>
                     </div>
-                </div>
-                <div class="app-header__mobile-menu">
-                    <div>
-                        <button type="button" class="hamburger hamburger--elastic mobile-toggle-nav">
-                            <span class="hamburger-box">
-                                <span class="hamburger-inner"></span>
-                            </span>
-                        </button>
-                    </div>
-                </div>
-                <div class="app-header__menu">
-                    <span>
-                        <button type="button" class="btn-icon btn-icon-only btn btn-primary btn-sm mobile-toggle-header-nav">
-                            <span class="btn-icon-wrapper">
-                                <i class="fa fa-ellipsis-v fa-w-6"></i>
-                            </span>
-                        </button>
-                    </span>
-                </div>
-                <div class="scrollbar-sidebar">
-                    <div class="app-sidebar__inner">
-                        <ul class="vertical-nav-menu">
-
+                    <div class="app-header__menu">
+                        <span>
+                            <button type="button" class="btn-icon btn-icon-only btn btn-primary btn-sm mobile-toggle-header-nav">
+                                <span class="btn-icon-wrapper">
+                                    <i class="fa fa-ellipsis-v fa-w-6"></i>
+                                </span>
+                            </button>
+                        </span>
+                    </div>    <div class="scrollbar-sidebar">
+                        <div class="app-sidebar__inner">
+                            <ul class="vertical-nav-menu">
+                                
                             <li class="app-sidebar__heading">Dashboard</li>
                             <li>
                                     <a href="dashboard-boxes.html">
@@ -306,88 +294,65 @@ session_start();
                     </div>
                 </div>
             </div>
-            <div class="app-main__outer">
+        </div> 
+    </div>
+              
+               
+    <div id="id02" class="modal" id="detailpopup"> 
+        <form class="modal-content-detail"> 
+            <div id="detailpop">
+            </div>
+        </form> 
+    </div>
 
-
-
-
-                <div id="id03" class="modal">
-                    <div class="modal-content-del animate">
-                        <div class="main-card card">
-                            <div class="card-body ">
-                                <h4></h4>
-                                <span onclick="document.getElementById('id03').style.display='none'" class="close" title="Close Modal">×</span>
-                                <div class="text-center">
-                                    <div>
-                                        <div class="mb-4 mt-4">
-                                            <h5>Are you sure ?</h5>
+ 
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="main-card mb-3 card">
+                                    <div class="card-header">
+                                    <div class="mr-3">
+                                        Products
+                                    </div>  
+                                    <div class="dropdown d-inline-block mt-2">
+                                        <button type="button" aria-haspopup="true" aria-expanded="false" data-toggle="dropdown" id="btn" class="mb-2 mr-2 dropdown-toggle btn btn-outline-secondary">Vendors</button>
+                                        <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu" id="vendor">                                            
+                                               <!-- vender -->
                                         </div>
-                                        <div class="mb-4">
-                                            <button type="button" class="btn btn-primary" id="delbut" name="" onclick="deleteitem(this)">YES</button>
+                                    </div>                               
 
-                                            <button type="button" onclick="document.getElementById('id03').style.display='none'" class="btn btn-danger">Cancel</button>
+                                    <div class="dropdown d-inline-block mt-2">
+                                        <button type="button" aria-haspopup="true" aria-expanded="false" data-toggle="dropdown" id="scalebtn" class="mb-2 mr-2 dropdown-toggle btn btn-outline-secondary">Scale</button>
+                                        <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu" id="scale">
+                                            <!-- scale -->
+                                        </div>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <div class="search-wrapper">
+                                            <div class="input-holder">
+                                                <input type="text" class="search-input" placeholder="Type to search" id="searchinput">
+                                                <button class="search-icon"><span></span></button>
+                                            </div>
+                                            <button class="close"></button>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div id="id02" class="modal" id="detailpopup">
-                    <form class="modal-content-detail">
-                        <div id="detailpop">
-                        </div>
-                    </form>
-                </div>
-
-
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="main-card mb-3 card">
-                            <div class="card-header">
-                                <div class="mr-3">
-                                    Products
+                                    <div class="table-responsive">
+                                        <table class="align-middle mb-0 table table-borderless table-striped table-hover">
+                                            <thead>
+                                            <tr>
+                                                <th class="text-center">#</th>
+                                                <th >Name</th>
+                                                <th class="text-center">In Stock</th>
+                                                <th class="text-center">Price</th>
+                                                <th class="text-center"></th>
+                                            </tr>
+                                            </thead>
+                                            <tbody id="tablelist">
+                                                <!-- table -->
+                                            </tbody>
+                                        </table>
+                                    </div> 
                                 </div>
-                                <div class="dropdown d-inline-block mt-2">
-                                    <button type="button" aria-haspopup="true" aria-expanded="false" data-toggle="dropdown" id="btn" class="mb-2 mr-2 dropdown-toggle btn btn-outline-secondary">Vendors</button>
-                                    <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu" id="vendor">
-                                        <!-- vender -->
-                                    </div>
-                                </div>
-
-                                <div class="dropdown d-inline-block mt-2">
-                                    <button type="button" aria-haspopup="true" aria-expanded="false" data-toggle="dropdown" id="scalebtn" class="mb-2 mr-2 dropdown-toggle btn btn-outline-secondary">Scale</button>
-                                    <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu" id="scale">
-                                        <!-- scale -->
-                                    </div>
-                                </div>
-                                <div class="col-md-1">
-                                    <div class="search-wrapper">
-                                        <div class="input-holder">
-                                            <input type="text" class="search-input" placeholder="Type to search" id="searchinput">
-                                            <button class="search-icon"><span></span></button>
-                                        </div>
-                                        <button class="close"></button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="table-responsive">
-                                <table class="align-middle mb-0 table table-borderless table-striped table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th class="text-center">#</th>
-                                            <th>Name</th>
-                                            <th class="text-center">In Stock</th>
-                                            <th class="text-center">Price</th>
-                                            <th class="text-center"></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="tablelist">
-                                        <!-- table -->
-                                    </tbody>
-                                </table>
                             </div>
                         </div>
                     </div>                    
@@ -417,7 +382,6 @@ session_start();
                             });
                             document.getElementById("tablelist").innerHTML = vendorlist;
                         }
-
                         var scalelist = '<button id="nonescale" type="button" onclick="scaleFilter(this)" tabindex="0" class="dropdown-item">None</button>';
                         var json = <?php echo $jsscale; ?> ;
                         json.forEach(function(a) {
@@ -439,7 +403,6 @@ session_start();
                             });
                             document.getElementById("tablelist").innerHTML = scalelist;
                         }    
-
                         var json = 0;
                         function getProduct(){
                             var data = 0;
@@ -479,15 +442,17 @@ session_start();
                             });
                             document.getElementById("tablelist").innerHTML = tableproduct;
                         }
-                        if (a.productScale == productScale) {
-                            scalelist += tableGenem(++i, a.productName, a.productLine, a.quantityInStock, a.MSRP, a.productCode);
+                        function delalert(productCode){
+                            var p = productCode.getAttribute("id");
+                            document.getElementById('id03').style.display='block';
+                            document.getElementById('delbut').setAttribute("name",p);
+                                                 
                         }
                         $.ajaxSetup({
                             headers: {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                             }
                         });
-
                         cartJSON = 0;
                         function getCart(){
                             var data = 0;
@@ -502,7 +467,6 @@ session_start();
                             });
                             return data;
                         }
-
                         total = 0;
                         function getCartTotal(){
                             var data = 0;
@@ -516,7 +480,6 @@ session_start();
                             });
                             return data;
                         }
-
                         function genCart(){
                             cartJSON = getCart();
                             total = getCartTotal();
@@ -536,7 +499,6 @@ session_start();
                             
                         }
                         genCart();
-
                         function addToCart(a, qty){
                             var p = a.getAttribute("id");               
                             $.ajax({
@@ -549,7 +511,6 @@ session_start();
                                 }
                             });
                         }   
-
                         function editQTY(a){
                             if(a.value <= 0){
                                 addToCart(a, 1);
@@ -557,7 +518,6 @@ session_start();
                                 addToCart(a, a.value);
                             }
                         }
-
                         function cusAddr(a){
                             if(a.value != ""){
                                 $.ajax({
@@ -571,20 +531,25 @@ session_start();
                                             data.forEach(function(a) {
                                                 addr += `<option id="${a.mapNumber}">${a.addressLine1} ${a.addressLine2}, ${a.city}, ${a.state}, ${a.postalCode}, ${a.country}</option>`;
                                             });                                            
-                                            document.getElementById("addr").innerHTML = addr;
-                                            document.getElementById("addr").disabled = false;
+                                            document.getElementById("shipaddr").innerHTML = addr;
+                                            document.getElementById("shipaddr").disabled = false;
+                                            document.getElementById("billaddr").innerHTML = addr;
+                                            document.getElementById("billaddr").disabled = false;
                                         }else{
-                                            document.getElementById("addr").innerHTML = "";
-                                            document.getElementById("addr").disabled = true;
+                                            document.getElementById("shipaddr").innerHTML = "";
+                                            document.getElementById("shipaddr").disabled = true;
+                                            document.getElementById("billaddr").innerHTML = "";
+                                            document.getElementById("billaddr").disabled = true;
                                         }                                     
                                     }
                                 });
                             }else{
-                                document.getElementById("addr").innerHTML = "";
-                                document.getElementById("addr").disabled = true;
+                                document.getElementById("shipaddr").innerHTML = "";
+                                document.getElementById("shipaddr").disabled = true;
+                                document.getElementById("billaddr").innerHTML = "";
+                                document.getElementById("billaddr").disabled = true;
                             }
                         }
-
                         var discountAmount = 0;
                         function upVoucher(a){
                             if(a.value == ""){
@@ -619,16 +584,14 @@ session_start();
                                 }
                             });
                         }
-
                         function proceed(){
-                            var e = document.getElementById("addr");
                             var cusProceed = {
                                 "cusnum": document.getElementById("customernumber").value.toString(),
-                                "addr": e.options[e.selectedIndex].value,
                                 "reqDate": document.getElementById("reqdate").value.toString(),
                                 "vcode": document.getElementById("voucher").value.toString(),
                                 "vdis": discountAmount,
-                                "addrnum": $("select#addr").children("option:selected").attr('id')
+                                "shipaddrnum": $("select#shipaddr").children("option:selected").attr('id'),
+                                "billaddrnum": $("select#billaddr").children("option:selected").attr('id')
                             }
                             discountAmount = 0;
                             console.log(cusProceed);
@@ -646,8 +609,10 @@ session_start();
                                     $('#customernumber').val('');
                                     $('#reqdate').val('');
                                     $('#voucher').val('');
-                                    document.getElementById("addr").innerHTML = "";
-                                    document.getElementById("addr").disabled = true;
+                                    document.getElementById("shipaddr").innerHTML = "";
+                                    document.getElementById("shipaddr").disabled = true;
+                                    document.getElementById("billaddr").innerHTML = "";
+                                    document.getElementById("billaddr").disabled = true;
                                     document.getElementById("TooltipDemo").click();
                                 },
                                 error: function(err){
@@ -667,7 +632,6 @@ session_start();
                                 }
                             });
                         }
-
                         function deleteitem(a){
                             var p = a.getAttribute("name");
                             $.ajax({
@@ -679,59 +643,24 @@ session_start();
                                 }
                             });
                         }
-                    });
-                    document.getElementById("tablelist").innerHTML = tableproduct;
-                }
-
-                function delalert(productCode) {
-                    var p = productCode.getAttribute("id");
-                    document.getElementById('id03').style.display = 'block';
-                    document.getElementById('delbut').setAttribute("name", p);
-
-                }
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                });
-
-                function deleteitem(a) {
-                    var p = a.getAttribute("name");
-                    $.ajax({
-                        type: 'delete',
-                        url: '/products/' + p,
-                        success: function(data) {
-                            document.getElementById('id03').style.display = 'none';
-                            const index = json.findIndex(x => x.productCode == p);
-                            if (index !== undefined) json.splice(index, 1);
-                            Gentable();
+                        function detailpopup(products) {
+                            document.getElementById('id02').style.display='block';
+                            var productcode = products.getAttribute("id");
+                            var text = "";
+                            json.forEach(function(a) {
+                                if(a.productCode == productcode){
+                                    text = detailPopupGen(a.productCode,a.productName,a.productScale,a.productVendor,a.quantityInStock,a.MSRP,a.productLine,a.productDescription);
+                                }
+                            });
+                            document.getElementById("detailpop").innerHTML = text;
                         }
-                    });
-                }
-
-                function detailpopup(products) {
-                    document.getElementById('id02').style.display = 'block';
-                    var productcode = products.getAttribute("id");
-                    var text = "";
-                    json.forEach(function(a) {
-                        if (a.productCode == productcode) {
-                            text = detailPopupGen(a.productCode, a.productName, a.productScale, a.productVendor, a.quantityInStock, a.MSRP, a.productLine, a.productDescription);
-                        }
-                    });
-                    document.getElementById("detailpop").innerHTML = text;
-                }
-
-                function cartadd(productCode) {
-
-                }
-            </script>
-
-
-
-            <script src="http://maps.google.com/maps/api/js?sensor=true"></script>
+                                            
+                    </script>
+                    
+                                               
+                                            
+                <script src="http://maps.google.com/maps/api/js?sensor=true"></script>
         </div>
     </div>
-    <script type="text/javascript" src="../assets/scripts/main.js"></script>
-</body>
-
+<script type="text/javascript" src="../assets/scripts/main.js"></script></body>
 </html>

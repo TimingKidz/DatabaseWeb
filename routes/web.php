@@ -62,7 +62,8 @@ Route::post('/customerAddrdelete/{map}','DataController@deleteMulAddr');
 // Route::get('/getcus','DataController@cus');
 Route::post('/customer/{id}','DataController@customerdetail_id');
 Route::get('/getpass','DataController@passGen');
-
+Route::get('/test','DataController@test');
+Route::get('/dashboard','DataController@dashboard');
 Route::put('/employees','DataController@updateerm');
 // Route::get('/','DataController@index');
 

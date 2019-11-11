@@ -144,7 +144,7 @@ session_start();
                                 
                             <li class="app-sidebar__heading">Dashboard</li>
                             <li>
-                                    <a href="dashboard-boxes.html">
+                                    <a href="../dashboard">
                                         <i class="metismenu-icon pe-7s-display2"></i>
                                         Dashboard
                                     </a>
@@ -162,7 +162,7 @@ session_start();
                                 <?php
                                 if(strpos(session('status'),'Sale') !== false){
                                     echo '<li>
-                                    <a href="/dashboard-boxes.html">
+                                    <a href="../stockin">
                                         <i class="metismenu-icon pe-7s-display2"></i>
                                         Stock In
                                     </a>
@@ -220,8 +220,52 @@ session_start();
             </div>
         </div> 
     </div>
-              
- 
+    
+    <div id="id04" class="modal"> 
+        <div class="modal-content animate"> 
+            <div class="main-card card">
+                <div class="card-body "><h4></h4>
+                <span onclick="document.getElementById('id04').style.display='none'" class="close" title="Close Modal">×</span> 
+                    <div class="">
+                    <div class="main-card">
+                                    <div class="card-body"><h5 class="card-title">EDIT</h5>
+                                            <div class="form-row">
+                                                <div class="col-md-5">
+                                                <div class="position-relative form-group"><label for="exampleEmail11" class="">Reports To</label> 
+                                                    <select name="select" id="select1" class="form-control">
+                                                    </select>
+                                                </div>
+                                               
+                                            </div>
+                                            <div class="col-md-5">
+                                                <div class="position-relative form-group"><label for="exampleEmail11" class="">Job Title</label> 
+                                                    <select name="select" id="select" class="form-control">
+                                                    
+                                                    
+                                                    </select>
+                                                </div>
+                                            </div>   
+                                        </div>
+                                    <div class="form-row">
+                                    <div class="col-md-5">
+                                    <label for="exampleEmail11" id="lebel1" class="ml-3">-</label> 
+                                    </div>
+                                   
+
+                                             <div class="col-md-7 text-right">
+                        <button type="button" onclick="sendupdate()" class="btn btn-success">Update</button>
+                                    </div>
+                                    </div>
+                                            
+                                    </div>
+                                </div>
+                    </div>
+                </div>
+            </div>
+        </div> 
+    </div>
+
+    
 
  
                         <div class="row">
@@ -284,19 +328,25 @@ session_start();
                                 success: function(response){
                                     data = response;
                                 },
+                                error: function (error) {
+                                    console.log(error);
+                                 alert(error.responseText);
+                                
+                            },
                                 async: false,
                             });
                             return JSON.parse(data);
 
                         }
 
-                        
+                        console.log(getem());
                         function Gentable(){
                             json = getem();
                             console.log(json);
                             var tableproduct = "";
                             var i = 0;
-                            if(jQuery.isEmptyObject(json)){
+                            if(jQuery.isEmptyObject(json.data)){
+                                document.getElementById("tablelist").innerHTML = "";
                                 tableproduct += `<div class="main-card card">
                                                 <div class="card-body "><h4></h4>
                                                 <div class="text-center">
@@ -308,9 +358,9 @@ session_start();
                                                 </div>`;
                                                 document.getElementById("result").innerHTML = tableproduct;
                             }else{
-                                json.forEach(function(a) {
+                                json.data.forEach(function(a) {
                                     if(a.reportsTo == code){
-                                        tableproduct += tableERM(a.employeeNumber,a.firstName,a.lastName,a.email,a.jobTitle,a.city,a.country);
+                                        tableproduct += tableERM(a.employeeNumber,a.firstName,a.lastName,a.email,a.jobTitle,a.city,a.country,jQuery.isEmptyObject(json.repTo[0]));
                                     }
                                 });
                                 document.getElementById("tablelist").innerHTML = tableproduct;
@@ -318,6 +368,43 @@ session_start();
                             
                         }
                         Gentable();
+
+                        function downn(a){
+                            id = a.getAttribute("id");
+                            document.getElementById('id04').style.display='block'
+                            var text = "";
+                            json.job.forEach(function(a) {
+                                text += `<option>${a[0]}</option>`; 
+                            });
+                            document.getElementById("select").innerHTML = text;
+                            text = "";
+                            json.rep.forEach(function(a) {
+                                text += `<option>${a.employeeNumber}</option>`; 
+                            });
+                            document.getElementById("select1").innerHTML = text;
+                            document.querySelector('#select1').addEventListener('input',not);
+                            function not(e){
+                                var input = document.getElementById("select1").value;
+                                console.log(input);
+                                var text = "";
+                                json.rep.forEach(function(a) {
+                                    if(input == a.employeeNumber){
+                                        text += `<h6>${a.jobTitle}</h6>`; 
+                                    }
+                                });
+                                document.getElementById("lebel1").innerHTML = text;
+                            }
+                        }
+                       
+                        var id = 0;
+                        function popup(a){
+                            id = a.getAttribute("id");
+                            document.getElementById('id04').style.display='block'
+                            var text = "<?php echo session('status');?>";
+                            document.getElementById("select").innerHTML = `<option>${text}</option>`;
+                            document.getElementById("select1").innerHTML =  `<option>${json.repTo[0].employeeNumber}</option>`;
+                            document.getElementById("lebel1").innerHTML = `<h6>${json.repTo[0].jobTitle}</h6>`;
+                        }
 
 
                        
@@ -327,7 +414,7 @@ session_start();
                             var filter = input.value.toUpperCase();
                             var i = 0 ;
                             var tableproduct = "";
-                            json.forEach(function(a) {
+                            json.data.forEach(function(a) {
                                 var name = a.firstName+a.lastName;
                                 if (((name.toString()).toUpperCase()).includes(filter)){
                                     tableproduct += tableERM(a.employeeNumber,a.firstName,a.lastName,a.email,a.jobTitle,a.city,a.country);
@@ -359,21 +446,26 @@ session_start();
                             });
                         }
                         
-                        function send(){
-                           
-                            var employee =  { "emid": "1323", 
-                                             "newjob": "Sales Manager (APAC)",
-                                             "repTo": "1056"};
-                            console.log(customer);
+                        function sendupdate(){
+                            
+                            var employee =  { "emid": id.toString(), 
+                                             "newjob":  document.getElementById("select").value.toString(),
+                                             "repTo":  document.getElementById("select1").value.toString()};
+                            console.log(employee);
                                             
                             $.ajax({
                                 type: "put",
                                 url: "/employees",
                                 data: employee,
-                                dataType: "json",
                                 success: function(response){
+                                    document.getElementById('id04').style.display='none';
                                     Gentable();
                                 },
+                                error: function (error) {
+                                    console.log(error);
+                                 alert(error.responseText);
+                                
+                            },
                             });
                         }
                                             

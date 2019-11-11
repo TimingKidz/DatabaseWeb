@@ -8,8 +8,27 @@ use Illuminate\Http\Request;
 Use Exception;
 use Session;
 
+class job{
+    static $Match = array("Sales Rep"=>"0",
+                             "Sales Manager (NA)"=>"1",
+                             "Sale Manager (EMEA)"=>"1",
+                             "Sales Manager (APAC)"=>"1",
+                             "VP Marketing"=>"2",
+                             "VP Sales"=>"2",
+                             "President"=>"3"
+                            );
+    static $Title = array(array("Sales Rep","0"),
+                      array("Sales Manager (NA)","1"),
+                      array("Sale Manager (EMEA)","1"),
+                      array("Sales Manager (APAC)","1"),
+                      array("VP Marketing","2"),
+                      array("VP Sales","2"),
+                      array("President","3")
+                    );
+}
 class DataController extends Controller
 {
+    
     
     public function getAllProduct(){
         $data = DB::select('select * from products');
@@ -98,6 +117,11 @@ class DataController extends Controller
         return view('ERM');
     }
 
+    public function dashboard(Request $request)
+    {
+        return view('dashboard');
+    }
+
     public function orders(Request $request)
     {
         return view('saleorder');
@@ -105,15 +129,55 @@ class DataController extends Controller
 
     public function ermReq(Request $request)
     {
+        $rep = $request->session()->get('rep'); 
+        $id = $request->session()->get('code');
+        $code = $request->session()->get('status');
         $data = DB::select("select a.employeeNumber,a.lastName,a.firstName,a.email,a.reportsTo,a.jobTitle,o.city,o.country from employees as a join offices as o using(officeCode)");
-        // $data = DB::select("select * from employees join offices using(officeCode) where reportsTO ='$code'");
-        return json_encode($data);
+        $jobEm = array();
+        foreach (job::$Title as &$value) {
+            if($value[1] < job::$Match[$code]){array_push($jobEm,$value);}
+        }
+        $jobmm = array();
+        $jobnm = array();
+        $jobm = array();
+        foreach ($data as &$value) {
+            if(job::$Match[$value->jobTitle] <= job::$Match[$code] and job::$Match[$value->jobTitle] > 0 ){array_push($jobmm,$value);}
+            if("$id" == $value->reportsTo){array_push($jobnm,$value);}
+            if("$rep" == $value->employeeNumber){array_push($jobm,$value);}
+        }
+       
+        return json_encode(array("job"=>$jobEm,"data"=>$jobnm,"rep"=>$jobmm,"repTo"=>$jobm));
     }
 
-    public function updateerm(){
+    public function test()
+    {
+        $vp = array("1056","VP Sales");
+        $data = DB::select("select a.employeeNumber,a.lastName,a.firstName,a.email,a.reportsTo,a.jobTitle,o.city,o.country from employees as a join offices as o using(officeCode)");
+        $jobEm = array();
+        foreach (job::$Title as &$value) {
+            if($value[1] < job::$Match[$vp[1]]){array_push($jobEm,$value);}
+        }
+        $jobmm = array();
+        $jobnm = array();
+        foreach ($data as &$value) {
+            print_r(job::$Match[$value->jobTitle]);
+            print_r("<=");
+            print_r(job::$Match[$vp[1]]);
+            print_r("<br>");
+            if(job::$Match[$value->jobTitle] <= job::$Match[$vp[1]] and job::$Match[$value->jobTitle] > 0 ){array_push($jobmm,$value);}
+            if("1056" == $value->reportsTo){array_push($jobnm,$value);}
+        }
+        return json_encode(array("job"=>$jobEm,"data"=>$jobnm,"rep"=>$jobmm));
+    }
+
+    public function updateerm(Request $request){
         try
         {
-            $data = DB::update("update employees set jobTitle = '$request->newjob', reportsTo = '$request->repTo' where employeeNumber = '$request->emid'");
+            if(job::$Match[$request->newjob] <= job::$Match[$request->session()->get('status')]){
+                $data = DB::update("update employees set jobTitle = '$request->newjob', reportsTo = '$request->repTo' where employeeNumber = '$request->emid'");
+            }else{
+                throw new Exception("Error");
+            }
         }
         catch(Exception $e)
         {
@@ -122,6 +186,7 @@ class DataController extends Controller
         
     }
 
+    
     public function updateorder(Request $request){
         try
         {
@@ -170,6 +235,7 @@ class DataController extends Controller
             $request->session()->put('name',$data[0]->firstName);
             $request->session()->put('code',$data[0]->employeeNumber);
             $request->session()->put('status',$data[0]->jobTitle);
+            $request->session()->put('rep',$data[0]->reportsTo);
             return redirect('/products');
         }else{
             return redirect('/')->with('alert', 'Invalid username or password !!');

@@ -163,7 +163,7 @@ session_start();
                             <?php
                             if (strpos(session('status'), 'Sale') !== false) {
                                 echo '<li>
-                                    <a href="../stockin">
+                                    <a href="../stockin" class="mm-active">
                                         <i class="metismenu-icon pe-7s-display2"></i>
                                         Stock In
                                     </a>
@@ -178,7 +178,7 @@ session_start();
                                 </a>
                             </li>
                             <li>
-                                <a href="../saleorder" class="mm-active">
+                                <a href="../saleorder">
                                     <i class="metismenu-icon pe-7s-display2"></i>
                                     Saleorder
                                 </a>
@@ -220,7 +220,7 @@ session_start();
                 <div class="row">
                     <div class="col-md-12">
                         <div class="main-card mb-3 card">
-                            <div class="card-header mr-3">Order Detail
+                            <div class="card-header mr-3">Stock-in Detail
 
                             </div>
                             <div class="row">
@@ -266,7 +266,7 @@ session_start();
                                 <div class="col-md-12">
                                     <div class="main-card mb-2 card">
                                         <div class="card-body">
-                                            <b class="card-title">Order</b>
+                                            <b class="card-title">Stock-in</b>
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <div class="main-card mb-3 card">
@@ -275,14 +275,10 @@ session_start();
                                                             <table class="align-middle mb-0 table table-borderless table-striped table-hover">
                                                                 <thead>
                                                                     <tr>
-                                                                        <th class="text-center">Order NO.</th>
+                                                                        <th class="text-center">Stock NO.</th>
                                                                         <th>Product Code</th>
                                                                         
                                                                         <th class="text-center">qty</th>
-                                                                        <th class="text-center">priceEach
-
-                                                                        </th>
-                                                                        <th class="text-center">order line number</th>
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody id="tablelist">
@@ -312,7 +308,7 @@ session_start();
                             
                             
                             code = <?php echo $id ?>;
-                            json = <?php echo $jsorder ?>;
+                            json = <?php echo $jsstockindetails ?>;
                             console.log(code)
                             console.log(json)
                             function getorders() {
@@ -329,13 +325,13 @@ session_start();
                                 return JSON.parse(data);
                             }
                             function gentabledetail(){
-                                json = <?php echo $jsorder ?>;
+                                json = <?php echo $jsstockindetails ?>;
                             var tableproduct = "";
                             var i = 0;
                             console.log(json);
                             json.forEach(function(a) {
                                 
-                                tableproduct += tablesaledetail(a.orderNumber,a.productCode,a.quantityOrdered,a.priceEach,a.orderLineNumber);
+                                tableproduct += tablestockdetail(a.stockinNumber,a.productCode,a.quantityOrdered);
                             });
                             document.getElementById("tablelist").innerHTML = tableproduct;
                             }

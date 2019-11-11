@@ -77,6 +77,12 @@ class DataController extends Controller
         return view('stockin',['jsstockinHeaderList' => $jsstockinHeaderList]);
     }
 
+    public function stockindetails($stockNumber){
+        $data = DB::select("select * from stockinDetails where stockinNumber = '$stockNumber'");
+        
+        return view('stockindetails', ['jsstockindetails' => json_encode($data)], ['id' => $stockNumber]);
+    }
+
     public function customerdetail($id)
     {
         return view('customerdetail',['id' => $id]);

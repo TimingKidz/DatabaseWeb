@@ -164,12 +164,16 @@ session_start();
                                 </a>
                             </li>
 
-                            <li>
-                                <a href="../dashboard-boxes.html">
-                                    <i class="metismenu-icon pe-7s-box1"></i>
-                                    Stock In
-                                </a>
-                            </li>
+                            <?php
+                            if (strpos(session('status'), 'Sale') !== false) {
+                                echo '<li>
+                                    <a href="../stockin">
+                                        <i class="metismenu-icon pe-7s-display2"></i>
+                                        Stock In
+                                    </a>
+                                </li>';
+                            }
+                            ?>
 
                             <li>
                                 <a href="../customer" class="mm-active">
@@ -183,6 +187,16 @@ session_start();
                                     Saleorder
                                 </a>
                             </li>
+                            <?php
+                                        if(session('status') != "Sales Rep"){
+                                        echo '<li>
+                                            <a href="../ERM">
+                                                <i class="metismenu-icon pe-7s-note2"></i>
+                                            ERM
+                                            </a>
+                                        </li>';
+                                        }
+                                ?>
 
 
                         </ul>

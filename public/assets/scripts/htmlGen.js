@@ -318,3 +318,22 @@ function tablestockin(stockNumber, stockDate, comments) {
                 </td>
         </tr>`
 }
+
+function tablestockdetail(stockinNumber,productCode, qty) {
+    return ` 
+    <tr>
+            <td class="text-center text-muted"> ${stockinNumber}</td>
+            <td>
+                <div class="widget-content p-0">
+                    <div class="widget-content-wrapper">
+                        
+                        <div class="widget-content-left flex2">
+                            <div class="widget-heading">${productCode}</div>
+                        </div>
+                    </div>
+            </td>
+                <td class="text-center">${qty}</td>  
+                                                                              
+                
+        </tr>`
+}

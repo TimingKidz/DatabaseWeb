@@ -196,7 +196,7 @@ session_start();
 
                                 <li class="app-sidebar__heading">Menu</li>
                                 <li>
-                                    <a href="../products" class="mm-active">
+                                    <a href="../products">
                                         <i class="metismenu-icon pe-7s-display2"></i>
                                         Products
                                     </a>
@@ -204,7 +204,7 @@ session_start();
                                 <?php
                                 if(strpos(session('status'),'Sale') !== false){
                                     echo '<li>
-                                    <a href="../stockin">
+                                    <a href="../stockin" class="mm-active">
                                         <i class="metismenu-icon pe-7s-display2"></i>
                                         Stock In
                                     </a>

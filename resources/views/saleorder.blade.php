@@ -145,7 +145,7 @@ session_start();
                                 
                             <li class="app-sidebar__heading">Dashboard</li>
                             <li>
-                                    <a href="../dashboard">
+                                    <a href="dashboard-boxes.html">
                                         <i class="metismenu-icon pe-7s-display2"></i>
                                         Dashboard
                                     </a>
@@ -154,7 +154,7 @@ session_start();
 
                                 <li class="app-sidebar__heading">Menu</li>
                                 <li>
-                                    <a href="../products">
+                                    <a href="../products" >
                                         <i class="metismenu-icon pe-7s-display2"></i>
                                         Products
                                     </a>
@@ -162,7 +162,7 @@ session_start();
                                 <?php
                                 if(strpos(session('status'),'Sale') !== false){
                                     echo '<li>
-                                    <a href="../stockin">
+                                    <a href="/dashboard-boxes.html">
                                         <i class="metismenu-icon pe-7s-display2"></i>
                                         Stock In
                                     </a>
@@ -290,6 +290,7 @@ session_start();
                                                 <th class="text-center">Required Date</th>
                                                 <th class="text-center">Shipped Date</th>
                                                 <th class="text-center">Status</th>
+                                                <th class="text-center">Point</th>
                                             </tr>
                                             </thead>
                                             <tbody id="tablelist">
@@ -329,7 +330,7 @@ session_start();
                             var tableproduct = "";
                             var i = 0;
                             json.forEach(function(a) {
-                                tableproduct += tablesale(a.orderNumber,a.customerName,a.orderDate,a.requiredDate,a.shippedDate,a.status);
+                                tableproduct += tablesale(a.orderNumber,a.customerName,a.orderDate,a.requiredDate,a.shippedDate,a.status,a.pointEarn);
                             });
                             document.getElementById("tablelist").innerHTML = tableproduct;
                         }
@@ -344,7 +345,7 @@ session_start();
                             var tableproduct = "";
                             json.forEach(function(a) {
                                 if (((a.customerName.toString()).toUpperCase()).includes(filter)){
-                                    tableproduct += tablesale(a.orderNumber,a.customerName,a.orderDate,a.requiredDate,a.shippedDate,a.status);
+                                    tableproduct += tablesale(a.orderNumber,a.customerName,a.orderDate,a.requiredDate,a.shippedDate,a.status,a.pointEarn);
                                 }
                             });
                             document.getElementById("tablelist").innerHTML = tableproduct;

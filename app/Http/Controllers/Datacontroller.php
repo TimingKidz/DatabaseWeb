@@ -201,9 +201,12 @@ class DataController extends Controller
     public function saleorderdetail($id){
         $data = DB::select("select * from orderdetails where orderNumber = '$id'");
         
-        return view('orderdetail', ['jsorder' => json_encode($data)]);
+        return view('orderdetail', ['jsorder' => json_encode($data)], ['id' => $id]);
     }
 
+    public function editComment(Request $request){
+        DB::update("update orders set comments = '$request->comments' where orderNumber = '$request->orderNumber'");
+    }
     public function saleorder(){
         $data = DB::select("select * from orders join customers using(customerNumber)");
         return json_encode($data);

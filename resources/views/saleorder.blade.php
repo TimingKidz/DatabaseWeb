@@ -154,7 +154,7 @@ session_start();
 
                                 <li class="app-sidebar__heading">Menu</li>
                                 <li>
-                                    <a href="../products" class="mm-active">
+                                    <a href="../products">
                                         <i class="metismenu-icon pe-7s-display2"></i>
                                         Products
                                     </a>
@@ -178,7 +178,7 @@ session_start();
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="../saleorder">
+                                    <a href="../saleorder" class="mm-active">
                                         <i class="metismenu-icon pe-7s-display2"></i>
                                         Saleorder
                                     </a>

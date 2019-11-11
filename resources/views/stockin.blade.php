@@ -292,8 +292,6 @@ session_start();
                                             <tr>
                                                 <th class="text-center">#</th>                                            
                                                 <th>Date</th>
-                                                <th class="text-center">ProductCode</th>
-                                                <th class="text-center">Quantity</th>
                                                 <th class="text-center">Comment</th>
                                                 <th class="text-center"></th>
                                             </tr>
@@ -318,7 +316,7 @@ session_start();
                         function Gentable(){
                             var tableStockin = "";
                             json.forEach(function(a) {
-                                tableStockin += tablestockin(a.stockNumber,a.stockDate,a.productCode,a.quantityOrdered,a.comments);
+                                tableStockin += tablestockin(a.stockNumber,a.stockDate,a.comments);
                             });
                             document.getElementById("tablelist").innerHTML = tableStockin;
                         }
@@ -333,7 +331,7 @@ session_start();
                             var tableStockin = "";
                             json.forEach(function(a) {
                                 if (((a.stockNumber.toString()).toUpperCase()).includes(filter)){
-                                    tableStockin += tablestockin(a.stockNumber,a.stockDate,a.productCode,a.quantityOrdered,a.comments);
+                                    tableStockin += tablestockin(a.stockNumber,a.stockDate,a.comments);
                                 }
                             });
                             document.getElementById("tablelist").innerHTML = tableStockin;

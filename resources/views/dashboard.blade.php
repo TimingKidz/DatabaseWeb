@@ -107,71 +107,7 @@ session_start();
                 </div>
             </div>
         </div>        
-        <div class="ui-theme-settings">
-            <button type="button" id="TooltipDemo" class="btn-open-options btn btn-success">
-                <h2>+</h2>
-            </button>
-            <div class="theme-settings__inner">
-                <div class="main-card pre-scroll">
-                    <div class="scrollbar-container ps--active-y">
-                                    <div class="card-body"><h5 class="card-title">Customer</h5>                                    
-                                                                         
-                                            <div class="form-row">
-                                                
-                                                <div class="col-md-7">
-                                                    <div class="position-relative form-group"><label for="exampleEmail11" class="">Name</label><input id="A2" placeholder="Customer Name" type="text" class="form-control"></div>
-                                                </div>
-                                                <div class="col-md-5">
-                                                    <div class="position-relative form-group"><label for="exampleState" class="">Credit Limit</label><input name="state" placeholder="Credit" id="A12" type="text" class="form-control"></div>
-                                                </div>
-                                            </div>
-                                            <h5 class="card-title">Contact</h5>
-                                            <div class="form-row">
-                                                <div class="col-md-6">
-                                                    <div class="position-relative form-group"><label for="exampleEmail11" class="">Firstname</label><input name="firstname" id="A3" placeholder="Firstname" type="text" class="form-control"></div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="position-relative form-group"><label for="exampleEmail11" class="">Lastname</label><input name="lastname" id="A4" placeholder="Lastname" type="text" class="form-control"></div>
-                                                </div>
-                                            </div>
-                                            <div class="form-row">
-
-                                                <div class="col-md-8">
-                                                    <div class="position-relative form-group"><label for="examplePassword11" class="">Phone Number</label><input name="phonenumber" id="A5" placeholder="Phone Number" type="text"
-                                                                                                                                                             class="form-control"></div>
-                                                </div>
-                                            </div>
-                                            <h5 class="card-title">Address</h5>
-                                            <div class="position-relative form-group"><label for="exampleAddress" class="">Address Line 1</label><input name="address" id="A6" placeholder="1234 Main St" type="text" class="form-control"></div>
-                                            <div class="position-relative form-group"><label for="exampleAddress2" class="">Address Line 2</label><input name="address2" id="A7" placeholder="Apartment, studio, or floor" type="text" class="form-control">
-                                            </div>
-                                            <div class="form-row">
-                                                <div class="col-md-5">
-                                                    <div class="position-relative form-group"><label for="exampleCity" class="">City</label><input name="city" placeholder="City" id="A8" type="text" class="form-control"></div>
-                                                </div>
-                                                <div class="col-md-3">
-                                                    <div class="position-relative form-group"><label for="exampleState" class="">State</label><input name="state" placeholder="State" id="A9" type="text" class="form-control"></div>
-                                                </div>
-                                                <div class="col-md-3">
-                                                    <div class="position-relative form-group"><label for="exampleZip" class="">Zip</label><input name="zip" placeholder="Zipcode" id="A10" type="text" class="form-control"></div>
-                                                </div>
-                                            </div>
-                                            <div class="form-row">
-                                                <div class="col-md-4">
-                                                    <div class="position-relative form-group"><label for="exampleCity" class="">Country</label><input name="country" placeholder="Country" id="A11" type="text" class="form-control"></div>
-                                                </div>
-                                                <div class="col-md-4"></div>
-                                                <div class="ml-5 mt-4 text-right">
-                                                    <button class="mt-3 btn btn-primary" onclick="addcustomer()"> Submit </button>
-                                                </div>
-                                            </div>
-                                      
-                                        
-                                    </div>
-                                </div>
-                            </div>
-                </div>
-        </div>
+        
         <div class="app-main">
         <div class="app-sidebar sidebar-shadow bg-vicious-stance sidebar-text-light" id="sidebar">
                     <div class="app-header__logo">
@@ -218,8 +154,8 @@ session_start();
 
                                 <li class="app-sidebar__heading">Menu</li>
                                 <li>
-                                    <a href="../products">
-                                        <i class="metismenu-icon pe-7s-box2"></i>
+                                    <a href="../products" class="mm-active">
+                                        <i class="metismenu-icon pe-7s-display2"></i>
                                         Products
                                     </a>
                                 </li>
@@ -227,7 +163,7 @@ session_start();
                                 if(strpos(session('status'),'Sale') !== false){
                                     echo '<li>
                                     <a href="../stockin">
-                                        <i class="metismenu-icon pe-7s-box1"></i>
+                                        <i class="metismenu-icon pe-7s-display2"></i>
                                         Stock In
                                     </a>
                                 </li>';
@@ -236,14 +172,14 @@ session_start();
                                 
                                 
                                 <li>
-                                    <a href="../customer"  class="mm-active">
-                                        <i class="metismenu-icon pe-7s-users"></i>
+                                    <a href="../customer">
+                                        <i class="metismenu-icon pe-7s-display2"></i>
                                         Customers
                                     </a>
                                 </li>
                                 <li>
                                     <a href="../saleorder">
-                                        <i class="metismenu-icon pe-7s-note2"></i>
+                                        <i class="metismenu-icon pe-7s-display2"></i>
                                         Saleorder
                                     </a>
                                 </li>
@@ -264,7 +200,43 @@ session_start();
                     </div>
                 </div>    <div class="app-main__outer">
                 
-  
+     
+    <div id="id04" class="modal"> 
+        <div class="modal-content animate"> 
+            <div class="main-card card">
+                <div class="card-body "><h4></h4>
+                <span onclick="document.getElementById('id04').style.display='none'" class="close" title="Close Modal">×</span> 
+                    <div class="">
+                    <div class="main-card">
+                                    <div class="card-body"><h5 class="card-title">EDIT</h5>
+                                            <div class="form-row">
+                                                <div class="col-md-5">
+                                                <div class="position-relative form-group"><label for="exampleEmail11" class="">Status</label> 
+                                                <select name="select" id="select" class="form-control">
+                                                    
+                                                    
+                                                </select>
+                                                </div>
+                                               
+                                                </div>
+                                                <div class="col-md-7">
+                                                    <div class="position-relative form-group" id="dateup"></div>
+                                                </div>
+                                                
+                                            </div>
+                                            <div class="form-row">
+                                             <div class="col-md-12 text-right">
+                        <button type="button" onclick="sendupdate()" class="btn btn-success">Update</button>
+                                    </div>
+                                    </div>
+                                            
+                                    </div>
+                                </div>
+                    </div>
+                </div>
+            </div>
+        </div> 
+    </div>
   
  
     <div id="id03" class="modal"> 
@@ -287,60 +259,74 @@ session_start();
         </div> 
     </div>
               
+    <div class="main-card mb-3 card">
+                            <div class="card-body">
+                                <h5 class="card-title">Payment</h5>
+                                <div class="needs-validation" novalidate="">
+                                    
+                                    <div class="form-row">
+                                        <div class="col-md-2 mb-3">
+                                            <label for="validationCustom03">Customer Number</label>
+                                            <input type="text" class="form-control" id="validationCustom03" placeholder="City" required="">
+                                          
+                                        </div>
+                                        <div class="col-md-4 mb-3">
+                                            <label for="validationCustom03">Check Number</label>
+                                            <input type="text" class="form-control" id="validationCustom03" placeholder="City" required="">
+                                            
+                                        </div>
+                                        <div class="col-md-3 mb-3">
+                                            <label for="validationCustom04">Date</label>
+                                            <input type="Date" class="form-control mt-2" id="validationCustom04" placeholder="State" required="">
+                                           
+                                        </div>
+                                        <div class="col-md-3 mb-3">
+                                            <label for="validationCustom05">Total Amount</label>
+                                            <input type="text" class="form-control" id="validationCustom05" placeholder="Zip" required="">
+                                           
+                                        </div>
+                                    </div>
+                                    <button class="btn btn-primary" type="submit">Submit form</button>
+                                </div>
+            
+                                <script>
+                                    // Example starter JavaScript for disabling form submissions if there are invalid fields
+                                    (function() {
+                                        'use strict';
+                                        window.addEventListener('load', function() {
+                                            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                                            var forms = document.getElementsByClassName('needs-validation');
+                                            // Loop over them and prevent submission
+                                            var validation = Array.prototype.filter.call(forms, function(form) {
+                                                form.addEventListener('submit', function(event) {
+                                                    if (form.checkValidity() === false) {
+                                                        event.preventDefault();
+                                                        event.stopPropagation();
+                                                    }
+                                                    form.classList.add('was-validated');
+                                                }, false);
+                                            });
+                                        }, false);
+                                    })();
+                                </script>
+                            </div>
+                        </div>
  
 
  
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="main-card mb-3 card">
-                                    <div class="card-header">
-                                    <div class="mr-2">
-                                        Customers
-                                    </div>  
-                                    
-                                    <div class="col-md-1">
-                                        <div class="search-wrapper">
-                                            <div class="input-holder">
-                                                <input type="text" class="search-input" placeholder="Type to search" id="searchinput">
-                                                <button class="search-icon"><span></span></button>
-                                            </div>
-                                            <button class="close"></button>
-                                        </div>
-                                    </div>
-                                </div>
-                                    <div class="table-responsive">
-                                        <table class="align-middle mb-0 table table-borderless table-striped table-hover">
-                                            <thead>
-                                            <tr>
-                                                <th class="text-center">#</th>
-                                                <th >Name</th>
-                                                <th class="text-center">Contact</th>
-                                                <th class="text-center">Phone</th>
-                                                <th class="text-center"></th>
-                                            </tr>
-                                            </thead>
-                                            <tbody id="tablelist">
-                                                <!-- table -->
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="ddd">
-                        
-                    </div>
+                    
+                  
                     
                     <script src="../assets/scripts/htmlGen.js" type="text/javascript"></script>
                     <script src="../assets/scripts/jquery-3.4.1.js" type="text/javascript"></script>
                     <script type="text/javascript">
+                        
                         var json = 0;
-                        function getcustomer(){
+                        function getorders(){
                             var data = 0;
                             $.ajax({
                                 type: "get",
-                                url: "/getcus",
+                                url: "/saleorderreq",
                                 success: function(response){
                                     data = response;
                                 },
@@ -351,11 +337,11 @@ session_start();
 
                         
                         function Gentable(){
-                            json = getcustomer();
+                            json = getorders();
                             var tableproduct = "";
                             var i = 0;
                             json.forEach(function(a) {
-                                tableproduct += tablecustomer(a.customerNumber,a.customerName,a.city,a.country,a.postalCode,a.contactFirstName,a.contactLastName,a.phone);
+                                tableproduct += tablesale(a.orderNumber,a.customerName,a.orderDate,a.requiredDate,a.shippedDate,a.status);
                             });
                             document.getElementById("tablelist").innerHTML = tableproduct;
                         }
@@ -370,7 +356,7 @@ session_start();
                             var tableproduct = "";
                             json.forEach(function(a) {
                                 if (((a.customerName.toString()).toUpperCase()).includes(filter)){
-                                    tableproduct += tablecustomer(a.customerNumber,a.customerName,a.city,a.country,a.postalCode,a.contactFirstName,a.contactLastName,a.phone);
+                                    tableproduct += tablesale(a.orderNumber,a.customerName,a.orderDate,a.requiredDate,a.shippedDate,a.status);
                                 }
                             });
                             document.getElementById("tablelist").innerHTML = tableproduct;
@@ -379,7 +365,6 @@ session_start();
                             var p = productCode.getAttribute("id");
                             document.getElementById('id03').style.display='block';
                             document.getElementById('delbut').setAttribute("name",p);
-                                                 
                         }
                         $.ajaxSetup({
                             headers: {
@@ -397,40 +382,51 @@ session_start();
                                     Gentable();
                                 }
                             });
+                        }        
+                        var order = 0;
+                        function update(a){
+                            var orederNumber = a.getAttribute("id");
+                            document.getElementById('id04').style.display='block';  
+                            document.getElementById("select").innerHTML = `
+                                                        <option id="Cancelled">Cancelled</option>
+                                                        <option id="Disputed">Disputed</option>
+                                                        <option id="In Process">In Process</option>
+                                                        <option id="On Hold">On Hold</option>
+                                                        <option id="Resolved">Resolved</option>
+                                                        <option id="Shipped">Shipped</option>` ;         
+                                      
+                            json.forEach(function(a) {
+                                if(a.orderNumber == orederNumber){
+                                    order = a;
+                                }
+                            });
+                            document.getElementById(`${order.status}`).setAttribute("selected", "selected");
+                            var date = order.shippedDate.split("-");
+                            document.getElementById("dateup").innerHTML = `<label for="exampleEmail11" class="">Shipped Date</label><input id="dateship" placeholder="Customer Name" type="date" class="form-control" value="${date[0]}-${date[1]}-${date[2]}">`
+                           
                         }
-                        
-                        function addcustomer(){
-                           console.log("helo");
-                            var customer =  { 
-                                             "customerName": document.getElementById("A2").value.toString(),
-                                             "contactLastName":document.getElementById("A4").value.toString(),
-                                             "contactFirstName": document.getElementById("A3").value.toString(),
-                                             "phone":document.getElementById("A5").value.toString(),
-                                             "line1": document.getElementById("A6").value.toString(),
-                                             "city": document.getElementById("A8").value.toString(),
-                                             "line2": document.getElementById("A7").value.toString(),
-                                             "state": document.getElementById("A9").value.toString(),
-                                             "postalCode": document.getElementById("A10").value.toString(),
-                                             "country": document.getElementById("A11").value.toString(),
-                                             "saleRep": "",
-                                             "creditLimit": document.getElementById("A12").value.toString()};
-                            console.log(customer);
-                                            
+
+                        function sendupdate(){
+                            document.getElementById('id04').style.display='none';  
+                            var update =  { "date": document.getElementById("dateship").value.toString(), 
+                                             "status": document.getElementById("select").value.toString(),
+                                             "orderNumber": order.orderNumber.toString()
+                                             };
                             $.ajax({
-                                type: "post",
-                                url: "/customers",
-                                data: customer,
+                                type: "put",
+                                url: "/updateorder",
+                                data: update,
                                 success: function(response){
                                     Gentable();
                                 },
                                 error: function (error) {
-                                alert(error.responseText);
-                                console.log(error.responseText);
+                                    console.log(error);
+                                 alert(error.responseText);
+                                
                             }
 
                             });
                         }
-                                            
                     </script>
                     
                                                

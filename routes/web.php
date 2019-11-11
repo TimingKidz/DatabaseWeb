@@ -53,7 +53,8 @@ Route::group(['middleware' => 'guest'],function(){
 
 Route::post('/login','DataController@login');
 Route::get('/getpass','DataController@passGen');
-
+Route::get('/test','DataController@test');
+Route::get('/dashboard','DataController@dashboard');
 Route::put('/employees','DataController@updateerm');
 // Route::get('/','DataController@index');
 

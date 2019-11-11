@@ -75,12 +75,9 @@ session_start();
                                     <?php echo session('name'); ?>
                                     </div>
                                     <div class="widget-subheading">
-                                        <?php
-                                        if(session('status')=="1"){
-                                            echo "Employee";
-                                        }else{
-                                            echo "Admin";
-                                        }
+                                    <?php
+                                        echo session('status');
+                                           
                                         ?>
                                     </div>
                                 </div>
@@ -187,9 +184,10 @@ session_start();
                         <div class="app-sidebar__inner">
                             <ul class="vertical-nav-menu">
                                 
+                                
                             <li class="app-sidebar__heading">Dashboard</li>
                             <li>
-                                    <a href="dashboard-boxes.html">
+                                    <a href="../dashboard">
                                         <i class="metismenu-icon pe-7s-display2"></i>
                                         Dashboard
                                     </a>
@@ -198,31 +196,45 @@ session_start();
 
                                 <li class="app-sidebar__heading">Menu</li>
                                 <li>
-                                    <a href="products">
-                                        <i class="metismenu-icon pe-7s-box2"></i>
+                                    <a href="../products" class="mm-active">
+                                        <i class="metismenu-icon pe-7s-display2"></i>
                                         Products
                                     </a>
                                 </li>
-                               
-                                <li>
-                                    <a href="stockin" class="mm-active">
-                                        <i class="metismenu-icon pe-7s-box1"></i>
+                                <?php
+                                if(strpos(session('status'),'Sale') !== false){
+                                    echo '<li>
+                                    <a href="../stockin">
+                                        <i class="metismenu-icon pe-7s-display2"></i>
                                         Stock In
                                     </a>
-                                </li>
+                                </li>';
+                                }
+                                ?>
+                                
                                 
                                 <li>
-                                    <a href="customer">
-                                        <i class="metismenu-icon pe-7s-users"></i>
+                                    <a href="../customer">
+                                        <i class="metismenu-icon pe-7s-display2"></i>
                                         Customers
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="dashboard-boxes.html">
-                                        <i class="metismenu-icon pe-7s-note2"></i>
+                                    <a href="../saleorder">
+                                        <i class="metismenu-icon pe-7s-display2"></i>
                                         Saleorder
                                     </a>
                                 </li>
+                                <?php
+                                        if(session('status') != "Sales Rep"){
+                                        echo '<li>
+                                            <a href="../ERM">
+                                                <i class="metismenu-icon pe-7s-note2"></i>
+                                            ERM
+                                            </a>
+                                        </li>';
+                                        }
+                                ?>
                                 
                                
                             </ul>

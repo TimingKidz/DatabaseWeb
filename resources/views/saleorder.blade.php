@@ -145,7 +145,7 @@ session_start();
                                 
                             <li class="app-sidebar__heading">Dashboard</li>
                             <li>
-                                    <a href="dashboard-boxes.html">
+                                    <a href="../dashboard">
                                         <i class="metismenu-icon pe-7s-display2"></i>
                                         Dashboard
                                     </a>
@@ -162,7 +162,7 @@ session_start();
                                 <?php
                                 if(strpos(session('status'),'Sale') !== false){
                                     echo '<li>
-                                    <a href="/dashboard-boxes.html">
+                                    <a href="../stockin">
                                         <i class="metismenu-icon pe-7s-display2"></i>
                                         Stock In
                                     </a>

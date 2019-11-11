@@ -51,7 +51,30 @@ function tablecustomer(customerNumber, customerName, city, country, postalCode, 
 
 function tableERM(a,b,c,e,f,g,h,op)
 {
-   
+    if(op == true){
+        return ` 
+        <tr>
+                <td class="text-center text-muted"> ${a}</td>
+                <td>
+                    <div class="widget-content p-0">
+                        <div class="widget-content-wrapper">
+                            
+                            <div class="widget-content-left flex2">
+                                <div class="widget-heading">${b} ${c}</div>
+                                <div class="widget-subheading opacity-7">Office : ${g} ${h}</div>
+                            </div>
+                        </div>
+                </td>
+                    <td class="text-center">${e}</td>
+                    <td class="text-center">${f}</td>                                                                
+                    <td class="text-center">
+                    
+                    
+                    
+                    <button class="btn btn-danger btn-sm"  id="${a}" onclick="downn(this)"><i class="pe-7s-angle-down"></i></button>
+                    </td>
+            </tr>`
+    }else{
         return ` 
         <tr>
                 <td class="text-center text-muted"> ${a}</td>
@@ -74,6 +97,8 @@ function tableERM(a,b,c,e,f,g,h,op)
                     <button class="btn btn-danger btn-sm"  id="${a}" onclick="downn(this)"><i class="pe-7s-angle-down"></i></button>
                     </td>
             </tr>`
+    }
+        
  
    
 }

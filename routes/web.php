@@ -46,12 +46,14 @@ Route::group(['middleware' => 'checkuser'], function () {
 
     Route::get('/stockin', 'DataController@stockin');
     Route::get('/stockin/{stockNumber}','DataController@stockindetails');
+    Route::get('/stockinreq','DataController@stockHD');
     Route::post('/customerAddr', 'DataController@addMulAddr');
     Route::put('/customerAddrupdate', 'DataController@updateMulAddr');
     Route::post('/customerAddrdelete/{map}', 'DataController@deleteMulAddr');
     // Route::get('/getcus','DataController@cus');
     Route::post('/customer/{id}', 'DataController@customerdetail_id');
     Route::put('/comment/{id}', 'DataController@editComment');
+    Route::put('/commentstock/{id}','DataController@editCommentstock');
 });
 Route::group(['middleware' => 'guest'], function () {
     Route::get('/', 'DataController@index');

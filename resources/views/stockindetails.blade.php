@@ -232,7 +232,7 @@ session_start();
                                                     <img class="d-block w-20" src="https://via.placeholder.com/200x150">
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <div id="orderdetail"></div>
+                                                    <div id="stockindetail"></div>
                                                 </div>
                                             </div>
 
@@ -311,11 +311,11 @@ session_start();
                             json = <?php echo $jsstockindetails ?>;
                             console.log(code)
                             console.log(json)
-                            function getorders() {
+                            function getstockHD() {
                                 var data = 0;
                                 $.ajax({
                                     type: "get",
-                                    url: "/saleorderreq",
+                                    url: "/stockinreq",
                                     success: function(response) {
                                         data = response;
                                     },
@@ -336,11 +336,11 @@ session_start();
                             document.getElementById("tablelist").innerHTML = tableproduct;
                             }
                             function Gencom() {
-                                var data = getorders();
+                                var data = getstockHD();
                                 console.log(data)
                                 data.forEach(function(a) {
 
-                                    if (a.orderNumber == code) {
+                                    if (a.stockinNumber == code) {
                                         console.log("comments", a.comments)
                                         document.getElementById('commentLabel').innerHTML = `<label for="exampleText" class=""></label><input name="comment" id="textcomment" placeholder="Comments......" type="textarea" class="form-control" value="${a.comments}">`;
                                     }
@@ -352,7 +352,7 @@ session_start();
 
                             json.forEach(function(a) {
                                 // detail name,tel,id
-                                document.getElementById('orderdetail').innerHTML = `<b>Order ID : </b>${a.orderNumber}<br>`;
+                                document.getElementById('stockindetail').innerHTML = `<b>Stock Number : </b>${a.stockinNumber}<br>`;
 
                             });
 
@@ -388,12 +388,12 @@ session_start();
                                 console.log(document.getElementById("textcomment"))
                                 var comment = {
                                     "comments": document.getElementById("textcomment").value.toString(),
-                                    "orderNumber": code.toString()
+                                    "stockNumber": code.toString()
                                 };
                                 console.log("edit", comment);
                                 $.ajax({
                                     type: "put",
-                                    url: "/comment/" + code,
+                                    url: "/commentstock/" + code,
                                     data: comment,
                                     success: function(response) {
                                         //gencomment

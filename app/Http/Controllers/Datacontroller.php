@@ -82,6 +82,10 @@ class DataController extends Controller
         
         return view('stockindetails', ['jsstockindetails' => json_encode($data)], ['id' => $stockNumber]);
     }
+    public function stockHD(){
+        $data = DB::select("select * from stockinHeader join stockinDetails on stockinNumber=stockNumber");
+        return json_encode($data);
+    }
 
     public function customerdetail($id)
     {
@@ -213,6 +217,11 @@ class DataController extends Controller
     public function editComment(Request $request){
         DB::update("update orders set comments = '$request->comments' where orderNumber = '$request->orderNumber'");
     }
+
+    public function editCommentstock(Request $request){
+        DB::update("update stockinHeader set comments = '$request->comments' where stockNumber = '$request->stockNumber'");
+    }
+
     public function saleorder(){
         $data = DB::select("select * from orders join customers using(customerNumber)");
         return json_encode($data);

@@ -308,9 +308,8 @@ session_start();
                             
                             
                             code = <?php echo $id ?>;
-                            json = <?php echo $jsstockindetails ?>;
+
                             console.log(code)
-                            console.log(json)
                             function getstockHD() {
                                 var data = 0;
                                 $.ajax({
@@ -330,17 +329,16 @@ session_start();
                             var i = 0;
                             console.log(json);
                             json.forEach(function(a) {
-                                
                                 tableproduct += tablestockdetail(a.stockinNumber,a.productCode,a.quantityOrdered);
                             });
                             document.getElementById("tablelist").innerHTML = tableproduct;
                             }
                             function Gencom() {
                                 var data = getstockHD();
-                                console.log(data)
+                                console.log(data);
                                 data.forEach(function(a) {
 
-                                    if (a.stockinNumber == code) {
+                                    if (a.stockNumber == code) {
                                         console.log("comments", a.comments)
                                         document.getElementById('commentLabel').innerHTML = `<label for="exampleText" class=""></label><input name="comment" id="textcomment" placeholder="Comments......" type="textarea" class="form-control" value="${a.comments}">`;
                                     }
@@ -352,7 +350,7 @@ session_start();
 
                             json.forEach(function(a) {
                                 // detail name,tel,id
-                                document.getElementById('stockindetail').innerHTML = `<b>Stock Number : </b>${a.stockinNumber}<br>`;
+                                document.getElementById('stockindetail').innerHTML = `<b>Stock Number : </b>${code}<br>`;
 
                             });
 

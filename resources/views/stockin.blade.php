@@ -112,39 +112,29 @@ session_start();
             <div class="theme-settings__inner">
                 <div class="main-card">
                     <!--Add Stock--><div class="card-body"><h5 class="card-title">Stock-In</h5>
-                                        <form class="">
                                             <div class="form-row">
                                                 <div class="col-md-5">
-                                                    <div class="position-relative form-group"><label for="exampleEmail11" class="">Date</label><input name="date" id="exampleEmail11" placeholder="DD/MM/YYYY" type="date" class="form-control"></div>
+                                                    <div class="position-relative form-group"><label for="exampleEmail11" class="">Date</label><input name="date" id="A1" placeholder="DD/MM/YYYY" type="date" class="form-control"></div>
                                                 </div>
                                             </div>
                                             <div class="form-row">
                                                 <div class="col-md-5">
-                                                    <div class="position-relative form-group"><label for="exampleEmail11" class="">ProductCode</label><input name="ProductCode" id="exampleEmail11" placeholder="eg.S10_1080" type="text" class="form-control"></div>
+                                                    <div class="position-relative form-group"><label for="exampleEmail11" class="">ProductCode</label><input name="ProductCode" id="A2" placeholder="eg.S10_1080" type="text" class="form-control"></div>
                                                 </div>
                                             </div>
                                             <div class="form-row">
                                                 <div class="col-md-4">
-                                                    <div class="position-relative form-group"><label for="exampleEmail11" class="">Quantity</label><input name="Quantity" id="exampleEmail11" placeholder="" type="number" class="form-control"></div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="position-relative form-group"><label for="exampleEmail11" class="">PriceEach</label><input name="PriceEach" id="exampleEmail11" placeholder="" type="number" class="form-control"></div>
-                                                </div>
-                                            </div>
-                                            <div class="form-row">
-                                                <div class="col-md-4">
-                                                    <div class="position-relative form-group"><label for="exampleEmail11" class="">QuantityOrdered</label><input name="QuantityOrdered" id="exampleEmail11" placeholder="" type="number" class="form-control"></div>
+                                                    <div class="position-relative form-group"><label for="exampleEmail11" class="">QuantityOrdered</label><input name="Quantity" id="A3" placeholder="" type="number" class="form-control"></div>
                                                 </div>
                                             </div>
                                             <div class="form-row">
                                                 <div class="col-md-8">
-                                                    <div class="position-relative form-group"><label for="examplePassword11" class="">Comment</label><input name="comment" id="exampleEmail11" placeholder="..." type="text"class="form-control"></div>
+                                                    <div class="position-relative form-group"><label for="examplePassword11" class="">Comment</label><input name="comment" id="A4" placeholder="..." type="text"class="form-control"></div>
                                                 </div>
                                             </div>
                                             <div class="text-right">
-                                            <button class="mt-2 btn btn-primary">Submit</button>
+                                            <button class="mt-2 btn btn-primary"onclick="addstockin()">Submit</button>
                                             </div>
-                                        </form>
                                     </div>
                 </div>
             </div>
@@ -311,9 +301,22 @@ session_start();
                     <script type="text/javascript">
                    
                        
-                        var json = <?php echo $jsstockinHeaderList; ?> ;
+                        var json = 0;
                         
+                        function getstockin(){
+                            var data = 0;
+                            $.ajax({
+                                type: "get",
+                                url: "/getstock",
+                                success: function(response){
+                                    data = response;
+                                },
+                                async: false,
+                            });
+                            return JSON.parse(data);
+                        }
                         function Gentable(){
+                            json = getstockin();
                             var tableStockin = "";
                             json.forEach(function(a) {
                                 tableStockin += tablestockin(a.stockNumber,a.stockDate,a.comments);
@@ -347,6 +350,31 @@ session_start();
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                             }
                         });
+
+                        function addstockin(){
+                           console.log("allo");
+                            var stockin =  { 
+                                             "stockDate": document.getElementById("A1").value.toString(),
+                                             "productCode":document.getElementById("A2").value.toString(),
+                                             "quantityOrdered": document.getElementById("A3").value.toString(),
+                                             "comments":document.getElementById("A4").value.toString(),
+};
+                            console.log(stockin);
+                                            
+                            $.ajax({
+                                type: "post",
+                                url: "/addstock",
+                                data: stockin,
+                                success: function(response){
+                                    Gentable();
+                                },
+                                error: function (error) {
+                                alert(error.responseText);
+                                console.log(error.responseText);
+                            }
+
+                            });
+                        }
 
                         function deleteitem(a){
                             var p = a.getAttribute("name");

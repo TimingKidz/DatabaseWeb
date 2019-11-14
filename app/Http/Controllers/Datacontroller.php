@@ -70,15 +70,37 @@ class DataController extends Controller
         $data = DB::select('select c.customerNumber,c.customerName,c.contactFirstName,c.contactLastName,c.phone,a.addressLine1,a.addressLine2,a.city,a.state,a.country,a.postalCode from customers as c join customerAddress as a using(customerNumber) GROUP by c.customerNumber');
         return json_encode($data);
     }
-    public function stockin()
+    public function getstockin()
     {
         $data = DB::select('select * from stockinHeader');
-        $jsstockinHeaderList = json_encode($data);
-        return view('stockin',['jsstockinHeaderList' => $jsstockinHeaderList]);
+        return json_encode($data);
+    }
+    public function stockin()
+    {
+        return view('stockin');
+    }
+
+    public function addstockin(Request $request)
+    {
+        try
+        {
+            $code = $request->session()->get('code');
+            DB::insert("insert into stockinHeader (stockDate,comments) 
+            values ( '$request->stockDate', '$request->comments');");
+            $data = DB::select("select * from sqlite_sequence where name = 'stockinHeader'");
+            $no = $data[0]->seq;
+            DB::insert("insert into stockinDetails (stockinNumber,productCode,quantityOrdered) 
+            values ('$no','$request->productCode','$request->quantityOrdered');");
+        }
+        catch(Exception $e)
+        {
+           echo $e->getMessage();
+           
+        }
     }
 
     public function stockindetails($stockNumber){
-        $data = DB::select("select * from stockinDetails where stockinNumber = '$stockNumber'");
+        $data = DB::select("select * from stockinDetails join stockinHeader on stockinNumber=stockNumber where stockinNumber = '$stockNumber'");
         
         return view('stockindetails', ['jsstockindetails' => json_encode($data)], ['id' => $stockNumber]);
     }

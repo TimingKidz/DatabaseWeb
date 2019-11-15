@@ -51,6 +51,7 @@ Route::group(['middleware' => 'checkuser'], function () {
     Route::get('/getstock','DataController@getstockin');
     Route::get('/stockin/{stockNumber}','DataController@stockindetails');
     Route::get('/stockinreq','DataController@stockHD');
+    Route::get('/stockincomment/{code}','DataController@getcommentstockin');
     Route::post('/customerAddr', 'DataController@addMulAddr');
     Route::put('/customerAddrupdate', 'DataController@updateMulAddr');
     Route::post('/customerAddrdelete/{map}', 'DataController@deleteMulAddr');

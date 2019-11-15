@@ -75,6 +75,11 @@ class DataController extends Controller
         $data = DB::select('select * from stockinHeader');
         return json_encode($data);
     }
+    public function getcommentstockin($code)
+    {
+        $data = DB::select("select stockNumber,comments from stockinHeader where stockNumber='$code'");
+        return json_encode($data);
+    }
     public function stockin()
     {
         return view('stockin');

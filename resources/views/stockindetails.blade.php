@@ -321,13 +321,12 @@ session_start();
                         <script src="../assets/scripts/htmlGen.js" type="text/javascript"></script>
                         <script src="../assets/scripts/jquery-3.4.1.js" type="text/javascript"></script>
                         <script type="text/javascript">
-                            var json = 0;
+                            var json = <?php echo $jsstockindetails ?>;
                             var code = 0;
                             
                             
                             code = <?php echo $id ?>;
 
-                            console.log(code)
                             function getstockHD() {
                                 var data = 0;
                                 $.ajax({
@@ -335,6 +334,24 @@ session_start();
                                     url: "/stockinreq",
                                     success: function(response) {
                                         data = response;
+                                        console.log(data);
+                                    },
+                                    async: false,
+                                });
+
+                                return JSON.parse(data);
+                            }
+
+
+
+                            function getcomments(code) {
+                                var data = 0;
+                                $.ajax({
+                                    type: "get",
+                                    url: "/stockincomment/"+code,
+                                    success: function(response) {
+                                        data = response;
+                                        console.log(data);
                                     },
                                     async: false,
                                 });
@@ -343,11 +360,10 @@ session_start();
                             }
 
                             function delalert(stockinNumber){
-                                console.log(stockinNumber);
                                 var p = stockinNumber.getAttribute("id");
                                 var n = stockinNumber.getAttribute("name");
-                                console.log(p);
-                                console.log(n);
+                                console.log(p+"  productCode");
+                                console.log(n+"  stockNumber");
                                 document.getElementById('id03').style.display='block';
                                 document.getElementById('delbut').setAttribute("name",p);
                                 document.getElementById('delbut').setAttribute("value",n);
@@ -357,8 +373,8 @@ session_start();
                             function deleteitem(a){
                                 var p = a.getAttribute("name");
                                 var n = a.getAttribute("value");
-                                console.log(p);
-                                console.log(n);
+                                console.log(p+"  productCode");
+                                console.log(n+"  stockNumber");
                                 console.log(json);
                                 console.log('/stockin/'+n+'/'+p);
                             $.ajax({
@@ -367,7 +383,7 @@ session_start();
                                 success: function (data) {         
                                     document.getElementById('id03').style.display='none';
                                     const index = json.findIndex(x => x.productCode == p);
-                                    console.log(index);
+                                    console.log(index)+"  index";
                                     if (index !== undefined) json.splice(index, 1);
                                     console.log(json);
                                     console.log("delete success");
@@ -377,7 +393,6 @@ session_start();
                             }
 
                             function gentabledetail(){
-                                json=getstockHD();
                             var tableproduct = "";
                             var i = 0;
                             console.log(json);
@@ -387,10 +402,10 @@ session_start();
                             document.getElementById("tablelist").innerHTML = tableproduct;
                             }
                             function Gencom() {
-                                var data = getstockHD();
+                                var data = getcomments(code);
                                 console.log(data);
                                 data.forEach(function(a) {
-
+                                    console.log(a.stockNumber+" stockNumber");
                                     if (a.stockNumber == code) {
                                         console.log("comments", a.comments)
                                         document.getElementById('commentLabel').innerHTML = `<label for="exampleText" class=""></label><input name="comment" id="textcomment" placeholder="Comments......" type="textarea" class="form-control" value="${a.comments}">`;
@@ -400,12 +415,8 @@ session_start();
                             gentabledetail();
                             Gencom();
                             document.getElementById('editbutton').innerHTML = `<button onclick="editform(this)" type="button" id="editbutton"  class="mt-2 mb-2 mr-2 btn-transition btn btn-outline-warning">edit</button>`;;
-
-                            json.forEach(function(a) {
-                                // detail name,tel,id
-                                document.getElementById('stockindetail').innerHTML = `<b>Stock Number : </b>${code}<br>`;
-
-                            });
+                            
+                            document.getElementById('stockindetail').innerHTML = `<b>Stock Number : </b>${code}<br>`;
 
                             function editcomment(id) {
                                 document.getElementById('id02_edit').style.display = 'block';

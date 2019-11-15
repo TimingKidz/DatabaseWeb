@@ -377,7 +377,7 @@ session_start();
                             }
 
                             function gentabledetail(){
-                                json = <?php echo $jsstockindetails ?>;
+                                json=getstockHD();
                             var tableproduct = "";
                             var i = 0;
                             console.log(json);

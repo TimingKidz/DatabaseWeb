@@ -35,6 +35,7 @@ Route::group(['middleware' => 'checkuser'], function () {
     Route::group(['middleware' => 'checkauthsale'], function () { });
     Route::delete('/products/{code}', 'DataController@deletepro');
     Route::delete('/customers/{code}', 'DataController@deletecus');
+    Route::delete('/stockin/{code}','DataController@deletestockHeader');
 
     Route::post('/logout', 'DataController@logout');
     Route::post('/customers', 'DataController@addcus');

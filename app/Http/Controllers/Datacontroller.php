@@ -143,6 +143,12 @@ class DataController extends Controller
         $deleted = DB::delete("delete from customers where customerNumber = '$code'");
         return 'success';
     }
+
+    public function deletestockHeader($code)
+    {
+        $deleted = DB::delete("delete from stockinHeader where stockNumber = '$code'");
+        return 'success';
+    }
  
     public function erm(Request $request)
     {

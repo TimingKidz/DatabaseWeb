@@ -339,8 +339,9 @@ session_start();
                             });
                             document.getElementById("tablelist").innerHTML = tableStockin;
                         }
-                        function delalert(productCode){
-                            var p = productCode.getAttribute("id");
+                        function delalert(stockNumber){
+                            console.log(stockNumber);
+                            var p = stockNumber.getAttribute("id");
                             document.getElementById('id03').style.display='block';
                             document.getElementById('delbut').setAttribute("name",p);
                                                  
@@ -378,6 +379,7 @@ session_start();
 
                         function deleteitem(a){
                             var p = a.getAttribute("name");
+                            console.log(json);
                             $.ajax({
                                 type: 'delete',
                                 url: '/stockin/'+p,
@@ -385,6 +387,7 @@ session_start();
                                     document.getElementById('id03').style.display='none';
                                     const index = json.findIndex(x => x.productCode == p);
                                     if (index !== undefined) json.splice(index, 1);
+                                    console.log(json);
                                     Gentable();
                                 }
                             });

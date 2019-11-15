@@ -203,7 +203,6 @@ session_start();
 
 
 
-
                 <div id="id02" class="modal" id="detailpopup">
                     <form class="modal-content-detail">
                         <div id="detailpop">
@@ -216,6 +215,25 @@ session_start();
                         </div>
                     </div>
                 </div>
+                <div id="id03" class="modal"> 
+            <div class="modal-content-del animate"> 
+                <div class="main-card card">
+                    <div class="card-body "><h4></h4>
+                    <span onclick="document.getElementById('id03').style.display='none'" class="close" title="Close Modal">×</span> 
+                    <div class="text-center">
+                        <div>
+                            <div class="mb-4 mt-4"><h5>Are you sure ?</h5></div>
+                        <div class="mb-4">
+                            <button type="button" class="btn btn-primary" id="delbut" name="" value="" onclick="deleteitem(this)">YES</button>
+                        
+                            <button type="button" onclick="document.getElementById('id03').style.display='none'" class="btn btn-danger">Cancel</button>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+                </div> 
+            </div>
 
                 <div class="row">
                     <div class="col-md-12">
@@ -323,6 +341,41 @@ session_start();
 
                                 return JSON.parse(data);
                             }
+
+                            function delalert(stockinNumber){
+                                console.log(stockinNumber);
+                                var p = stockinNumber.getAttribute("id");
+                                var n = stockinNumber.getAttribute("name");
+                                console.log(p);
+                                console.log(n);
+                                document.getElementById('id03').style.display='block';
+                                document.getElementById('delbut').setAttribute("name",p);
+                                document.getElementById('delbut').setAttribute("value",n);
+                                                 
+                            }
+
+                            function deleteitem(a){
+                                var p = a.getAttribute("name");
+                                var n = a.getAttribute("value");
+                                console.log(p);
+                                console.log(n);
+                                console.log(json);
+                                console.log('/stockin/'+n+'/'+p);
+                            $.ajax({
+                                type: 'delete',
+                                url: '/stockin/'+n+'/'+p, 
+                                success: function (data) {         
+                                    document.getElementById('id03').style.display='none';
+                                    const index = json.findIndex(x => x.productCode == p);
+                                    console.log(index);
+                                    if (index !== undefined) json.splice(index, 1);
+                                    console.log(json);
+                                    console.log("delete success");
+                                    gentabledetail();
+                                }
+                            });
+                            }
+
                             function gentabledetail(){
                                 json = <?php echo $jsstockindetails ?>;
                             var tableproduct = "";

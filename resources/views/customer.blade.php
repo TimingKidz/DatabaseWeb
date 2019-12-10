@@ -119,7 +119,7 @@ session_start();
                                             <div class="form-row">
                                                 
                                                 <div class="col-md-7">
-                                                    <div class="position-relative form-group"><label for="exampleEmail11" class="">Name</label><input id="A2" placeholder="Customer Name" type="text" class="form-control"></div>
+                                                    <div class="position-relative form-group"><label for="exampleEmail11" class="">Name</label><input id="A2" placeholder="Customer Name" type="text" class="form-control" require="required"/></div>
                                                 </div>
                                                 <div class="col-md-5">
                                                     <div class="position-relative form-group"><label for="exampleState" class="">Credit Limit</label><input name="state" placeholder="Credit" id="A12" type="text" class="form-control"></div>
@@ -400,22 +400,29 @@ session_start();
                         }
                         
                         function addcustomer(){
-                           console.log("helo");
+                            var customerName = document.getElementById("A2").value.toString();
+                            var contactL =document.getElementById("A4").value.toString();
+                            var contactF =document.getElementById("A3").value.toString();
+                            var phone =document.getElementById("A5").value.toString();
+                            var line1 =document.getElementById("A6").value.toString();
+                            var city = document.getElementById("A8").value.toString();
+                            var country = document.getElementById("A11").value.toString();
+
+                            if(customerName != "" && contactL != "" && contactF != "" &&  phone != "" && line1 !="" && city != "" && country != ""){
+                            document.getElementById("TooltipDemo").click();
                             var customer =  { 
-                                             "customerName": document.getElementById("A2").value.toString(),
-                                             "contactLastName":document.getElementById("A4").value.toString(),
-                                             "contactFirstName": document.getElementById("A3").value.toString(),
-                                             "phone":document.getElementById("A5").value.toString(),
-                                             "line1": document.getElementById("A6").value.toString(),
-                                             "city": document.getElementById("A8").value.toString(),
+                                             "customerName": customerName,
+                                             "contactLastName":contactL,
+                                             "contactFirstName": contactF,
+                                             "phone": phone,
+                                             "line1": line1,
+                                             "city": city,
                                              "line2": document.getElementById("A7").value.toString(),
                                              "state": document.getElementById("A9").value.toString(),
                                              "postalCode": document.getElementById("A10").value.toString(),
-                                             "country": document.getElementById("A11").value.toString(),
+                                             "country": country,
                                              "saleRep": "",
                                              "creditLimit": document.getElementById("A12").value.toString()};
-                            console.log(customer);
-                                            
                             $.ajax({
                                 type: "post",
                                 url: "/customers",
@@ -425,10 +432,13 @@ session_start();
                                 },
                                 error: function (error) {
                                 alert(error.responseText);
-                                console.log(error.responseText);
                             }
 
                             });
+                            }else{
+                                alert("Customer : Name\nContact : Fristname , Lastname , Phone\nAddress : Adrress line1 , City , Country\nMust not be Null !!");
+                            }
+                         
                         }
                                             
                     </script>

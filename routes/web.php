@@ -39,7 +39,8 @@ Route::group(['middleware' => 'checkuser'], function () {
     Route::delete('/customers/{code}', 'DataController@deletecus');
     Route::delete('/stockin/{code}','DataController@deletestockHeader');
     Route::delete('/stockin/{stockinNumber}/{productCode}','DataController@deletestockDetail');
-
+    Route::post('/getproductline','DataController@getproductline');
+    Route::post('/getProducts','DataController@getProduct');
     Route::post('/logout', 'DataController@logout');
     Route::post('/customers', 'DataController@addcus');
     Route::put('/updateorder', 'DataController@updateorder');

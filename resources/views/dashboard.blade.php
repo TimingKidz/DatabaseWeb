@@ -7,7 +7,7 @@ session_start();
 <html lang="en">
 
 <head>
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+<meta name="csrf-token" content="{{ csrf_token() }}">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta http-equiv="Content-Language" content="en">
@@ -29,7 +29,7 @@ session_start();
     -->
     
 <link href="../main.css" rel="stylesheet"></head>
-
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <body>
 
     <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
@@ -238,26 +238,6 @@ session_start();
         </div> 
     </div>
   
- 
-    <div id="id03" class="modal"> 
-        <div class="modal-content-del animate"> 
-            <div class="main-card card">
-                <div class="card-body "><h4></h4>
-                <span onclick="document.getElementById('id03').style.display='none'" class="close" title="Close Modal">×</span> 
-                    <div class="text-center">
-                        <div>
-                        <div class="mb-4 mt-4"><h5>Are you sure ?</h5></div>
-                        <div class="mb-4">
-                        <button type="button" class="btn btn-primary" id="delbut" name="" onclick="deleteitem(this)">YES</button>
-                        
-                        <button type="button" onclick="document.getElementById('id03').style.display='none'" class="btn btn-danger">Cancel</button>
-                        </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div> 
-    </div>
               
     <div class="main-card mb-3 card">
                             <div class="card-body">
@@ -267,66 +247,77 @@ session_start();
                                     <div class="form-row">
                                         <div class="col-md-2 mb-3">
                                             <label for="validationCustom03">Customer Number</label>
-                                            <input type="text" class="form-control" id="validationCustom03" placeholder="City" required="">
+                                            <input type="text" class="form-control" id="A1" placeholder="Customer Number..." >
                                           
                                         </div>
                                         <div class="col-md-4 mb-3">
-                                            <label for="validationCustom03">Check Number</label>
-                                            <input type="text" class="form-control" id="validationCustom03" placeholder="City" required="">
+                                            <label for="validationCustom03">Cheque Number</label>
+                                            <input type="text" class="form-control" id="A2" placeholder="Cheque Number..." >
                                             
                                         </div>
                                         <div class="col-md-3 mb-3">
                                             <label for="validationCustom04">Date</label>
-                                            <input type="Date" class="form-control mt-2" id="validationCustom04" placeholder="State" required="">
-                                           
+                                            <input type="Date" class="form-control mt-2" id="A3">
                                         </div>
                                         <div class="col-md-3 mb-3">
                                             <label for="validationCustom05">Total Amount</label>
-                                            <input type="text" class="form-control" id="validationCustom05" placeholder="Zip" required="">
+                                            <input type="text" class="form-control" id="A4" placeholder="Total Amount..." >
                                            
                                         </div>
                                     </div>
-                                    <button class="btn btn-primary" type="submit">Submit form</button>
+                                    <button class="btn btn-primary" onclick="addpayment()">Submit form</button>
                                 </div>
-            
-                                <script>
-                                    // Example starter JavaScript for disabling form submissions if there are invalid fields
-                                    (function() {
-                                        'use strict';
-                                        window.addEventListener('load', function() {
-                                            // Fetch all the forms we want to apply custom Bootstrap validation styles to
-                                            var forms = document.getElementsByClassName('needs-validation');
-                                            // Loop over them and prevent submission
-                                            var validation = Array.prototype.filter.call(forms, function(form) {
-                                                form.addEventListener('submit', function(event) {
-                                                    if (form.checkValidity() === false) {
-                                                        event.preventDefault();
-                                                        event.stopPropagation();
-                                                    }
-                                                    form.classList.add('was-validated');
-                                                }, false);
-                                            });
-                                        }, false);
-                                    })();
-                                </script>
                             </div>
                         </div>
- 
+                        <div class="main-card mb-3 card">
+                        <div class="form-row">
+                                        <div class="col-md-2 mb-3">
+                                        <div class="ui-widget">
+  <label for="tags">Tags: </label>
+  <input id="tags">
+</div>
+                                        </div>
+                                        <div class="col-md-2 mb-3">
+                                        <div class="ui-widget">
+  <label for="dd">Tags: </label>
+  <input id="dd">
+</div>
+                                        </div>
+                                        <div class="col-md-2 mb-3">
+                                        <button class="btn btn-primary" onclick="submitst()">Submit</button>
+                                        </div>
+                                        <div class="form-row">
+                                            <ul id="list">
 
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    
+      
+                                    </div>
+ 
+                           
  
                     
                   
                     
                     <script src="../assets/scripts/htmlGen.js" type="text/javascript"></script>
                     <script src="../assets/scripts/jquery-3.4.1.js" type="text/javascript"></script>
+                    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+                    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+                    
                     <script type="text/javascript">
+                       $.ajaxSetup({
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            }
+                        });
                         
-                        var json = 0;
-                        function getorders(){
+                        function getproductline(){
                             var data = 0;
                             $.ajax({
-                                type: "get",
-                                url: "/saleorderreq",
+                                type: "post",
+                                url: "/getproductline",
                                 success: function(response){
                                     data = response;
                                 },
@@ -335,98 +326,114 @@ session_start();
                             return JSON.parse(data);
                         }
 
-                        
-                        function Gentable(){
-                            json = getorders();
-                            var tableproduct = "";
-                            var i = 0;
-                            json.forEach(function(a) {
-                                tableproduct += tablesale(a.orderNumber,a.customerName,a.orderDate,a.requiredDate,a.shippedDate,a.status);
-                            });
-                            document.getElementById("tablelist").innerHTML = tableproduct;
-                        }
-                        Gentable();
 
-                        
-                        document.querySelector('#searchinput').addEventListener('input',noti);
-                        function noti(e){
-                            var input = document.getElementById("searchinput");
-                            var filter = input.value.toUpperCase();
-                            var i = 0 ;
-                            var tableproduct = "";
-                            json.forEach(function(a) {
-                                if (((a.customerName.toString()).toUpperCase()).includes(filter)){
-                                    tableproduct += tablesale(a.orderNumber,a.customerName,a.orderDate,a.requiredDate,a.shippedDate,a.status);
-                                }
+                        var line = getproductline();
+                    console.log(line);
+                    var linearr = [];
+                    var proarr = [];
+                    var productline = 0;
+                    
+                    function getproduct(pline){
+                        var data = 0;
+                        $.ajax({
+                            type: "post",
+                            url: "/getProducts",
+                            data: {"Line":productline.toString()},
+                            success: function(response){
+                                data = response;                                
+                            },
+                                async: false,
                             });
-                            document.getElementById("tablelist").innerHTML = tableproduct;
+                            return JSON.parse(data);
                         }
-                        function delalert(productCode){
-                            var p = productCode.getAttribute("id");
-                            document.getElementById('id03').style.display='block';
-                            document.getElementById('delbut').setAttribute("name",p);
-                        }
-                        $.ajaxSetup({
-                            headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                            }
+
+                    
+                    line.forEach(function(a) {
+                               linearr.push(a.productLine);
+                    });
+                     $( function() {
+                        $( "#tags" ).autocomplete({
+                        source: linearr
                         });
+                    } );
+                    $( function() {
+                        $( "#dd" ).autocomplete({
+                        source: proarr
+                        });
+                    } );
+                    document.querySelector('#tags').addEventListener('blur',noti);
+                    
+                    function noti(e){
+                        productline = document.getElementById("tags").value.toString();
+                            if(!linearr.includes(productline)){
+                                 alert("ss");
+                            }else{
+                                 var temp = getproduct(productline);
+                                 console.log(temp);
+                                 temp.forEach(function(a) {
+                                    proarr.push(a.productName);
+                                });
 
-                        function deleteitem(a){
-                            var p = a.getAttribute("name");
-                            $.ajax({
-                                type: 'delete',
-                                url: '/customers/'+p,
-                                success: function (data) {         
-                                    document.getElementById('id03').style.display='none';
-                                    Gentable();
-                                }
-                            });
-                        }        
-                        var order = 0;
-                        function update(a){
-                            var orederNumber = a.getAttribute("id");
-                            document.getElementById('id04').style.display='block';  
-                            document.getElementById("select").innerHTML = `
-                                                        <option id="Cancelled">Cancelled</option>
-                                                        <option id="Disputed">Disputed</option>
-                                                        <option id="In Process">In Process</option>
-                                                        <option id="On Hold">On Hold</option>
-                                                        <option id="Resolved">Resolved</option>
-                                                        <option id="Shipped">Shipped</option>` ;         
-                                      
-                            json.forEach(function(a) {
-                                if(a.orderNumber == orederNumber){
-                                    order = a;
-                                }
-                            });
-                            document.getElementById(`${order.status}`).setAttribute("selected", "selected");
-                            var date = order.shippedDate.split("-");
-                            document.getElementById("dateup").innerHTML = `<label for="exampleEmail11" class="">Shipped Date</label><input id="dateship" placeholder="Customer Name" type="date" class="form-control" value="${date[0]}-${date[1]}-${date[2]}">`
-                           
+                            }
+                            
+                    
                         }
+                        document.querySelector('#dd').addEventListener('blur',notii);
+                        function notii(e){
+                            var product = document.getElementById("dd").value.toString();
 
-                        function sendupdate(){
-                            document.getElementById('id04').style.display='none';  
-                            var update =  { "date": document.getElementById("dateship").value.toString(), 
-                                             "status": document.getElementById("select").value.toString(),
-                                             "orderNumber": order.orderNumber.toString()
-                                             };
+                            if(!proarr.includes(product)){
+                                 alert("ss");
+                            }
+                        }
+                    json = [];
+                    function submitst(){
+                        var aaa = {"name": document.getElementById("dd").value.toString(),
+                                   "qty":"2"};
+                                   var node = document.createElement("LI");
+                        var textnode = document.createTextNode(`${document.getElementById("dd").value.toString()}`);
+                        node.appendChild(textnode);
+                        document.getElementById("list").appendChild(node);
+                                   document.getElementById("dd").value ="";
+                                   document.getElementById("tags").value ="";
+                        
+
+                        json.push(aaa);
+                        console.log(JSON.stringify(json));
+                    }
+                
+                    
+                    var d = new Date();
+                    document.getElementById('A3').value = `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`;
+                  
+                        function addpayment(){
+                            var cusNo = document.getElementById("A1").value.toString();
+                            var cheque = document.getElementById("A2").value.toString();
+                            var total = document.getElementById("A4").value.toString();
+
+                            if(cusNo != "" && cheque != "" && total != ""){
+                            var payments =  {"customerNo": cusNo,
+                                             "ChequeNumber":cheque,
+                                             "Date": document.getElementById("A3").value.toString(),
+                                             "Total": total};
+                            console.log(payments);
                             $.ajax({
-                                type: "put",
-                                url: "/updateorder",
-                                data: update,
+                                type: "post",
+                                url: "/newPayments",
+                                data: payments,
                                 success: function(response){
-                                    Gentable();
+                                    alert(response);
                                 },
                                 error: function (error) {
-                                    console.log(error);
-                                 alert(error.responseText);
-                                
-                            }
-
+                                alert(error.responseText);
+                                }
                             });
+                            }else{
+                                alert("Input must not be Null !!");
+                            }
+                         
                         }
+                        
                     </script>
                     
                                                

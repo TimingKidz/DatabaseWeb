@@ -24552,6 +24552,10 @@ span.psw {
     width: 45%;
 }
 
+.modal-content-alert {
+    margin: 5% auto 15% auto;
+    width: 35%;
+}
 
 /*style the close button*/
 
@@ -24605,3 +24609,4 @@ span.psw {
         width: 100%;
     }
 }
+

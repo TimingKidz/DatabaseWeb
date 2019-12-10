@@ -228,7 +228,7 @@ function tableGenem(i, col1, col2, col3, col4, code) {
     </tr>`
 }
 
-function tableCart(i, col1, col2, col3, col4, col5, code) {
+function tableCart(i, col1, col2, col3, col4, col5, code, qty) {
     return `<tr>
     <td class="text-center text-muted"> ${i}</td>
     <td>
@@ -250,7 +250,7 @@ function tableCart(i, col1, col2, col3, col4, col5, code) {
             <div class="text-center">${col3}</div>
         </td>
         <td class="text-center">
-            <div class="position-relative form-group"><input onchange="editQTY(this)" id="${code}" value="${col4}" placeholder="1" type="number" min="1" step="1" class="form-control"></div>
+            <input onchange="editQTY(this)" id="${code}" value="${col4}" placeholder="1" type="number" min="1" max="${qty}" step="1" class="form-control">
         </td>
         <td class="text-center">
             <div class="text-center">${col5}</div>

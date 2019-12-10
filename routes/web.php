@@ -17,13 +17,14 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['middleware' => 'checkuser'], function () {
     //...Cart Route
-    Route::get('/getCart', 'CartController@getCart');
-    Route::get('/getCartTotal', 'CartController@getCartTotal');
-    Route::post('/getAddr/{id}', 'CartController@getAddr');
-    Route::post('/getVoucher/{id}', 'CartController@getVoucher');
-    Route::post('/getAddToCart/{id}/{qty}', 'CartController@getAddToCart');
-    Route::post('/deleteFromCart/{id}', 'CartController@deleteFromCart');
-    Route::put('/proceed', 'CartController@cartCheckout');
+    Route::get('/getCart','CartController@getCart');
+    Route::get('/getCartTotal','CartController@getCartTotal');
+    Route::post('/getAddr/{id}','CartController@getAddr');
+    Route::post('/getVoucher/{id}','CartController@getVoucher');
+    Route::post('/getAddToCart/{id}/{qty}','CartController@getAddToCart');  
+    Route::post('/deleteFromCart/{id}','CartController@deleteFromCart');  
+    Route::post('/clearall','CartController@clearall');  
+    Route::put('/proceed','CartController@cartCheckout');
 
     Route::get('/getAllProducts', 'DataController@getAllProduct');
     Route::get('/products', 'DataController@indexem');

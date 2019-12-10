@@ -109,75 +109,81 @@ session_start();
                 <div class="mt-2"><h2><i class="pe-7s-shopbag"></i></h2></div>
             </button>
             <div class="theme-settings__inner">
-                <div class="ml-3 mr-3">
-                    <h5 class="card-title pt-3">Cart</h5>
-                    <div class="scroll-area pre-scroll">
-                        <div class="scrollbar-container ps--active-y">
-                            <div class="ml-3 mr-3 mb-4">
-                                <div class="row">                                
-                                <table class="align-middle mb-0 table table-borderless table-striped table-hover">
+                <div class="main-card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-6"><h5 class="card-title">Cart</h5></div>
+                            <div class="col-sm-6"><button id="clearbut" onclick="clearall()" class="pull-right btn btn-outline-link">Clear All</button></div>
+                        </div>                        
+                        <div class="row scroll-area">   
+                            <div class="scrollbar-container ps--active-y"> 
+                                <div class="col-md-12">
+                                    <div class="table-responsive">
+                                        <table class="align-middle mb-0 table table-wrapper table-borderless table-hover">
                                             <thead>
-                                            <tr>
-                                                <th class="text-center">#</th>
-                                                <th >Name</th>
-                                                <th class="text-center">Price</th>
-                                                <th class="text-center">Qty.</th>   
-                                                <th class="text-center">Total</th>                                    
-                                                <th class="text-center"></th>
-                                            </tr>
+                                                <tr>
+                                                    <th class="text-center">#</th>
+                                                    <th>Name</th>
+                                                    <th class="text-center">Price</th>
+                                                    <th class="text-center">Qty.</th>   
+                                                    <th class="text-center">Total</th>                                    
+                                                    <th class="text-center"></th>
+                                                </tr>
                                             </thead>
                                             <tbody id="cartp">
                                                 <!-- tableCart -->
                                             </tbody>
                                         </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                
                     <div class="row">
-                        <div class="ml-3 mr-3 mb-4 fixed-bottom">
+                        <div class="ml-3 mr-3 mb-3 fixed-bottom">
                             <div class="row">
-                                <div class="col-sm-3">
-                                    <h6 class="pt-2">Customer :</h6>
+                                <div class="col-sm-4">
+                                    <div class="position-relative form-group"><label for="customernumber">Customer Number</label><input onchange="cusAddr(this)" id="customernumber" placeholder="insert customer number" type="" class="form-control"></div>
                                 </div>
-                                <div class="col-sm-9">
-                                    <div class="position-relative form-group"><input onchange="cusAddr(this)" id="customernumber" placeholder="insert customer number" type="" class="form-control"></div>
+                                <div class="col-sm-4">
+                                    <div class="position-relative form-group"><label for="voucher">Voucher</label><input onchange="upVoucher(this)" id="voucher" placeholder="insert voucher code" class="form-control"></div>
                                 </div>
+                                <div class="col-sm-4">
+                                    <div class="position-relative form-group"><label for="reqdate">Required Date</label><input id="reqdate" type="date" class="form-control"></div>
+                                </div>                                
                             </div>
                             <div class="row">
                                 <div class="col-sm-6">
-                                    <div class="position-relative form-group"><label for="addr">Shipping Address</label><select disabled name="select" id="shipaddr" class="form-control">
+                                    <div class="position-relative form-group"><label for="shipaddr">Shipping Address</label><select disabled name="select" id="shipaddr" class="form-control">
                                         <!-- getAddr -->
                                     </select></div>
                                 </div>
                                 <div class="col-sm-6">
-                                    <div class="position-relative form-group"><label for="addr">Billing Address</label><select disabled name="select" id="billaddr" class="form-control">
+                                    <div class="position-relative form-group"><label for="billaddr">Billing Address</label><select disabled name="select" id="billaddr" class="form-control">
                                         <!-- getAddr -->
                                     </select></div>
                                 </div>
                             </div>
                             <div class="row mb-2">
-                                <div class="col-sm-6">
-                                    <!-- <h6 class="pt-2">Voucher :</h6> -->
-                                    <div class="position-relative form-group"><label for="reqdate">Required Date</label><input id="reqdate" type="date" class="form-control"></div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="position-relative form-group"><label for="voucher">Voucher</label><input onchange="upVoucher(this)" id="voucher" placeholder="insert voucher code" class="form-control"></div>
-                                </div>
+                                
                             </div>
                             <div class="row">
-                                <div class="col-sm-3">
+                                <div class="col-sm-2">
                                     <h6 class="card-title pt-1">Total</h6>
                                 </div>
-                                <div class="col-sm-6">
+                                <div class="col-sm-2">                                    
                                     <h4 id="cartTotal">$0.00</h4>
                                 </div>
+                                <div class="col-sm-5 my-auto">
+                                    <h6 id="disam" class="text-danger"></h6>
+                                </div>
                                 <div class="col-sm-3">
-                                    <button onclick="proceed()" class="pull-right mt-1 btn btn-warning">Check out</button>
+                                    <button id="prbut" onclick="proceed()" class="pull-right mt-1 btn btn-warning" disabled>Check out</button>
                                 </div>
                             </div>
                         </div>
-                                    </div>
+                    </div>
                 </div>
             </div>
         </div> 
@@ -488,13 +494,19 @@ session_start();
                                 var tablecart = "";
                                 var data = $.parseJSON(cartJSON);
                                 jQuery.each(data, function(index, value){
-                                    tablecart += tableCart(++idx,data[index][0],data[index][1],data[index][2],data[index][3],data[index][4],data[index][5]);
+                                    tablecart += tableCart(++idx,data[index][0],data[index][1],data[index][2],data[index][3],(data[index][4]).replace(/\d(?=(\d{3})+\.)/g, '$&,'),data[index][5],data[index][6]);
                                 });
                                 document.getElementById("cartp").innerHTML = tablecart;   
-                                document.getElementById("cartTotal").innerHTML = "$"+total;                             
+                                document.getElementById("cartTotal").innerHTML = "$"+(total).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+                                if($('#customernumber').val() != ""){
+                                    document.getElementById("prbut").disabled = false;
+                                }else{
+                                    document.getElementById("prbut").disabled = true;
+                                }                        
                             }else{
                                 document.getElementById("cartp").innerHTML = "";
                                 document.getElementById("cartTotal").innerHTML = "$0.00";
+                                document.getElementById("prbut").disabled = true;                               
                             }
                             
                         }
@@ -504,9 +516,15 @@ session_start();
                             $.ajax({
                                 type: 'post',
                                 url: '/getAddToCart/'+ p +'/'+ qty,
-                                success: function (data) {
-                                    genCart();
+                                success: function (data) {                                    
                                     console.log(data);
+                                    if(data == -1){
+                                        alert('Cannot add to cart because product is "Out of Stock".');
+                                    }else if(data == -2){
+                                        alert('Reach Max Quantity in stock');
+                                    }else{
+                                        genCart();
+                                    }                                    
                                     // document.getElementById("cartTotal").innerHTML = "$"+data;
                                 }
                             });
@@ -529,17 +547,36 @@ session_start();
                                         if(!jQuery.isEmptyObject(data)){
                                             var addr = "";
                                             data.forEach(function(a) {
-                                                addr += `<option id="${a.mapNumber}">${a.addressLine1} ${a.addressLine2}, ${a.city}, ${a.state}, ${a.postalCode}, ${a.country}</option>`;
+                                                if (a.addressLine2 == "" && (a.state == "" && a.postalCode != "")) { //001
+                                                    addr += `<option id="${a.mapNumber}">${a.addressLine1}, ${a.city}, ${a.country}, ${a.postalCode}</option>`;
+                                                } else if (a.addressLine2 == "" && (a.state != "" && a.postalCode == "")) { //010
+                                                    addr += `<option id="${a.mapNumber}">${a.addressLine1}, ${a.city}, ${a.state}, ${a.country}, ${a.postalCode}</option>`;
+                                                } else if (a.addressLine2 == "" && (a.state != "" && a.postalCode != "")) { //011
+                                                    addr += `<option id="${a.mapNumber}">${a.addressLine1}, ${a.city}, ${a.state}, ${a.country}, ${a.postalCode}</option>`;
+                                                } else if (a.addressLine2 != "" && (a.state == "" && a.postalCode == "")) { //100
+                                                    addr += `<option id="${a.mapNumber}">${a.addressLine1} ${a.addressLine2}, ${a.city}, ${a.country}</option>`;
+                                                } else if (a.addressLine2 != "" && (a.state == "" && a.postalCode != "")) { //101
+                                                    addr += `<option id="${a.mapNumber}">${a.addressLine1} ${a.addressLine2}, ${a.city}, ${a.country}, ${a.postalCode}</option>`;
+                                                } else if (a.addressLine2 != "" && (a.state != "" && a.postalCode == "")) { //110
+                                                    addr += `<option id="${a.mapNumber}">${a.addressLine1} ${a.addressLine2}, ${a.city}, ${a.state}, ${a.country}</option>`;
+                                                } else if (a.addressLine2 != "" && (a.state != "" && a.postalCode != "")) { //111
+                                                    addr += `<option id="${a.mapNumber}">${a.addressLine1} ${a.addressLine2}, ${a.city}, ${a.state}, ${a.country}, ${a.postalCode}</option>`;
+                                                }
                                             });                                            
                                             document.getElementById("shipaddr").innerHTML = addr;
                                             document.getElementById("shipaddr").disabled = false;
                                             document.getElementById("billaddr").innerHTML = addr;
                                             document.getElementById("billaddr").disabled = false;
-                                        }else{
+                                            if(genCart() != null){
+                                                document.getElementById("prbut").disabled = false; 
+                                            }
+                                            
+                                        }else{                                            
                                             document.getElementById("shipaddr").innerHTML = "";
                                             document.getElementById("shipaddr").disabled = true;
                                             document.getElementById("billaddr").innerHTML = "";
                                             document.getElementById("billaddr").disabled = true;
+                                            document.getElementById("prbut").disabled = true;
                                         }                                     
                                     }
                                 });
@@ -548,6 +585,7 @@ session_start();
                                 document.getElementById("shipaddr").disabled = true;
                                 document.getElementById("billaddr").innerHTML = "";
                                 document.getElementById("billaddr").disabled = true;
+                                document.getElementById("prbut").disabled = true;
                             }
                         }
                         var discountAmount = 0;
@@ -565,18 +603,29 @@ session_start();
                                 success: function (data) {
                                     console.log(data);
                                     if(data == 0){
-                                        genCart();
-                                        discountAmount = 0;
+                                        document.getElementById("cartTotal").innerHTML = "$"+(total).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+                                        document.getElementById("disam").innerHTML = "";
+                                        $('#voucher').val("");
                                     }else if(data == 1){
                                         alert('Out of code');
-                                        discountAmount = 0;
+                                        document.getElementById("cartTotal").innerHTML = "$"+(total).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+                                        document.getElementById("disam").innerHTML = "";
+                                        $('#voucher').val("");
                                     }else if (data == 2){
                                         alert('Code expired');
-                                        discountAmount = 0;
+                                        document.getElementById("cartTotal").innerHTML = "$"+(total).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+                                        document.getElementById("disam").innerHTML = "";
+                                        $('#voucher').val("");
+                                    }else if (data == 3){
+                                        alert('No such code');
+                                        document.getElementById("cartTotal").innerHTML = "$"+(total).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+                                        document.getElementById("disam").innerHTML = "";
+                                        $('#voucher').val("");
                                     }else{
                                         discountAmount = data[0]["discountAmount"];
                                         var newTotal = parseFloat(total) - discountAmount;
-                                        document.getElementById("cartTotal").innerHTML = "$"+newTotal.toFixed(2);
+                                        document.getElementById("cartTotal").innerHTML = "$"+newTotal.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+                                        document.getElementById("disam").innerHTML = "-"+discountAmount;
                                     }                                     
                                 },
                                 error: function(err){
@@ -617,6 +666,16 @@ session_start();
                                 },
                                 error: function(err){
                                     console.log(err);
+                                }
+                            });
+                        }
+
+                        function clearall(){
+                            $.ajax({
+                                type: 'post',
+                                url: '/clearall/',
+                                success: function (data) {
+                                    genCart();
                                 }
                             });
                         }

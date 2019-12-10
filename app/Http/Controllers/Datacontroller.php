@@ -109,8 +109,8 @@ class DataController extends Controller
         
         return view('stockindetails', ['jsstockindetails' => json_encode($data)], ['id' => $stockNumber]);
     }
-    public function stockHD(){
-        $data = DB::select("select * from stockinHeader join stockinDetails on stockinNumber=stockNumber");
+    public function stockHD($stockinNumber){
+        $data = DB::select("select * from stockinHeader join stockinDetails on stockinNumber=stockNumber where stockNumber='$stockinNumber'");
         return json_encode($data);
     }
 
@@ -264,6 +264,18 @@ class DataController extends Controller
     public function saleorder(){
         $data = DB::select("select * from orders join customers using(customerNumber)");
         return json_encode($data);
+    }
+
+    public function updatestock(Request $request){
+        try
+        {
+            $data = DB::update("update stockinHeader set stockDate= '$request->date' where stockNumber = '$request->stockNumber'");
+            $data = DB::update("update stockinDetails set quantityOrdered='$request->quantityOrdered' where stockinNumber='$request->stockNumber'");
+        }
+        catch(Exception $e)
+        {
+           echo $e->getMessage();
+        }
     }
 
     public function addcus(Request $request)

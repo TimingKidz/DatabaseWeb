@@ -334,7 +334,7 @@ function tablestockdetail(stockinNumber,productCode, qty) {
             </td>
                 <td class="text-center">${qty}</td>
                 <td class="text-center">
-                <button id="${productCode}" class="btn btn-primary btn-sm">Edit</button>
+                <button id="${stockinNumber}" class="btn btn-primary btn-sm" onclick="update(this)">Edit</button>
                 <button class="btn btn-danger btn-sm"  id="${productCode}" name="${stockinNumber}" onclick="delalert(this)">X</button>
                 </td>
                                                                               

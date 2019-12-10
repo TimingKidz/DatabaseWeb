@@ -234,6 +234,36 @@ session_start();
                 </div>
                 </div> 
             </div>
+            <div id="id04" class="modal"> 
+        <div class="modal-content animate"> 
+            <div class="main-card card">
+                <div class="card-body "><h4></h4>
+                <span onclick="document.getElementById('id04').style.display='none'" class="close" title="Close Modal">×</span> 
+                    <div class="">
+                    <div class="main-card">
+                                    <div class="card-body"><h5 class="card-title">EDIT</h5>
+                                            <div class="form-row">
+                                                <div class="col-md-6">
+                                                <div class="position-relative form-group" id="dateup"></div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                <div class="position-relative form-group" id="A3"></div>
+                                                </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-row">
+                                             <div class="col-md-12 text-right">
+                        <button type="button" onclick="sendupdate()" class="btn btn-success">Update</button>
+                                    </div>
+                                    </div>
+                                            
+                                    </div>
+
+                    </div>
+                </div>
+            </div>
+        </div> 
+    </div>
 
                 <div class="row">
                     <div class="col-md-12">
@@ -321,7 +351,7 @@ session_start();
                         <script src="../assets/scripts/htmlGen.js" type="text/javascript"></script>
                         <script src="../assets/scripts/jquery-3.4.1.js" type="text/javascript"></script>
                         <script type="text/javascript">
-                            var json = <?php echo $jsstockindetails ?>;
+                            var json = 0;
                             var code = 0;
                             
                             
@@ -331,7 +361,8 @@ session_start();
                                 var data = 0;
                                 $.ajax({
                                     type: "get",
-                                    url: "/stockinreq",
+                                    url: "/stockinreq/"+code,
+                                    datatype: "json",
                                     success: function(response) {
                                         data = response;
                                         console.log(data);
@@ -369,6 +400,46 @@ session_start();
                                 document.getElementById('delbut').setAttribute("value",n);
                                                  
                             }
+                            
+                            var stock=0;
+                            function update(a){
+                            var stockkNumber = a.getAttribute("id");
+                            console.log(stockkNumber);
+                            document.getElementById('id04').style.display='block';
+                            json=getstockHD();
+                            json.forEach(function(a) {
+                                if(a.stockNumber == stockkNumber){
+                                    stock = a;
+                                }
+                            });        
+                            var date = stock.stockDate.split("-");
+                            document.getElementById("dateup").innerHTML = `<label for="exampleEmail11" class="">Date</label><input id="dates" placeholder="Customer Name" type="date" class="form-control" value="${date[0]}-${date[1]}-${date[2]}">`
+                            document.getElementById("A3").innerHTML= `<label for="exampleEmail11" class="">Quantity</label><input id="A4" placeholder="Customer Name" type="number" class="form-control" value="${stock.quantityOrdered}">`
+                        }
+                            
+                        function sendupdate(){
+                            document.getElementById('id04').style.display='none'; 
+                            var update =  { "date": document.getElementById("dates").value.toString(), 
+                                             "quantityOrdered": document.getElementById("A4").value.toString(),
+                                             "stockNumber": stock.stockNumber.toString()
+                                             };
+                            console.log(update);
+                            $.ajax({
+                                type: "put",
+                                url: "/updatestock",
+                                data: update,
+                                success: function(response){
+                                    gentabledetail();
+                                    console.log('sss');
+                                },
+                                error: function (error) {
+                                    console.log(error);
+                                 alert(error.responseText);
+                                
+                            }
+
+                            });
+                        }
 
                             function deleteitem(a){
                                 var p = a.getAttribute("name");
@@ -393,6 +464,7 @@ session_start();
                             }
 
                             function gentabledetail(){
+                            var json = getstockHD();
                             var tableproduct = "";
                             var i = 0;
                             console.log(json);

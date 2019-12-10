@@ -50,7 +50,7 @@ Route::group(['middleware' => 'checkuser'], function () {
     Route::post('/addstock','DataController@addstockin');
     Route::get('/getstock','DataController@getstockin');
     Route::get('/stockin/{stockNumber}','DataController@stockindetails');
-    Route::get('/stockinreq','DataController@stockHD');
+    Route::get('/stockinreq/{stockinNumber}','DataController@stockHD');
     Route::get('/stockincomment/{code}','DataController@getcommentstockin');
     Route::post('/customerAddr', 'DataController@addMulAddr');
     Route::put('/customerAddrupdate', 'DataController@updateMulAddr');
@@ -59,6 +59,8 @@ Route::group(['middleware' => 'checkuser'], function () {
     Route::post('/customer/{id}', 'DataController@customerdetail_id');
     Route::put('/comment/{id}', 'DataController@editComment');
     Route::put('/commentstock/{id}','DataController@editCommentstock');
+    Route::put('/updatestock', 'DataController@updatestock');
+
 });
 Route::group(['middleware' => 'guest'], function () {
     Route::get('/', 'DataController@index');

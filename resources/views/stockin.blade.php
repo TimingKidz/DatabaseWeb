@@ -110,42 +110,60 @@ session_start();
                 <h2>+</h2>
             </button>
             <div class="theme-settings__inner">
-                <div class="main-card">
+                <div class="main-card pre-scroll">
+                    <div class="scrollbar-container ps--active-y">
                     <!--Add Stock--><div class="card-body"><h5 class="card-title">Stock-In</h5>
-                                        <form class="">
                                             <div class="form-row">
-                                                <div class="col-md-5">
-                                                    <div class="position-relative form-group"><label for="exampleEmail11" class="">Date</label><input name="date" id="exampleEmail11" placeholder="DD/MM/YYYY" type="date" class="form-control"></div>
+                                                <div class="col-sm-4">
+                                                    <div class="position-relative form-group"><label for="exampleEmail11" class=""></label><input name="ProductLine" id="B1" placeholder="ProductLine" type="text" class="form-control"></div>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <div class="position-relative form-group"><label for="exampleEmail11" class=""></label><input name="ProductCode" id="B2" placeholder="ProductCode" type="text" class="form-control"></div>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <div class="position-relative form-group"><label for="exampleEmail11" class=""></label><input name="Quantity" id="B3" placeholder="Quantity" type="text" class="form-control"></div>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <button class= "col-sm mt-2 btn btn-warning"onclick="">Add</button>
                                                 </div>
                                             </div>
-                                            <div class="form-row">
-                                                <div class="col-md-5">
-                                                    <div class="position-relative form-group"><label for="exampleEmail11" class="">ProductCode</label><input name="ProductCode" id="exampleEmail11" placeholder="eg.S10_1080" type="text" class="form-control"></div>
+                                            <!--top-->
+                                    <div class="row scroll-area">   
+                                        <div class="scrollbar-container ps--active-y"> 
+                                            <div class="col-md-12">
+                                                <div class="table-responsive">
+                                                    <table class="align-middle mb-0 table table-wrapper table-borderless table-hover">
+                                                        <thead>
+                                                    <tr>
+                                                        <th class="text-center">#</th>
+                                                        <th>ProductCode</th>
+                                                        <th class="text-center">Quantity</th>
+                                                    </tr>
+                                                        </thead>
+                                                    <tbody id="cartp">
+                                                    <!-- tableCart -->
+                                                    </tbody>
+                                                    </table>
                                                 </div>
                                             </div>
-                                            <div class="form-row">
-                                                <div class="col-md-4">
-                                                    <div class="position-relative form-group"><label for="exampleEmail11" class="">Quantity</label><input name="Quantity" id="exampleEmail11" placeholder="" type="number" class="form-control"></div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="position-relative form-group"><label for="exampleEmail11" class="">PriceEach</label><input name="PriceEach" id="exampleEmail11" placeholder="" type="number" class="form-control"></div>
-                                                </div>
-                                            </div>
-                                            <div class="form-row">
-                                                <div class="col-md-4">
-                                                    <div class="position-relative form-group"><label for="exampleEmail11" class="">QuantityOrdered</label><input name="QuantityOrdered" id="exampleEmail11" placeholder="" type="number" class="form-control"></div>
-                                                </div>
-                                            </div>
-                                            <div class="form-row">
-                                                <div class="col-md-8">
-                                                    <div class="position-relative form-group"><label for="examplePassword11" class="">Comment</label><input name="comment" id="exampleEmail11" placeholder="..." type="text"class="form-control"></div>
-                                                </div>
-                                            </div>
-                                            <div class="text-right">
-                                            <button class="mt-2 btn btn-primary">Submit</button>
-                                            </div>
-                                        </form>
+                                        </div>
                                     </div>
+                            <!--body-->
+                            <div class="ml-3 mr-3 mb-3 fixed-bottom">
+                                <div class="form-row">
+                                    <div class="mt-1 col-sm-4">
+                                        <div class="position-relative form-group"><label for="exampleEmail11" class=""></label><input name="Date" id="B4" placeholder="mm/dd/yyyy" type="date" class="form-control"></div>
+                                    </div>
+                                    <div class="mt-3 col-sm-8">
+                                        <div class="position-relative form-group"><label for="examplePassword11" class=""></label><input name="comment" id="A4" placeholder="Comment" type="text"class="form-control"></div>
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <button class="mt-2 btn btn-primary"onclick="addstockin()">Submit</button>
+                                </div>
+                            </div>
+                        </div>            
+                    </div>
                 </div>
             </div>
         </div>
@@ -196,7 +214,7 @@ session_start();
 
                                 <li class="app-sidebar__heading">Menu</li>
                                 <li>
-                                    <a href="../products" class="mm-active">
+                                    <a href="../products">
                                         <i class="metismenu-icon pe-7s-display2"></i>
                                         Products
                                     </a>
@@ -204,7 +222,7 @@ session_start();
                                 <?php
                                 if(strpos(session('status'),'Sale') !== false){
                                     echo '<li>
-                                    <a href="../stockin">
+                                    <a href="../stockin" class="mm-active">
                                         <i class="metismenu-icon pe-7s-display2"></i>
                                         Stock In
                                     </a>
@@ -264,6 +282,92 @@ session_start();
             </div>
         </div> 
     </div>
+    <div id="id04" class="modal"> 
+        <div class="modal-content animate"> 
+            <div class="main-card card">
+                <div class="card-body "><h4></h4>
+                <span onclick="document.getElementById('id04').style.display='none'" class="close" title="Close Modal">×</span> 
+                    <div class="">
+                        <div class="main-card">
+                            <div class="card-body"><h5 class="card-title">ProductLine</h5>
+                                <div class="form-row">
+                                    <div class="col-md-4">
+                                        <div class="position-relative form-group"><label for="exampleEmail11" class="">ProductLine</label><input name="ProductLine" id="C1" placeholder="..." type="text" class="form-control"></div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="position-relative form-group"><label for="exampleEmail11" class="">HTMLDesctiption</label><input name="HTMLDescription" id="C2" placeholder="..." type="text" class="form-control"></div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="position-relative form-group"><label for="exampleEmail11" class="">Image</label><input name="Image" id="C3" placeholder="..." type="text" class="form-control"></div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-md-12">
+                                        <div class="position-relative form-group"><label for="exampleEmail11" class="">Description</label><textarea row="5" name="TextDescription" id="C4" placeholder="..." type="text" class="form-control"></textarea></div>
+                                    </div>        
+                                </div>
+                            </div>
+                        <div class="form-row">
+                            <div class="col-md-12 text-right">
+                                <button type="button" onclick="" class="btn btn-success">Add</button>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div> 
+    </div>
+    <div id="id05" class="modal"> 
+        <div class="modal-content-more animate"> 
+            <div class="main-card card">
+                <div class="card-body "><h4></h4>
+                <span onclick="document.getElementById('id05').style.display='none'" class="close" title="Close Modal">×</span> 
+                    <div class="">
+                        <div class="main-card">
+                            <div class="card-body"><h5 class="card-title">Product</h5>
+                                <div class="form-row">
+                                    <div class="col-md-4">
+                                        <div class="position-relative form-group"><label for="exampleEmail11" class="">ProductCode</label><input name="ProductCode" id="D1" placeholder="..." type="text" class="form-control"></div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="position-relative form-group"><label for="exampleEmail11" class="">ProductName</label><input name="ProductName" id="D2" placeholder="..." type="text" class="form-control"></div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="position-relative form-group"><label for="exampleEmail11" class="">ProductVendor</label><input name="ProductVendor" id="D3" placeholder="..." type="text" class="form-control"></div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-md-3">
+                                        <div class="position-relative form-group"><label for="exampleEmail11" class="">ProductScale</label><input name="ProductScale" id="D4" placeholder="..." type="text" class="form-control"></div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="position-relative form-group"><label for="exampleEmail11" class="">QuantityInStock</label><input name="QuantityInStock" id="D5" placeholder="..." type="text" class="form-control"></div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="position-relative form-group"><label for="exampleEmail11" class="">BuyPrice</label><input name="BuyPrice" id="D6" placeholder="..." type="text" class="form-control"></div>
+                                    </div>  
+                                    <div class="col-md-3">
+                                        <div class="position-relative form-group"><label for="exampleEmail11" class="">MSRP</label><input name="MSRP" id="D7" placeholder="..." type="text" class="form-control"></div>
+                                    </div>          
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-md-12">
+                                        <div class="position-relative form-group"><label for="exampleEmail11" class="">ProductDescription</label><textarea row="5" name="ProductDescription" id="D8" placeholder="..." type="text" class="form-control"></textarea></div>
+                                    </div>        
+                                </div>
+                            </div>
+                        <div class="form-row">
+                            <div class="col-md-12 text-right">
+                                <button type="button" onclick="" class="btn btn-success">Add</button>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div> 
+    </div>
               
  
 
@@ -292,8 +396,6 @@ session_start();
                                             <tr>
                                                 <th class="text-center">#</th>                                            
                                                 <th>Date</th>
-                                                <th class="text-center">ProductCode</th>
-                                                <th class="text-center">Quantity</th>
                                                 <th class="text-center">Comment</th>
                                                 <th class="text-center"></th>
                                             </tr>
@@ -313,12 +415,25 @@ session_start();
                     <script type="text/javascript">
                    
                        
-                        var json = <?php echo $jsstockinHeaderList; ?> ;
+                        var json = 0;
                         
+                        function getstockin(){
+                            var data = 0;
+                            $.ajax({
+                                type: "get",
+                                url: "/getstock",
+                                success: function(response){
+                                    data = response;
+                                },
+                                async: false,
+                            });
+                            return JSON.parse(data);
+                        }
                         function Gentable(){
+                            json = getstockin();
                             var tableStockin = "";
                             json.forEach(function(a) {
-                                tableStockin += tablestockin(a.stockNumber,a.stockDate,a.productCode,a.quantityOrdered,a.comments);
+                                tableStockin += tablestockin(a.stockNumber,a.stockDate,a.comments);
                             });
                             document.getElementById("tablelist").innerHTML = tableStockin;
                         }
@@ -333,13 +448,14 @@ session_start();
                             var tableStockin = "";
                             json.forEach(function(a) {
                                 if (((a.stockNumber.toString()).toUpperCase()).includes(filter)){
-                                    tableStockin += tablestockin(a.stockNumber,a.stockDate,a.productCode,a.quantityOrdered,a.comments);
+                                    tableStockin += tablestockin(a.stockNumber,a.stockDate,a.comments);
                                 }
                             });
                             document.getElementById("tablelist").innerHTML = tableStockin;
                         }
-                        function delalert(productCode){
-                            var p = productCode.getAttribute("id");
+                        function delalert(stockNumber){
+                            console.log(stockNumber);
+                            var p = stockNumber.getAttribute("id");
                             document.getElementById('id03').style.display='block';
                             document.getElementById('delbut').setAttribute("name",p);
                                                  
@@ -350,8 +466,35 @@ session_start();
                             }
                         });
 
+                        function addstockin(){
+                           console.log("allo");
+                           document.getElementById('id05').style.display='block';
+                            var stockin =  { 
+                                             "stockDate": document.getElementById("A1").value.toString(),
+                                             "productCode":document.getElementById("A2").value.toString(),
+                                             "quantityOrdered": document.getElementById("A3").value.toString(),
+                                             "comments":document.getElementById("A4").value.toString(),
+};
+                            console.log(stockin);
+                                            
+                            $.ajax({
+                                type: "post",
+                                url: "/addstock",
+                                data: stockin,
+                                success: function(response){
+                                    Gentable();
+                                },
+                                error: function (error) {
+                                alert(error.responseText);
+                                console.log(error.responseText);
+                            }
+
+                            });
+                        }
+
                         function deleteitem(a){
                             var p = a.getAttribute("name");
+                            console.log(json);
                             $.ajax({
                                 type: 'delete',
                                 url: '/stockin/'+p,
@@ -359,6 +502,7 @@ session_start();
                                     document.getElementById('id03').style.display='none';
                                     const index = json.findIndex(x => x.productCode == p);
                                     if (index !== undefined) json.splice(index, 1);
+                                    console.log(json);
                                     Gentable();
                                 }
                             });

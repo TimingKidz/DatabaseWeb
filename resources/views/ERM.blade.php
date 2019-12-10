@@ -153,7 +153,7 @@ session_start();
 
                                 <li class="app-sidebar__heading">Menu</li>
                                 <li>
-                                    <a href="../products" class="mm-active">
+                                    <a href="../products">
                                         <i class="metismenu-icon pe-7s-display2"></i>
                                         Products
                                     </a>
@@ -185,7 +185,7 @@ session_start();
                                 <?php
                                         if(session('status') != "Sales Rep"){
                                         echo '<li>
-                                            <a href="../ERM">
+                                            <a href="../ERM" class="mm-active">
                                                 <i class="metismenu-icon pe-7s-note2"></i>
                                             ERM
                                             </a>

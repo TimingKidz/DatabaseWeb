@@ -24515,7 +24515,7 @@ span.psw {
 .modal {
     display: none;
     position: fixed;
-    z-index: 1;
+    z-index: 300;
     left: 0;
     top: 0;
     width: 100%;
@@ -24528,6 +24528,12 @@ span.psw {
 
 
 /*style the model content box*/
+.modal-content-more {
+    background-color: #fefefe;
+    margin: 5% auto 15% auto;
+    border: 1px solid #888;
+    width: 60%;
+}
 
 .modal-content {
     background-color: #fefefe;

@@ -126,6 +126,77 @@ function tablesale(a, b, c, d, e, f) {
         </tr>`
 }
 
+function tablesaledetail(a, b, c, d, e) {
+    return ` 
+    <tr>
+            
+            <td>
+                <div class="widget-content p-0">
+                    <div class="widget-content-wrapper">
+                        
+                        <div class="widget-content-left flex2">
+                            <div class="widget-heading">${b}</div>
+                        </div>
+                    </div>
+            </td>
+                <td class="text-center">${c}</td>
+                <td class="text-center">${d}</td>
+                <td class="text-center">${e}</td>    
+                                                                              
+                
+        </tr>`
+}
+
+function tablesale(a, b, c, d, e, f, g) {
+    return ` 
+    <tr>
+            <td class="text-center text-muted"> ${a}</td>
+            <td>
+                <div class="widget-content p-0">
+                    <div class="widget-content-wrapper">
+                        
+                        <div class="widget-content-left flex2">
+                            <div class="widget-heading">${b}</div>
+                        </div>
+                    </div>
+            </td>
+                <td class="text-center">${c}</td>
+                <td class="text-center">${d}</td>
+                <td class="text-center">${e}</td>    
+                <td class="text-center">${f}</td>  
+                <td class="text-center">${g}</td>                                                                   
+                <td class="text-center">
+                <a href="saleorder/${a}"><button id="${a}" class="btn btn-primary btn-sm">Detail</button></a>
+                <button class="btn btn-success btn-sm"  id="${a}" onclick="update(this)">Edit</button>
+                </td>
+        </tr>`
+}
+
+function tablesaleincustomerdetail(a, b, c, d, e, f, g) {
+    return ` 
+    <tr>
+            <td class="text-center text-muted"> ${a}</td>
+            <td>
+                <div class="widget-content p-0">
+                    <div class="widget-content-wrapper">
+                        
+                        <div class="widget-content-left flex2">
+                            <div class="widget-heading">${b}</div>
+                        </div>
+                    </div>
+            </td>
+                <td class="text-center">${c}</td>
+                <td class="text-center">${d}</td>
+                <td class="text-center">${e}</td>    
+                <td class="text-center">${f}</td>   
+                <td class="text-center">${g}</td>                                                                 
+                <td class="text-center">
+                <a href="../../saleorder/${a}"><button id="${a}" class="btn btn-primary btn-sm">Detail</button></a>
+                <button class="btn btn-success btn-sm"  id="${a}" onclick="update(this)">Edit</button>
+                </td>
+        </tr>`
+}
+
 function tableGenem(i, col1, col2, col3, col4, code) {
     return ` <tr>
     <td class="text-center text-muted"> ${i}</td>
@@ -235,17 +306,38 @@ function detailPopupGen(productCode, productName, productScale, productVendor, q
     </div>`;
 }
 
-function tablestockin(stockNumber, stockDate, productCode, quantityOrdered, comments) {
+function tablestockin(stockNumber, stockDate, comments) {
     return ` 
     <tr>
             <td class="text-center text-muted"> ${stockNumber}</td>
-            <td> ${stockDate}</td>
-                <td class="text-center">${productCode}</td>
-                <td class="text-center">${quantityOrdered}</td>   
+            <td> ${stockDate}</td> 
                 <td class="text-center">${comments}</td>                                                             
                 <td class="text-center">
                 <a href="stockin/${stockNumber}"><button id="${stockNumber}" class="btn btn-primary btn-sm">Detail</button></a>
                 <button class="btn btn-danger btn-sm"  id="${stockNumber}" onclick="delalert(this)">X</button>
                 </td>
+        </tr>`
+}
+
+function tablestockdetail(stockinNumber, productCode, qty) {
+    return ` 
+    <tr>
+            <td class="text-center text-muted"> ${stockinNumber}</td>
+            <td>
+                <div class="widget-content p-0">
+                    <div class="widget-content-wrapper">
+                        
+                        <div class="widget-content-left flex2">
+                            <div class="widget-heading">${productCode}</div>
+                        </div>
+                    </div>
+            </td>
+                <td class="text-center">${qty}</td>
+                <td class="text-center">
+                <button id="${stockinNumber}" class="btn btn-primary btn-sm" onclick="update(this)">Edit</button>
+                <button class="btn btn-danger btn-sm"  id="${productCode}" name="${stockinNumber}" onclick="delalert(this)">X</button>
+                </td>
+                                                                              
+                
         </tr>`
 }

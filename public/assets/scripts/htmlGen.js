@@ -129,7 +129,7 @@ function tablesale(a, b, c, d, e, f) {
 function tablesaledetail(a, b, c, d, e) {
     return ` 
     <tr>
-            <td class="text-center text-muted"> ${a}</td>
+            
             <td>
                 <div class="widget-content p-0">
                     <div class="widget-content-wrapper">

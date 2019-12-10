@@ -77,11 +77,7 @@ session_start();
                                     </div>
                                     <div class="widget-subheading">
                                         <?php
-                                        if (session('status') == "1") {
-                                            echo "Employee";
-                                        } else {
-                                            echo "Admin";
-                                        }
+                                        echo session('status');
                                         ?>
                                     </div>
                                 </div>
@@ -375,7 +371,6 @@ session_start();
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                         }
                     });
-
                     function ajaxget() {
                         var data = 0;
                         $.ajax({
@@ -412,14 +407,10 @@ session_start();
 
                     function Genaddr() {
                         json = ajaxget();
-                        console.log("showjson",json);
                         var temp = "";
                         var t = "";
 
-                        console.log(json.length)
                         for (var i = 0; i < json.length; i++) {
-                            console.log("show map", json[i].mapNumber);
-                            console.log(json[i].addressLine1);
                             t += '<li class="list-group-item" >';
                             t += checkAddrDisplay(json[i]);
                             t += `<button onclick="detailpopup_edit(this)" type="button" id="${json[i].mapNumber}" name="mapedit" class="mb-2 mr-2 ml-5 btn-transition btn btn-outline-warning">edit</button><button onclick="detailpopup_delete(this)" type="button" id="${json[i].mapNumber}" name="mapedit" class="mb-2 mr-2 btn-transition btn btn-outline-danger">delete</button></li>`;
@@ -451,8 +442,8 @@ session_start();
                         function getorders(){
                             var data = 0;
                             $.ajax({
-                                type: "get",
-                                url: "/saleorderreq",
+                                type: "post",
+                                url: "/saleorderreqwhere/"+<?php echo $id; ?>,
                                 success: function(response){
                                     data = response;
                                 },
@@ -466,7 +457,6 @@ session_start();
                             json = getorders();
                             var tableproduct = "";
                             var i = 0;
-                            console.log(json);
                             json.forEach(function(a) {
                                 if(customerID === a.customerNumber)
                                 tableproduct += tablesaleincustomerdetail(a.orderNumber,a.customerName,a.orderDate,a.requiredDate,a.shippedDate,a.status,a.pointEarn);
@@ -500,7 +490,7 @@ session_start();
                         var order = 0;
                         function update(utag){
                             var orederNumber = utag.getAttribute("id");
-                            console.log(orederNumber)
+                            
                             document.getElementById('id04').style.display='block';  
                             document.getElementById("select").innerHTML = `
                                                         <option id="Cancelled">Cancelled</option>
@@ -585,7 +575,7 @@ session_start();
                     //edit
                     function detailpopup_edit(tag) {
                         document.getElementById('id02_edit').style.display = 'block';
-                        var x = tag.getAttribute("id");
+                        var mapNumber = tag.getAttribute("id");
                         var addrLine1 = 0;
                         var addrLine2 = 0;
                         var city = 0;
@@ -593,10 +583,10 @@ session_start();
                         var country = 0;
                         var postalCode = 0;
                         var customerNumber = 0;
-                        // console.log("show x",x);
+                         
                         json = ajaxget();
                         for (var i = 0; i < json.length; i++) {
-                            if (json[i].mapNumber === x) {
+                            if (json[i].mapNumber === mapNumber) {
                                 addrLine1 = json[i].addressLine1;
                                 addrLine2 = json[i].addressLine2;
                                 city = json[i].city;
@@ -604,7 +594,7 @@ session_start();
                                 country = json[i].country;
                                 postalCode = json[i].country;
                                 customerNumber = json[i].customerNumber;
-                                console.log("mapnumber", json[i].mapNumber);
+                                console.log("mapnumber", mapNumber);
                             }
                         }
 
@@ -636,7 +626,7 @@ session_start();
                                         <div class="position-relative form-group"><label for="examplePostalCode" class="">PostalCode</label><input name="PostalCode" id="PostalCode" type="text" placeholder="Enter ZipCode class="form-control" value="${postalCode}"></div>
                                     </div>
                                 </div>
-                                <button class="mt-2 btn btn-warning" onclick="editform(${x},${customerNumber})">Edit</button>
+                                <button class="mt-2 btn btn-warning" onclick="editform(${mapNumber},${customerNumber})">Edit</button>
                             
                         </div>
                     </div>`;

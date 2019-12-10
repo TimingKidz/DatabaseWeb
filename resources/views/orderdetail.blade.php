@@ -275,7 +275,7 @@ session_start();
                                                             <table class="align-middle mb-0 table table-borderless table-striped table-hover">
                                                                 <thead>
                                                                     <tr>
-                                                                        <th class="text-center">Order NO.</th>
+                                            
                                                                         <th>Product Code</th>
                                                                         
                                                                         <th class="text-center">qty</th>

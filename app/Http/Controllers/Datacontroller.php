@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\DB;
 use App\Data;
 use Illuminate\Http\Request;
 Use Exception;
-use Session;
 
 class job{
     static $Match = array("Sales Rep"=>"0",
@@ -83,7 +82,7 @@ class DataController extends Controller
     }
 
     public function customerdetail_id($id){
-        $data = DB::select("select * from customers join customerAddress using(customerNumber) where customerNumber = '$id'");
+        $data = DB::select("select * from customers join customerAddress using(customerNumber) where customerNumber = '$id' and delete_at is NULL");
         $jscustomerdetail = json_encode($data);
         return $jscustomerdetail;
     }
@@ -211,6 +210,10 @@ class DataController extends Controller
         $data = DB::select("select * from orders join customers using(customerNumber)");
         return json_encode($data);
     }
+    public function saleorder_cust($id){
+        $data = DB::select("select * from orders join customers using(customerNumber) where customerNumber = '$id'");
+        return json_encode($data);
+    }
 
     public function addcus(Request $request)
     {
@@ -264,7 +267,7 @@ class DataController extends Controller
     }
 
     public function deleteMulAddr($map){
-        DB::delete("delete from customerAddress where mapNumber = $map");
+        DB::update("update customerAddress set delete_at = DATETIME('now') where mapNumber = '$map'");
     }
     
 }

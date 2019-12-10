@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DataController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -42,6 +43,7 @@ Route::group(['middleware' => 'checkuser'], function () {
     Route::get('/getcus', 'DataController@getcustomer');
     Route::get('/saleorder', 'DataController@orders');
     Route::get('/saleorderreq', 'DataController@saleorder');
+    Route::post('/saleorderreqwhere/{id}', 'DataController@saleorder_cust');
     Route::get('/saleorder/{id}', 'DataController@saleorderdetail');
 
     Route::get('/stockin', 'DataController@stockin');

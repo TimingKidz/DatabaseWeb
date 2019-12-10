@@ -34,6 +34,11 @@ class DataController extends Controller
         $data = DB::select('select * from products');
         return json_encode($data);
     }
+
+    public function getProduct(Request $request){
+        $data = DB::select("select * from products where productLine = '$request->Line'");
+        return json_encode($data);
+    }
     
     public function index()
     { 
@@ -63,6 +68,11 @@ class DataController extends Controller
         return json_encode($data);
     }
 
+    public function getproductline()
+    {
+        $data = DB::select('select * from productlines');
+        return json_encode($data);
+    }
   
 
     public function getcustomer()
@@ -175,13 +185,14 @@ class DataController extends Controller
         {
             if(job::$Match[$request->newjob] <= job::$Match[$request->session()->get('status')]){
                 $data = DB::update("update employees set jobTitle = '$request->newjob', reportsTo = '$request->repTo' where employeeNumber = '$request->emid'");
+                return json_encode("Success");
             }else{
                 throw new Exception("Error");
             }
         }
         catch(Exception $e)
         {
-           echo $e->getMessage();
+            return json_encode($e->getMessage());
         }
         
     }
@@ -191,10 +202,11 @@ class DataController extends Controller
         try
         {
             $data = DB::update("update orders set status = '$request->status', shippedDate = '$request->date' where orderNumber = '$request->orderNumber'");
+            return json_encode("Success");
         }
         catch(Exception $e)
         {
-           echo $e->getMessage();
+            return json_encode($e->getMessage());
         }
     }
 
@@ -220,10 +232,11 @@ class DataController extends Controller
             $no = $data[0]->seq;
             DB::insert("insert into customerAddress (addressLine1,addressLine2,city,state,postalCode,country,CustomerNumber) 
             values ('$request->line1','$request->line2','$request->city','$request->state','$request->postalCode','$request->country','$no');");
+            return json_encode("Success");
         }
         catch(Exception $e)
         {
-           echo $e->getMessage();
+            return json_encode($e->getMessage());
         }
     }
 
@@ -251,7 +264,6 @@ class DataController extends Controller
     public function addMulAddr(Request $request){
         DB::insert("insert into customerAddress (addressLine1,addressLine2,city,state,postalCode,country,customerNumber) 
         values ('$request->addressLine1','$request->addressLine2','$request->city','$request->state','$request->postalCode','$request->country','$request->customerNumber')");
-        
     }
 
     public function updateMulAddr(Request $request){
@@ -263,5 +275,19 @@ class DataController extends Controller
     public function deleteMulAddr($map){
         DB::delete("delete from customerAddress where mapNumber = $map");
     }
+
+    public function newPayment(Request $request){
+        try
+        {
+            DB::insert("insert into payments (customerNumber,checkNumber,paymentDate,amount) values ('$request->customerNo','$request->ChequeNumber','$request->Date','$request->Total')");
+            return json_encode("Success");
+        }
+        catch(Exception $e)
+        {
+            return json_encode($e->getMessage());
+        } 
+    }
+
+    
     
 }

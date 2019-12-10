@@ -74,7 +74,7 @@ session_start();
 
                 @if(session()->has('alert'))
                 <div id="id03" class="modal"> 
-                    <form class="modal-content animate"> 
+                    <form class="modal-content-alert animate"> 
                         <div class="main-card card alert-warning">
                             <div class="card-body "><h4><i class="metismenu-icon pe-7s-lock">  Warning</i></h4>
                             <span onclick="document.getElementById('id03').style.display='none'" class="close" title="Close Modal">×</span> 
@@ -155,6 +155,7 @@ session_start();
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/md5.js"></script>
 
                     <script src="../assets/scripts/htmlGen.js" type="text/javascript"></script>
+                    <script src="../assets/scripts/jquery-3.4.1.js" type="text/javascript"></script>
                     <script type="text/javascript"> 
                     
                         var vendorlist = '<button id="none" type="button" onclick="venderFilter(this)" tabindex="0" class="dropdown-item">None</button>';

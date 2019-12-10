@@ -38,15 +38,18 @@ Route::group(['middleware' => 'checkuser'],function(){
     });
     Route::delete('/products/{code}','DataController@deletepro');
     Route::delete('/customers/{code}','DataController@deletecus');
-   
+    Route::post('/newPayments','DataController@newPayment');
     Route::post('/logout','DataController@logout');
     Route::post('/customers','DataController@addcus');
+    Route::post('/getproductline','DataController@getproductline');
+    Route::post('/getProducts','DataController@getProduct');
+    
     Route::put('/updateorder','DataController@updateorder');
     Route::get('/getcus','DataController@getcustomer');
     Route::get('/saleorder','DataController@orders');
     Route::get('/saleorderreq','DataController@saleorder');
     Route::get('/saleorder/{id}','DataController@saleorderdetail');
-
+    
     Route::get('/stockin','DataController@stockin');
 
 });

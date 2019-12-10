@@ -234,31 +234,29 @@ session_start();
                 </div>
                 </div> 
             </div>
-            <div id="id04" class="modal"> 
+    <div id="id04" class="modal"> 
         <div class="modal-content animate"> 
             <div class="main-card card">
                 <div class="card-body "><h4></h4>
                 <span onclick="document.getElementById('id04').style.display='none'" class="close" title="Close Modal">×</span> 
                     <div class="">
-                    <div class="main-card">
-                                    <div class="card-body"><h5 class="card-title">EDIT</h5>
-                                            <div class="form-row">
-                                                <div class="col-md-6">
-                                                <div class="position-relative form-group" id="dateup"></div>
-                                                </div>
-                                                <div class="col-md-3">
-                                                <div class="position-relative form-group" id="A3"></div>
-                                                </div>
-                                                </div>
-                                            </div>
-                                            <div class="form-row">
-                                             <div class="col-md-12 text-right">
-                        <button type="button" onclick="sendupdate()" class="btn btn-success">Update</button>
+                        <div class="main-card">
+                            <div class="card-body"><h5 class="card-title">EDIT</h5>
+                                <div class="form-row">
+                                    <div class="col-md-6">
+                                        <div class="position-relative form-group" id="dateup"></div>
                                     </div>
+                                    <div class="col-md-3">
+                                        <div class="position-relative form-group" id="A3"></div>
                                     </div>
-                                            
-                                    </div>
-
+                                </div>
+                            </div>
+                        <div class="form-row">
+                            <div class="col-md-12 text-right">
+                                <button type="button" onclick="sendupdate()" class="btn btn-success">Update</button>
+                            </div>
+                        </div>
+                    </div>
                     </div>
                 </div>
             </div>

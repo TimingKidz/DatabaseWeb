@@ -341,7 +341,7 @@ session_start();
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <div class="main-card mb-3 card">
-                                                        
+
                                                         <div class="table-responsive">
                                                             <table class="align-middle mb-0 table table-borderless table-striped table-hover">
                                                                 <thead>
@@ -382,8 +382,8 @@ session_start();
                 <script src="../assets/scripts/htmlGen.js" type="text/javascript"></script>
                 <script src="../assets/scripts/jquery-3.4.1.js" type="text/javascript"></script>
                 <script type="text/javascript">
-                var customerID =0;
-                var json = 0;
+                    var customerID = 0;
+                    var json = 0;
                     $.ajaxSetup({
                         headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -459,104 +459,105 @@ session_start();
                     //gendisplay Address
                     Genaddr();
                     ///make orders
-                    
+
                     var json = 0;
-                    
-                        function getorders(){
-                            var data = 0;
-                            $.ajax({
-                                type: "get",
-                                url: "/saleorderreq",
-                                success: function(response){
-                                    data = response;
-                                },
-                                async: false,
-                            });
-                            return JSON.parse(data);
-                        }
 
-                        
-                        function Gentable(){
-                            json = getorders();
-                            var tableproduct = "";
-                            var i = 0;
-                            console.log(json);
-                            json.forEach(function(a) {
-                                if(customerID === a.customerNumber)
-                                tableproduct += tablesaleincustomerdetail(a.orderNumber,a.customerName,a.orderDate,a.requiredDate,a.shippedDate,a.status,a.pointEarn);
-                            });
-                            document.getElementById("tablelist").innerHTML = tableproduct;
-                        }
-                        Gentable();
+                    function getorders() {
+                        var data = 0;
+                        $.ajax({
+                            type: "post",
+                            url: "/saleorderreqwhere/" + <?php echo $id; ?>,
+                            success: function(response) {
+                                data = response;
+                            },
+                            async: false,
+                        });
+                        return JSON.parse(data);
+                    }
 
-                        function delalert(productCode){
-                            var p = productCode.getAttribute("id");
-                            document.getElementById('id03').style.display='block';
-                            document.getElementById('delbut').setAttribute("name",p);
+
+                    function Gentable() {
+                        json = getorders();
+                        var tableproduct = "";
+                        var i = 0;
+                        json.forEach(function(a) {
+                            if (customerID === a.customerNumber)
+                                tableproduct += tablesaleincustomerdetail(a.orderNumber, a.customerName, a.orderDate, a.requiredDate, a.shippedDate, a.status, a.pointEarn);
+                        });
+                        document.getElementById("tablelist").innerHTML = tableproduct;
+                    }
+                    Gentable();
+
+                    function delalert(productCode) {
+                        var p = productCode.getAttribute("id");
+                        document.getElementById('id03').style.display = 'block';
+                        document.getElementById('delbut').setAttribute("name", p);
+                    }
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                         }
-                        $.ajaxSetup({
-                            headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    });
+
+                    function deleteitem(a) {
+                        var p = a.getAttribute("name");
+                        $.ajax({
+                            type: 'delete',
+                            url: '/customers/' + p,
+                            success: function(data) {
+                                document.getElementById('id03').style.display = 'none';
+                                Gentable();
                             }
                         });
+                    }
+                    var order = 0;
 
-                        function deleteitem(a){
-                            var p = a.getAttribute("name");
-                            $.ajax({
-                                type: 'delete',
-                                url: '/customers/'+p,
-                                success: function (data) {         
-                                    document.getElementById('id03').style.display='none';
-                                    Gentable();
-                                }
-                            });
-                        }        
-                        var order = 0;
-                        function update(utag){
-                            var orederNumber = utag.getAttribute("id");
-                            console.log(orederNumber)
-                            document.getElementById('id04').style.display='block';  
-                            document.getElementById("select").innerHTML = `
+                    function update(utag) {
+                        var orederNumber = utag.getAttribute("id");
+
+                        document.getElementById('id04').style.display = 'block';
+                        document.getElementById("select").innerHTML = `
                                                         <option id="Cancelled">Cancelled</option>
                                                         <option id="Disputed">Disputed</option>
                                                         <option id="In Process">In Process</option>
                                                         <option id="On Hold">On Hold</option>
                                                         <option id="Resolved">Resolved</option>
-                                                        <option id="Shipped">Shipped</option>` ;         
-                                      
-                            json.forEach(function(a) {
-                                if(a.orderNumber == orederNumber){
-                                    order = a;
-                                }
-                            });
-                            document.getElementById(`${order.status}`).setAttribute("selected", "selected");
-                            var date = order.shippedDate.split("-");
-                            document.getElementById("dateup").innerHTML = `<label for="exampleEmail11" class="">Shipped Date</label><input id="dateship" placeholder="Customer Name" type="date" class="form-control" value="${date[0]}-${date[1]}-${date[2]}">`
-                           
-                        }
+                                                        <option id="Shipped">Shipped</option>`;
 
-                        function sendupdate(){
-                            document.getElementById('id04').style.display='none';  
-                            var update =  { "date": document.getElementById("dateship").value.toString(), 
-                                             "status": document.getElementById("select").value.toString(),
-                                             "orderNumber": order.orderNumber.toString()
-                                             };
-                            $.ajax({
-                                type: "put",
-                                url: "/updateorder",
-                                data: update,
-                                success: function(response){
-                                    Gentable();
-                                },
-                                error: function (error) {
-                                    console.log(error);
-                                 alert(error.responseText);
-                                
+                        json.forEach(function(a) {
+                            if (a.orderNumber == orederNumber) {
+                                order = a;
+                            }
+                        });
+                        document.getElementById(`${order.status}`).setAttribute("selected", "selected");
+                        var date = order.shippedDate.split("-");
+                        document.getElementById("dateup").innerHTML = `<label for="exampleEmail11" class="">Shipped Date</label><input id="dateship" placeholder="Customer Name" type="date" class="form-control" value="${date[0]}-${date[1]}-${date[2]}">`
+
+                    }
+
+                    function sendupdate() {
+                        document.getElementById('id04').style.display = 'none';
+                        var update = {
+                            "date": document.getElementById("dateship").value.toString(),
+                            "status": document.getElementById("select").value.toString(),
+                            "orderNumber": order.orderNumber.toString()
+                        };
+                        $.ajax({
+                            type: "put",
+                            url: "/updateorder",
+                            data: update,
+                            success: function(response) {
+                                Gentable();
+                            },
+                            error: function(error) {
+                                console.log(error);
+                                alert(error.responseText);
+
                             }
 
-                            });
-                        }
-                
+                        });
+                    }
+
                     //add
                     function detailpopup_add() {
                         document.getElementById('id02_add').style.display = 'block';
@@ -599,7 +600,8 @@ session_start();
                     //edit
                     function detailpopup_edit(tag) {
                         document.getElementById('id02_edit').style.display = 'block';
-                        var x = tag.getAttribute("id");
+                        var mapNumber = tag.getAttribute("id");
+                        console.log("edit map", mapNumber)
                         var addrLine1 = 0;
                         var addrLine2 = 0;
                         var city = 0;
@@ -607,7 +609,6 @@ session_start();
                         var country = 0;
                         var postalCode = 0;
                         var customerNumber = 0;
-                        // console.log("show x",x);
                         json = ajaxget();
                         for (var i = 0; i < json.length; i++) {
                             if (json[i].mapNumber === x) {
@@ -655,12 +656,14 @@ session_start();
                         </div>
                     </div>`;
 
+
                         document.getElementById("detailpop_edit").innerHTML = text;
                     }
                     //delete
                     function detailpopup_delete(d) {
                         document.getElementById('id02_delete').style.display = 'block';
                         var x = d.getAttribute("id");
+                        console.log("delete", json)
                         json = ajaxget();
                         if (json.length === 1) {
                             var text = `<div class="mb-3 card">
@@ -724,7 +727,8 @@ session_start();
                             data: Address,
                             success: function(response) {
                                 //gennaddr
-                                Genaddr();
+
+                                if (alert('Are you sure to Add?')) {} else window.location.reload();
                             },
                             error: function(error) {
                                 alert(error.responseText);
@@ -735,7 +739,7 @@ session_start();
                     }
 
                     function editform(mapNumber, customerID) {
-                        console.log("in edit", customerID);
+                        console.log("in edit", mapNumber);
                         var Address = {
                             "addressLine1": document.getElementById("Address").value.toString(),
                             "addressLine2": document.getElementById("Address2").value.toString(),

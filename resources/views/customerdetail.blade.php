@@ -617,7 +617,7 @@ session_start();
                                 city = json[i].city;
                                 state = json[i].state;
                                 country = json[i].country;
-                                postalCode = json[i].country;
+                                postalCode = json[i].postalCode;
                                 customerNumber = json[i].customerNumber;
                                 console.log("mapnumber", json[i].mapNumber);
                             }

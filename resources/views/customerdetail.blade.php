@@ -611,7 +611,7 @@ session_start();
                         var customerNumber = 0;
                         json = ajaxget();
                         for (var i = 0; i < json.length; i++) {
-                            if (json[i].mapNumber === x) {
+                            if (json[i].mapNumber === mapNumber) {
                                 addrLine1 = json[i].addressLine1;
                                 addrLine2 = json[i].addressLine2;
                                 city = json[i].city;
@@ -651,7 +651,7 @@ session_start();
                                         <div class="position-relative form-group"><label for="examplePostalCode" class="">PostalCode</label><input name="PostalCode" id="PostalCode" type="text" placeholder="Enter ZipCode class="form-control" value="${postalCode}"></div>
                                     </div>
                                 </div>
-                                <button class="mt-2 btn btn-warning" onclick="editform(${x},${customerNumber})">Edit</button>
+                                <button class="mt-2 btn btn-warning" onclick="editform(${mapNumber},${customerNumber})">Edit</button>
                             
                         </div>
                     </div>`;

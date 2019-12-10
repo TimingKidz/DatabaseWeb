@@ -24301,7 +24301,7 @@ a.fc-more:hover {
     right: -30px;
     top: 0;
     height: 100vh;
-    transform: translate(500px);
+    transform: translate(700px);
     transition: all .2s;
     box-shadow: -0.46875rem 0 2.1875rem rgba(4, 9, 20, 0.03), -0.9375rem 0 1.40625rem rgba(4, 9, 20, 0.03), -0.25rem 0 0.53125rem rgba(4, 9, 20, 0.05), -0.125rem 0 0.1875rem rgba(4, 9, 20, 0.03)
 }
@@ -24330,7 +24330,7 @@ a.fc-more:hover {
 
 .ui-theme-settings .theme-settings__inner {
     background: #fff;
-    width: 500px;
+    width: 700px;
     height: 100vh;
     padding: 0
 }

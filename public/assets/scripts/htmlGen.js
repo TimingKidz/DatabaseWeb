@@ -49,9 +49,8 @@ function tablecustomer(customerNumber, customerName, city, country, postalCode, 
         </tr>`
 }
 
-function tableERM(a,b,c,e,f,g,h,op)
-{
-    if(op == true){
+function tableERM(a, b, c, e, f, g, h, op) {
+    if (op == true) {
         return ` 
         <tr>
                 <td class="text-center text-muted"> ${a}</td>
@@ -74,7 +73,7 @@ function tableERM(a,b,c,e,f,g,h,op)
                     <button class="btn btn-danger btn-sm"  id="${a}" onclick="downn(this)"><i class="pe-7s-angle-down"></i></button>
                     </td>
             </tr>`
-    }else{
+    } else {
         return ` 
         <tr>
                 <td class="text-center text-muted"> ${a}</td>
@@ -98,12 +97,12 @@ function tableERM(a,b,c,e,f,g,h,op)
                     </td>
             </tr>`
     }
-        
- 
-   
+
+
+
 }
 
-function tablesale(a,b,c,d,e,f){
+function tablesale(a, b, c, d, e, f) {
     return ` 
     <tr>
             <td class="text-center text-muted"> ${a}</td>
@@ -127,7 +126,7 @@ function tablesale(a,b,c,d,e,f){
         </tr>`
 }
 
-function tableGenem(i,col1,col2,col3,col4,code){
+function tableGenem(i, col1, col2, col3, col4, code) {
     return ` <tr>
     <td class="text-center text-muted"> ${i}</td>
     <td>
@@ -158,7 +157,7 @@ function tableGenem(i,col1,col2,col3,col4,code){
     </tr>`
 }
 
-function tableCart(i, col1, col2, col3, col4, col5, code) {
+function tableCart(i, col1, col2, col3, col4, col5, code, qty) {
     return `<tr>
     <td class="text-center text-muted"> ${i}</td>
     <td>
@@ -180,7 +179,7 @@ function tableCart(i, col1, col2, col3, col4, col5, code) {
             <div class="text-center">${col3}</div>
         </td>
         <td class="text-center">
-            <div class="position-relative form-group"><input onchange="editQTY(this)" id="${code}" value="${col4}" placeholder="1" type="number" min="1" step="1" class="form-control"></div>
+            <input onchange="editQTY(this)" id="${code}" value="${col4}" placeholder="1" type="number" min="1" max="${qty}" step="1" class="form-control">
         </td>
         <td class="text-center">
             <div class="text-center">${col5}</div>
@@ -235,7 +234,8 @@ function detailPopupGen(productCode, productName, productScale, productVendor, q
         </div>
     </div>`;
 }
-function tablestockin(stockNumber,stockDate,productCode,quantityOrdered,comments){
+
+function tablestockin(stockNumber, stockDate, productCode, quantityOrdered, comments) {
     return ` 
     <tr>
             <td class="text-center text-muted"> ${stockNumber}</td>

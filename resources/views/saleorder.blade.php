@@ -162,7 +162,7 @@ session_start();
                                 <?php
                                 if(strpos(session('status'),'Sale') !== false){
                                     echo '<li>
-                                    <a href="/dashboard-boxes.html">
+                                    <a href="../stockin">
                                         <i class="metismenu-icon pe-7s-display2"></i>
                                         Stock In
                                     </a>

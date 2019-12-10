@@ -36,6 +36,8 @@ Route::group(['middleware' => 'checkuser'], function () {
     Route::group(['middleware' => 'checkauthsale'], function () { });
     Route::delete('/products/{code}', 'DataController@deletepro');
     Route::delete('/customers/{code}', 'DataController@deletecus');
+    Route::delete('/stockin/{code}','DataController@deletestockHeader');
+    Route::delete('/stockin/{stockinNumber}/{productCode}','DataController@deletestockDetail');
 
     Route::post('/logout', 'DataController@logout');
     Route::post('/customers', 'DataController@addcus');
@@ -47,12 +49,20 @@ Route::group(['middleware' => 'checkuser'], function () {
     Route::get('/saleorder/{id}', 'DataController@saleorderdetail');
 
     Route::get('/stockin', 'DataController@stockin');
+    Route::post('/addstock','DataController@addstockin');
+    Route::get('/getstock','DataController@getstockin');
+    Route::get('/stockin/{stockNumber}','DataController@stockindetails');
+    Route::get('/stockinreq/{stockinNumber}','DataController@stockHD');
+    Route::get('/stockincomment/{code}','DataController@getcommentstockin');
     Route::post('/customerAddr', 'DataController@addMulAddr');
     Route::put('/customerAddrupdate', 'DataController@updateMulAddr');
     Route::post('/customerAddrdelete/{map}', 'DataController@deleteMulAddr');
     // Route::get('/getcus','DataController@cus');
     Route::post('/customer/{id}', 'DataController@customerdetail_id');
     Route::put('/comment/{id}', 'DataController@editComment');
+    Route::put('/commentstock/{id}','DataController@editCommentstock');
+    Route::put('/updatestock', 'DataController@updatestock');
+
 });
 Route::group(['middleware' => 'guest'], function () {
     Route::get('/', 'DataController@index');

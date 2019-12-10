@@ -77,7 +77,11 @@ session_start();
                                     </div>
                                     <div class="widget-subheading">
                                         <?php
-                                        echo session('status');
+                                        if (session('status') == "1") {
+                                            echo "Employee";
+                                        } else {
+                                            echo "Admin";
+                                        }
                                         ?>
                                     </div>
                                 </div>
@@ -160,12 +164,16 @@ session_start();
                                 </a>
                             </li>
 
-                            <li>
-                                <a href="../dashboard-boxes.html">
-                                    <i class="metismenu-icon pe-7s-box1"></i>
-                                    Stock In
-                                </a>
-                            </li>
+                            <?php
+                            if (strpos(session('status'), 'Sale') !== false) {
+                                echo '<li>
+                                    <a href="../stockin">
+                                        <i class="metismenu-icon pe-7s-display2"></i>
+                                        Stock In
+                                    </a>
+                                </li>';
+                            }
+                            ?>
 
                             <li>
                                 <a href="../customer" class="mm-active">
@@ -179,6 +187,16 @@ session_start();
                                     Saleorder
                                 </a>
                             </li>
+                            <?php
+                                        if(session('status') != "Sales Rep"){
+                                        echo '<li>
+                                            <a href="../ERM">
+                                                <i class="metismenu-icon pe-7s-note2"></i>
+                                            ERM
+                                            </a>
+                                        </li>';
+                                        }
+                                ?>
 
 
                         </ul>
@@ -408,10 +426,14 @@ session_start();
 
                     function Genaddr() {
                         json = ajaxget();
+                        console.log("showjson",json);
                         var temp = "";
                         var t = "";
 
+                        console.log(json.length)
                         for (var i = 0; i < json.length; i++) {
+                            console.log("show map", json[i].mapNumber);
+                            console.log(json[i].addressLine1);
                             t += '<li class="list-group-item" >';
                             t += checkAddrDisplay(json[i]);
                             t += `<button onclick="detailpopup_edit(this)" type="button" id="${json[i].mapNumber}" name="mapedit" class="mb-2 mr-2 ml-5 btn-transition btn btn-outline-warning">edit</button><button onclick="detailpopup_delete(this)" type="button" id="${json[i].mapNumber}" name="mapedit" class="mb-2 mr-2 btn-transition btn btn-outline-danger">delete</button></li>`;
@@ -587,10 +609,9 @@ session_start();
                         var country = 0;
                         var postalCode = 0;
                         var customerNumber = 0;
-
                         json = ajaxget();
                         for (var i = 0; i < json.length; i++) {
-                            if (json[i].mapNumber === mapNumber) {
+                            if (json[i].mapNumber === x) {
                                 addrLine1 = json[i].addressLine1;
                                 addrLine2 = json[i].addressLine2;
                                 city = json[i].city;
@@ -598,7 +619,7 @@ session_start();
                                 country = json[i].country;
                                 postalCode = json[i].country;
                                 customerNumber = json[i].customerNumber;
-                                console.log("mapnumber", mapNumber);
+                                console.log("mapnumber", json[i].mapNumber);
                             }
                         }
 
@@ -630,7 +651,7 @@ session_start();
                                         <div class="position-relative form-group"><label for="examplePostalCode" class="">PostalCode</label><input name="PostalCode" id="PostalCode" type="text" placeholder="Enter ZipCode class="form-control" value="${postalCode}"></div>
                                     </div>
                                 </div>
-                                <button class="mt-2 btn btn-warning" onclick="editform(${mapNumber},${customerNumber})">Edit</button>
+                                <button class="mt-2 btn btn-warning" onclick="editform(${x},${customerNumber})">Edit</button>
                             
                         </div>
                     </div>`;

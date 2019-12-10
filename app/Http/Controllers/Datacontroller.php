@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\DB;
 use App\Data;
 use Illuminate\Http\Request;
 Use Exception;
+use Session;
 
 class job{
     static $Match = array("Sales Rep"=>"0",
@@ -69,11 +70,48 @@ class DataController extends Controller
         $data = DB::select('select c.customerNumber,c.customerName,c.contactFirstName,c.contactLastName,c.phone,a.addressLine1,a.addressLine2,a.city,a.state,a.country,a.postalCode from customers as c join customerAddress as a using(customerNumber) GROUP by c.customerNumber');
         return json_encode($data);
     }
-    public function stockin()
+    public function getstockin()
     {
         $data = DB::select('select * from stockinHeader');
-        $jsstockinHeaderList = json_encode($data);
-        return view('stockin',['jsstockinHeaderList' => $jsstockinHeaderList]);
+        return json_encode($data);
+    }
+    public function getcommentstockin($code)
+    {
+        $data = DB::select("select stockNumber,comments from stockinHeader where stockNumber='$code'");
+        return json_encode($data);
+    }
+    public function stockin()
+    {
+        return view('stockin');
+    }
+
+    public function addstockin(Request $request)
+    {
+        try
+        {
+            $code = $request->session()->get('code');
+            DB::insert("insert into stockinHeader (stockDate,comments) 
+            values ( '$request->stockDate', '$request->comments');");
+            $data = DB::select("select * from sqlite_sequence where name = 'stockinHeader'");
+            $no = $data[0]->seq;
+            DB::insert("insert into stockinDetails (stockinNumber,productCode,quantityOrdered) 
+            values ('$no','$request->productCode','$request->quantityOrdered');");
+        }
+        catch(Exception $e)
+        {
+           echo $e->getMessage();
+           
+        }
+    }
+
+    public function stockindetails($stockNumber){
+        $data = DB::select("select * from stockinDetails join stockinHeader on stockinNumber=stockNumber where stockinNumber = '$stockNumber'");
+        
+        return view('stockindetails', ['jsstockindetails' => json_encode($data)], ['id' => $stockNumber]);
+    }
+    public function stockHD($stockinNumber){
+        $data = DB::select("select * from stockinHeader join stockinDetails on stockinNumber=stockNumber where stockNumber='$stockinNumber'");
+        return json_encode($data);
     }
 
     public function customerdetail($id)
@@ -82,7 +120,7 @@ class DataController extends Controller
     }
 
     public function customerdetail_id($id){
-        $data = DB::select("select * from customers join customerAddress using(customerNumber) where customerNumber = '$id' and delete_at is NULL");
+        $data = DB::select("select * from customers join customerAddress using(customerNumber) where customerNumber = '$id'");
         $jscustomerdetail = json_encode($data);
         return $jscustomerdetail;
     }
@@ -108,6 +146,18 @@ class DataController extends Controller
     public function deletecus($code)
     {
         $deleted = DB::delete("delete from customers where customerNumber = '$code'");
+        return 'success';
+    }
+
+    public function deletestockHeader($code)
+    {
+        $deleted = DB::delete("delete from stockinHeader where stockNumber = '$code'");
+        return 'success';
+    }
+
+    public function deletestockDetail($stockinNumber,$productCode)
+    {
+        $deleted = DB::delete("delete from stockinDetails where productCode ='$productCode' and stockinNumber='$stockinNumber'");
         return 'success';
     }
  
@@ -206,13 +256,26 @@ class DataController extends Controller
     public function editComment(Request $request){
         DB::update("update orders set comments = '$request->comments' where orderNumber = '$request->orderNumber'");
     }
+
+    public function editCommentstock(Request $request){
+        DB::update("update stockinHeader set comments = '$request->comments' where stockNumber = '$request->stockNumber'");
+    }
+
     public function saleorder(){
         $data = DB::select("select * from orders join customers using(customerNumber)");
         return json_encode($data);
     }
-    public function saleorder_cust($id){
-        $data = DB::select("select * from orders join customers using(customerNumber) where customerNumber = '$id'");
-        return json_encode($data);
+
+    public function updatestock(Request $request){
+        try
+        {
+            $data = DB::update("update stockinHeader set stockDate= '$request->date' where stockNumber = '$request->stockNumber'");
+            $data = DB::update("update stockinDetails set quantityOrdered='$request->quantityOrdered' where stockinNumber='$request->stockNumber'");
+        }
+        catch(Exception $e)
+        {
+           echo $e->getMessage();
+        }
     }
 
     public function addcus(Request $request)
@@ -267,7 +330,7 @@ class DataController extends Controller
     }
 
     public function deleteMulAddr($map){
-        DB::update("update customerAddress set delete_at = DATETIME('now') where mapNumber = '$map'");
+        DB::delete("delete from customerAddress where mapNumber = $map");
     }
     
 }

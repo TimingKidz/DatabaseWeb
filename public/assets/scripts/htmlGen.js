@@ -129,7 +129,7 @@ function tablesale(a, b, c, d, e, f) {
 function tablesaledetail(a, b, c, d, e) {
     return ` 
     <tr>
-            
+            <td class="text-center text-muted"> ${a}</td>
             <td>
                 <div class="widget-content p-0">
                     <div class="widget-content-wrapper">
@@ -316,5 +316,28 @@ function tablestockin(stockNumber, stockDate, comments) {
                 <a href="stockin/${stockNumber}"><button id="${stockNumber}" class="btn btn-primary btn-sm">Detail</button></a>
                 <button class="btn btn-danger btn-sm"  id="${stockNumber}" onclick="delalert(this)">X</button>
                 </td>
+        </tr>`
+}
+
+function tablestockdetail(stockinNumber,productCode, qty) {
+    return ` 
+    <tr>
+            <td class="text-center text-muted"> ${stockinNumber}</td>
+            <td>
+                <div class="widget-content p-0">
+                    <div class="widget-content-wrapper">
+                        
+                        <div class="widget-content-left flex2">
+                            <div class="widget-heading">${productCode}</div>
+                        </div>
+                    </div>
+            </td>
+                <td class="text-center">${qty}</td>
+                <td class="text-center">
+                <button id="${stockinNumber}" class="btn btn-primary btn-sm" onclick="update(this)">Edit</button>
+                <button class="btn btn-danger btn-sm"  id="${productCode}" name="${stockinNumber}" onclick="delalert(this)">X</button>
+                </td>
+                                                                              
+                
         </tr>`
 }

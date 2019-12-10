@@ -163,7 +163,7 @@ session_start();
                             <?php
                             if (strpos(session('status'), 'Sale') !== false) {
                                 echo '<li>
-                                    <a href="../stockin">
+                                    <a href="../stockin" class="mm-active">
                                         <i class="metismenu-icon pe-7s-display2"></i>
                                         Stock In
                                     </a>
@@ -178,7 +178,7 @@ session_start();
                                 </a>
                             </li>
                             <li>
-                                <a href="../saleorder" class="mm-active">
+                                <a href="../saleorder">
                                     <i class="metismenu-icon pe-7s-display2"></i>
                                     Saleorder
                                 </a>
@@ -203,7 +203,6 @@ session_start();
 
 
 
-
                 <div id="id02" class="modal" id="detailpopup">
                     <form class="modal-content-detail">
                         <div id="detailpop">
@@ -216,11 +215,60 @@ session_start();
                         </div>
                     </div>
                 </div>
+                <div id="id03" class="modal"> 
+            <div class="modal-content-del animate"> 
+                <div class="main-card card">
+                    <div class="card-body "><h4></h4>
+                    <span onclick="document.getElementById('id03').style.display='none'" class="close" title="Close Modal">×</span> 
+                    <div class="text-center">
+                        <div>
+                            <div class="mb-4 mt-4"><h5>Are you sure ?</h5></div>
+                        <div class="mb-4">
+                            <button type="button" class="btn btn-primary" id="delbut" name="" value="" onclick="deleteitem(this)">YES</button>
+                        
+                            <button type="button" onclick="document.getElementById('id03').style.display='none'" class="btn btn-danger">Cancel</button>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+                </div> 
+            </div>
+            <div id="id04" class="modal"> 
+        <div class="modal-content animate"> 
+            <div class="main-card card">
+                <div class="card-body "><h4></h4>
+                <span onclick="document.getElementById('id04').style.display='none'" class="close" title="Close Modal">×</span> 
+                    <div class="">
+                    <div class="main-card">
+                                    <div class="card-body"><h5 class="card-title">EDIT</h5>
+                                            <div class="form-row">
+                                                <div class="col-md-6">
+                                                <div class="position-relative form-group" id="dateup"></div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                <div class="position-relative form-group" id="A3"></div>
+                                                </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-row">
+                                             <div class="col-md-12 text-right">
+                        <button type="button" onclick="sendupdate()" class="btn btn-success">Update</button>
+                                    </div>
+                                    </div>
+                                            
+                                    </div>
+
+                    </div>
+                </div>
+            </div>
+        </div> 
+    </div>
 
                 <div class="row">
                     <div class="col-md-12">
                         <div class="main-card mb-3 card">
-                            <div class="card-header mr-3">Order Detail
+                            <div class="card-header mr-3">Stock-in Detail
 
                             </div>
                             <div class="row">
@@ -232,7 +280,7 @@ session_start();
                                                     <img class="d-block w-20" src="https://via.placeholder.com/200x150">
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <div id="orderdetail"></div>
+                                                    <div id="stockindetail"></div>
                                                 </div>
                                             </div>
 
@@ -266,7 +314,7 @@ session_start();
                                 <div class="col-md-12">
                                     <div class="main-card mb-2 card">
                                         <div class="card-body">
-                                            <b class="card-title">Order</b>
+                                            <b class="card-title">Stock-in</b>
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <div class="main-card mb-3 card">
@@ -275,14 +323,10 @@ session_start();
                                                             <table class="align-middle mb-0 table table-borderless table-striped table-hover">
                                                                 <thead>
                                                                     <tr>
-                                                                        <th class="text-center">Order NO.</th>
+                                                                        <th class="text-center">Stock NO.</th>
                                                                         <th>Product Code</th>
                                                                         
                                                                         <th class="text-center">qty</th>
-                                                                        <th class="text-center">priceEach
-
-                                                                        </th>
-                                                                        <th class="text-center">order line number</th>
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody id="tablelist">
@@ -312,55 +356,139 @@ session_start();
                             
                             
                             code = <?php echo $id ?>;
-                            json = <?php echo $jsorder ?>;
-                            console.log(code)
-                            console.log(json)
-                            function getorders() {
+
+                            function getstockHD() {
                                 var data = 0;
                                 $.ajax({
                                     type: "get",
-                                    url: "/saleorderreq",
+                                    url: "/stockinreq/"+code,
+                                    datatype: "json",
                                     success: function(response) {
                                         data = response;
+                                        console.log(data);
                                     },
                                     async: false,
                                 });
 
                                 return JSON.parse(data);
                             }
+
+
+
+                            function getcomments(code) {
+                                var data = 0;
+                                $.ajax({
+                                    type: "get",
+                                    url: "/stockincomment/"+code,
+                                    success: function(response) {
+                                        data = response;
+                                        console.log(data);
+                                    },
+                                    async: false,
+                                });
+
+                                return JSON.parse(data);
+                            }
+
+                            function delalert(stockinNumber){
+                                var p = stockinNumber.getAttribute("id");
+                                var n = stockinNumber.getAttribute("name");
+                                console.log(p+"  productCode");
+                                console.log(n+"  stockNumber");
+                                document.getElementById('id03').style.display='block';
+                                document.getElementById('delbut').setAttribute("name",p);
+                                document.getElementById('delbut').setAttribute("value",n);
+                                                 
+                            }
+                            
+                            var stock=0;
+                            function update(a){
+                            var stockkNumber = a.getAttribute("id");
+                            console.log(stockkNumber);
+                            document.getElementById('id04').style.display='block';
+                            json=getstockHD();
+                            json.forEach(function(a) {
+                                if(a.stockNumber == stockkNumber){
+                                    stock = a;
+                                }
+                            });        
+                            var date = stock.stockDate.split("-");
+                            document.getElementById("dateup").innerHTML = `<label for="exampleEmail11" class="">Date</label><input id="dates" placeholder="Customer Name" type="date" class="form-control" value="${date[0]}-${date[1]}-${date[2]}">`
+                            document.getElementById("A3").innerHTML= `<label for="exampleEmail11" class="">Quantity</label><input id="A4" placeholder="Customer Name" type="number" class="form-control" value="${stock.quantityOrdered}">`
+                        }
+                            
+                        function sendupdate(){
+                            document.getElementById('id04').style.display='none'; 
+                            var update =  { "date": document.getElementById("dates").value.toString(), 
+                                             "quantityOrdered": document.getElementById("A4").value.toString(),
+                                             "stockNumber": stock.stockNumber.toString()
+                                             };
+                            console.log(update);
+                            $.ajax({
+                                type: "put",
+                                url: "/updatestock",
+                                data: update,
+                                success: function(response){
+                                    gentabledetail();
+                                    console.log('sss');
+                                },
+                                error: function (error) {
+                                    console.log(error);
+                                 alert(error.responseText);
+                                
+                            }
+
+                            });
+                        }
+
+                            function deleteitem(a){
+                                var p = a.getAttribute("name");
+                                var n = a.getAttribute("value");
+                                console.log(p+"  productCode");
+                                console.log(n+"  stockNumber");
+                                console.log(json);
+                                console.log('/stockin/'+n+'/'+p);
+                            $.ajax({
+                                type: 'delete',
+                                url: '/stockin/'+n+'/'+p, 
+                                success: function (data) {         
+                                    document.getElementById('id03').style.display='none';
+                                    const index = json.findIndex(x => x.productCode == p);
+                                    console.log(index)+"  index";
+                                    if (index !== undefined) json.splice(index, 1);
+                                    console.log(json);
+                                    console.log("delete success");
+                                    gentabledetail();
+                                }
+                            });
+                            }
+
                             function gentabledetail(){
-                                json = <?php echo $jsorder ?>;
+                            var json = getstockHD();
                             var tableproduct = "";
                             var i = 0;
                             console.log(json);
                             json.forEach(function(a) {
-                                
-                                tableproduct += tablesaledetail(a.orderNumber,a.productCode,a.quantityOrdered,a.priceEach,a.orderLineNumber);
+                                tableproduct += tablestockdetail(a.stockinNumber,a.productCode,a.quantityOrdered);
                             });
                             document.getElementById("tablelist").innerHTML = tableproduct;
                             }
-                            var g_comment =0;
                             function Gencom() {
-                                var data = getorders();
-                                console.log(data)
+                                var data = getcomments(code);
+                                console.log(data);
                                 data.forEach(function(a) {
-
-                                    if (a.orderNumber == code) {
+                                    console.log(a.stockNumber+" stockNumber");
+                                    if (a.stockNumber == code) {
                                         console.log("comments", a.comments)
                                         document.getElementById('commentLabel').innerHTML = `<label for="exampleText" class=""></label><input name="comment" id="textcomment" placeholder="Comments......" type="textarea" class="form-control" value="${a.comments}">`;
-                                        g_comment = a.comments;
                                     }
                                 });
                             }
                             gentabledetail();
                             Gencom();
                             document.getElementById('editbutton').innerHTML = `<button onclick="editform(this)" type="button" id="editbutton"  class="mt-2 mb-2 mr-2 btn-transition btn btn-outline-warning">edit</button>`;;
-
-                            json.forEach(function(a) {
-                                // detail name,tel,id
-                                document.getElementById('orderdetail').innerHTML = `<b>Order ID : </b>${a.orderNumber}<br>`;
-
-                            });
+                            
+                            document.getElementById('stockindetail').innerHTML = `<b>Stock Number : </b>${code}<br>`;
 
                             function editcomment(id) {
                                 document.getElementById('id02_edit').style.display = 'block';
@@ -394,19 +522,16 @@ session_start();
                                 console.log(document.getElementById("textcomment"))
                                 var comment = {
                                     "comments": document.getElementById("textcomment").value.toString(),
-                                    "orderNumber": code.toString()
+                                    "stockNumber": code.toString()
                                 };
                                 console.log("edit", comment);
                                 $.ajax({
                                     type: "put",
-                                    url: "/comment/" + code,
+                                    url: "/commentstock/" + code,
                                     data: comment,
                                     success: function(response) {
                                         //gencomment
-                                        if(g_comment != comment.comments){
-                                            alert("Are you sure to edit ?");
                                         Gencom();
-                                        }
                                     },
                                     error: function(error) {
                                         alert(error.responseText);

@@ -269,7 +269,7 @@ session_start();
                                 <div class="main-card mb-3 card">
                                     <div class="card-header">
                                     <div class="mr-2">
-                                        Customers
+                                        Order
                                     </div>  
                                     
                                     <div class="col-md-1">

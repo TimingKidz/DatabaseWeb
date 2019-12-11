@@ -62,7 +62,7 @@ Route::group(['middleware' => 'checkuser'], function () {
     Route::get('/saleorder/{id}', 'DataController@saleorderdetail');
     Route::post('/addproduct','DataController@addproduct');
     Route::post('/addproductline','DataController@addproductline');
-    
+    Route::post('/newPayments','DataController@newPayment');
 
 
     Route::post('/customerAddr', 'DataController@addMulAddr');

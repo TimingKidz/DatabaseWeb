@@ -49,7 +49,8 @@ Route::group(['middleware' => 'checkuser'], function () {
     Route::get('/saleorderreq', 'DataController@saleorder');
     Route::post('/saleorderreqwhere/{id}', 'DataController@saleorder_cust');
     Route::get('/saleorder/{id}', 'DataController@saleorderdetail');
-
+    Route::post('/addproduct','DataController@addproduct');
+    Route::post('/addproductline','DataController@addproductline');
     Route::get('/stockin', 'DataController@stockin');
     Route::post('/addstock','DataController@addstockin');
     Route::get('/getstock','DataController@getstockin');

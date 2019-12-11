@@ -40,6 +40,57 @@ class DataController extends Controller
         return json_encode($data);
     }
     
+    public function addproductline(Request $request){
+        try
+        {
+            DB::insert("insert into productlines (productLine,textDescription,htmlDescription,image) values ('$request->Line','$request->text','$request->html','$request->image')");
+            return json_encode("Success");
+        }
+        catch(Exception $e)
+        {
+            return json_encode($e->getMessage());
+        } 
+    }
+
+    public function addstockin(Request $request) {
+        try{
+            //...Insert into stockinHeader table
+            DB::insert("insert into stockinHeader(stockDate, comments)
+            values ('$request->date', '$request->comments');");
+
+            //...Get auto gen ID
+            $stockinNumberObj = DB::select("select seq from sqlite_sequence where name = 'stockinHeader'");
+            $stockinNumber = $stockinNumberObj[0]->seq;
+            
+            //...Loop add to stockinDetails
+            foreach($request->dataarr as $key => $item){
+                $proCode = $item["code"];
+                $qty = $item["qty"];
+                DB::insert("insert into stockinDetails(stockinNumber,productCode,quantityOrdered)
+                values ('$stockinNumber', '$proCode', '$qty')");
+                DB::update("update products
+                set quantityInStock = quantityInStock + $qty
+                where productCode = '$proCode'");
+            }
+            return 0;
+        }catch (Exception $e){
+            echo $e->getMessage();
+        }
+    }
+
+    public function addproduct(Request $request){
+        try
+        {
+            DB::insert("INSERT INTO products (productCode, productName, productLine, productScale, productVendor, productDescription, quantityInStock,buyPrice, MSRP)
+            VALUES ('$request->code','$request->name','$request->line','$request->scale','$request->vender','$request->des','$request->qty','$request->buy','$request->msrp')");
+            return json_encode("Success");
+        }
+        catch(Exception $e)
+        {
+            return json_encode($e->getMessage());
+        } 
+    }
+
     public function index()
     { 
         $data = DB::select('select * from products');
@@ -95,24 +146,6 @@ class DataController extends Controller
         return view('stockin');
     }
 
-    public function addstockin(Request $request)
-    {
-        try
-        {
-            $code = $request->session()->get('code');
-            DB::insert("insert into stockinHeader (stockDate,comments) 
-            values ( '$request->stockDate', '$request->comments');");
-            $data = DB::select("select * from sqlite_sequence where name = 'stockinHeader'");
-            $no = $data[0]->seq;
-            DB::insert("insert into stockinDetails (stockinNumber,productCode,quantityOrdered) 
-            values ('$no','$request->productCode','$request->quantityOrdered');");
-        }
-        catch(Exception $e)
-        {
-           echo $e->getMessage();
-           
-        }
-    }
 
     public function stockindetails($stockNumber){
         $data = DB::select("select * from stockinDetails join stockinHeader on stockinNumber=stockNumber where stockinNumber = '$stockNumber'");

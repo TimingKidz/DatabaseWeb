@@ -239,7 +239,7 @@ session_start();
     </div>
   
               
-    <div class="main-card mb-3 card">
+    <div class="main-card mb-2 card">
                             <div class="card-body">
                                 <h5 class="card-title">Payment</h5>
                                 <div class="needs-validation" novalidate="">
@@ -269,32 +269,7 @@ session_start();
                                 </div>
                             </div>
                         </div>
-                        <div class="main-card mb-3 card">
-                        <div class="form-row">
-                                        <div class="col-md-2 mb-3">
-                                        <div class="ui-widget">
-  <label for="tags">Tags: </label>
-  <input id="tags">
-</div>
-                                        </div>
-                                        <div class="col-md-2 mb-3">
-                                        <div class="ui-widget">
-  <label for="dd">Tags: </label>
-  <input id="dd">
-</div>
-                                        </div>
-                                        <div class="col-md-2 mb-3">
-                                        <button class="btn btn-primary" onclick="submitst()">Submit</button>
-                                        </div>
-                                        <div class="form-row">
-                                            <ul id="list">
-
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    
-      
-                                    </div>
+                  
  
                            
  
@@ -313,94 +288,7 @@ session_start();
                             }
                         });
                         
-                        function getproductline(){
-                            var data = 0;
-                            $.ajax({
-                                type: "post",
-                                url: "/getproductline",
-                                success: function(response){
-                                    data = response;
-                                },
-                                async: false,
-                            });
-                            return JSON.parse(data);
-                        }
-
-
-                        var line = getproductline();
-                    console.log(line);
-                    var linearr = [];
-                    var proarr = [];
-                    var productline = 0;
-                    
-                    function getproduct(pline){
-                        var data = 0;
-                        $.ajax({
-                            type: "post",
-                            url: "/getProducts",
-                            data: {"Line":productline.toString()},
-                            success: function(response){
-                                data = response;                                
-                            },
-                                async: false,
-                            });
-                            return JSON.parse(data);
-                        }
-
-                    
-                    line.forEach(function(a) {
-                               linearr.push(a.productLine);
-                    });
-                     $( function() {
-                        $( "#tags" ).autocomplete({
-                        source: linearr
-                        });
-                    } );
-                    $( function() {
-                        $( "#dd" ).autocomplete({
-                        source: proarr
-                        });
-                    } );
-                    document.querySelector('#tags').addEventListener('blur',noti);
-                    
-                    function noti(e){
-                        productline = document.getElementById("tags").value.toString();
-                            if(!linearr.includes(productline)){
-                                 alert("ss");
-                            }else{
-                                 var temp = getproduct(productline);
-                                 console.log(temp);
-                                 temp.forEach(function(a) {
-                                    proarr.push(a.productName);
-                                });
-
-                            }
-                            
-                    
-                        }
-                        document.querySelector('#dd').addEventListener('blur',notii);
-                        function notii(e){
-                            var product = document.getElementById("dd").value.toString();
-
-                            if(!proarr.includes(product)){
-                                 alert("ss");
-                            }
-                        }
-                    json = [];
-                    function submitst(){
-                        var aaa = {"name": document.getElementById("dd").value.toString(),
-                                   "qty":"2"};
-                                   var node = document.createElement("LI");
-                        var textnode = document.createTextNode(`${document.getElementById("dd").value.toString()}`);
-                        node.appendChild(textnode);
-                        document.getElementById("list").appendChild(node);
-                                   document.getElementById("dd").value ="";
-                                   document.getElementById("tags").value ="";
-                        
-
-                        json.push(aaa);
-                        console.log(JSON.stringify(json));
-                    }
+                 
                 
                     
                     var d = new Date();

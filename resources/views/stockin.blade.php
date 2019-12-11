@@ -248,7 +248,7 @@ session_start();
                             </div>
                         <div class="form-row">
                             <div class="col-md-12 text-right">
-                                <button type="button" onclick="" class="btn btn-success">Add</button>
+                                <button type="button" onclick="re()" class="btn btn-success">Add</button>
                             </div>
                         </div>
                     </div>
@@ -298,7 +298,7 @@ session_start();
                             </div>
                         <div class="form-row">
                             <div class="col-md-12 text-right">
-                                <button type="button" onclick="" class="btn btn-success">Add</button>
+                                <button type="button" onclick="re2()" class="btn btn-success">Add</button>
                             </div>
                         </div>
                     </div>
@@ -309,69 +309,71 @@ session_start();
     </div>
               
  
-
- 
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="main-card mb-3 card">
-                                <div class="main-card pre-scroll">
-                    <div class="scrollbar-container ps--active-y">
-                    <!--Add Stock--><div class="card-body"><h5 class="card-title">Stock-In</h5>
-                                            <div class="form-row">
-                                                <div class="col-sm-4">
-                                                <div class="position-relative form-group"><div class="ui-widget"><label for="exampleEmail11" class=""></label><input name="ProductCode" id="tags" placeholder="ProductCode" type="text" class="form-control"></div></div>
-                                                </div>
-                                                <div class="col-sm-4">
-                                                    <div class="position-relative form-group"><div class="ui-widget"><label for="exampleEmail11" class=""></label><input name="ProductCode" id="dd" placeholder="ProductCode" type="text" class="form-control"></div></div>
-                                                </div>
-                                                <div class="col-sm-2">
-                                                    <div class="position-relative form-group"><label for="exampleEmail11" class=""></label><input name="Quantity" id="B3" placeholder="Quantity" type="text" class="form-control"></div>
-                                                </div>
-                                                <div class="col-sm-2">
-                                                    <button class= "col-sm mt-2 btn btn-warning"onclick="">Add</button>
-                                                </div>
-                                            </div>
-                                            <!--top-->
-                                    <div class="row scroll-area">   
-                                        <div class="scrollbar-container ps--active-y"> 
-                                            <div class="col-md-12">
-                                                <div class="table-responsive">
-                                                    <table class="align-middle mb-0 table table-wrapper table-borderless table-hover">
-                                                        <thead>
-                                                    <tr>
-                                                        <th class="text-center">#</th>
-                                                        <th>ProductCode</th>
-                                                        <th class="text-center">Quantity</th>
-                                                    </tr>
-                                                        </thead>
-                                                    <tbody id="cartp">
-                                                    <!-- tableCart -->
-                                                    </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
+        <div class="col-md-12">
+            <div class="main-card mb-2 card">
+                <div class="main-card">
+                    <div class="card-body">
+                        <div class="form-row">
+                            <div class="col-sm-4 mt-3">
+                               <div class="position-relative form-group"><div class="ui-widget"><label for="tags"></label><input name="ProductLine" id="tags" placeholder="ProductLine" type="text" class="form-control"></div></div>
+                            </div>
+                            <div class="col-sm-3 mt-3">
+                                <div class="position-relative form-group"><div class="ui-widget"><label for="dd"></label><input name="ProductCode" id="dd" placeholder="ProductCode" type="text" class="form-control"></div></div>
+                            </div>
+                            <div class="col-sm-2">
+                                <div class="position-relative form-group"><label for="exampleEmail11" class=""></label><input name="Quantity" id="B3" placeholder="Qty" type="number" class="form-control"></div>
+                            </div>
+                            <div class="col-sm-2">
+                                <div class="position-relative form-group"><label for="exampleEmail11" class=""></label><input name="Price" id="B4" placeholder="Price" type="number" class="form-control"></div>
+                            </div>
+                            <div class="col-sm-1 mt-3">
+                                <button class= "col-sm mt-2 btn btn-warning"onclick="submitst()">Add</button>
+                            </div>
+                            <div class="col-sm-6"><h5 class="card-title">Stock-in</h5></div>
+                           
+                        </div>                        
+                        <div class="row scroll-area-xs">   
+                            <div class="scrollbar-container ps--active-y"> 
+                                <div class="col-md-12">
+                                    <div class="table-responsive">
+                                        <table class="align-middle mb-0 table table-wrapper table-borderless table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-center">#</th>
+                                                    <th>ProductCode</th>
+                                                    <th class="text-center">Quantity</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="cartp">
+                                            <!-- tableCart -->
+                                            </tbody>
+                                        </table>
                                     </div>
-                            <!--body-->
-                            <div class="ml-3 mr-3 mb-3">
-                                <div class="form-row">
-                                    <div class="mt-1 col-sm-4">
-                                        <div class="position-relative form-group"><label for="exampleEmail11" class=""></label><input name="Date" id="B4" placeholder="mm/dd/yyyy" type="date" class="form-control"></div>
-                                    </div>
-                                    <div class="mt-3 col-sm-8">
-                                        <div class="position-relative form-group"><label for="examplePassword11" class=""></label><input name="comment" id="A4" placeholder="Comment" type="text"class="form-control"></div>
-                                    </div>
-                                </div>
-                                <div class="text-right">
-                                    <button class="mt-2 btn btn-primary"onclick="addstockin()">Submit</button>
                                 </div>
                             </div>
-                        </div>            
+                        </div>
+                    
+                    
+                        <div class="form-row">
+                            <div class="mt-1 col-sm-3">
+                                <div class="position-relative form-group"><label for="exampleEmail11" class=""></label><input name="Date" id="B5" type="date" class="form-control"></div>
+                            </div>
+                            <div class="mt-3 col-sm-7">
+                                <div class="position-relative form-group"><label for="examplePassword11" class=""></label><input name="comment" id="A4" placeholder="Comment" type="text"class="form-control"></div>
+                            </div>
+                            <div class="mt-4 col-sm-2">
+                            
+                                    <button class="col-sm mt-1  btn btn-primary"onclick="addstockin()">Submit</button>
+                        
+                            </div>
+                        </div>
                     </div>
                 </div>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
+            </div>
+        
+                        
+                      
+                           
                                 <div class="main-card mb-3 card">
                                     <div class="card-header">
                                     <div class="mr-2">
@@ -404,8 +406,9 @@ session_start();
                                         </table>
                                     </div>
                                 </div>
-                            </div>
+                            
                         </div>
+                    </div>
                     </div>
                     
                     <script src="../assets/scripts/htmlGen.js" type="text/javascript"></script>
@@ -414,7 +417,9 @@ session_start();
                     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
                     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
                     <script type="text/javascript">
-                   
+                       
+                       var d = new Date();
+                    document.getElementById('B5').value = `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`;
                    $.ajaxSetup({
                             headers: {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -435,18 +440,19 @@ session_start();
                         }
 
 
-                        var line = getproductline();
-                    console.log(line);
+                    var line = 0;
                     var linearr = [];
                     var proarr = [];
                     var productline = 0;
+                    var jsonn = [];
+                    var pro = 0;
                     
                     function getproduct(pline){
                         var data = 0;
                         $.ajax({
                             type: "post",
                             url: "/getProducts",
-                            data: {"Line":productline.toString()},
+                            data: {"Line":pline.toString()},
                             success: function(response){
                                 data = response;                                
                             },
@@ -455,10 +461,24 @@ session_start();
                             return JSON.parse(data);
                         }
 
-                    
-                    line.forEach(function(a) {
+                    function pullline(){
+                        line = getproductline();
+                        linearr.splice(0, linearr.length);
+                        line.forEach(function(a) {
                                linearr.push(a.productLine);
-                    });
+                        });
+                    }
+
+                    function pullpro(){
+                        pro = getproduct(productline);
+                        proarr.splice(0, proarr.length);
+                        pro.forEach(function(a) {
+                               proarr.push(a.productCode);
+                        });
+                    }
+
+                    pullline();
+                 
                      $( function() {
                         $( "#tags" ).autocomplete({
                         source: linearr
@@ -469,45 +489,157 @@ session_start();
                         source: proarr
                         });
                     } );
-                    document.querySelector('#tags').addEventListener('blur',noti);
+                    document.querySelector('#tags').addEventListener('blur',linecheck);
                     
-                    function noti(e){
-                        productline = document.getElementById("tags").value.toString();
-                            if(!linearr.includes(productline)){
-                                 alert("ss");
-                            }else{
-                                 var temp = getproduct(productline);
-                                 console.log(temp);
-                                 temp.forEach(function(a) {
-                                    proarr.push(a.productName);
-                                });
-
+                    function re(){
+                        document.getElementById('id04').style.display='none';
+                        var addproductline =  { 
+                                             "Line": document.getElementById("C1").value.toString(),
+                                             "text":document.getElementById("C4").value.toString(),
+                                             "html": document.getElementById("C2").value.toString(),
+                                             "image":document.getElementById("C3").value.toString(),
+                        };
+                        document.getElementById("C4").value = "";
+                        document.getElementById("C2").value = "";
+                        document.getElementById("C3").value = "";
+                            console.log(addproductline);
+                            $.ajax({
+                                type: "post",
+                                url: "/addproductline",
+                                data: addproductline,
+                                success: function(response){
+                                    alert(response);
+                                },
+                                error: function (error) {
+                                alert(error.responseText);
                             }
-                            
-                    
+
+                            });
+
+                        pullline();
+                        linecheck();
+                    }
+
+                    function re2(){
+                        document.getElementById('id05').style.display='none';
+                        var addproduct =  { 
+                                             "code": document.getElementById("D1").value.toString(),
+                                             "name":document.getElementById("D2").value.toString(),
+                                             "line":productline.toString(),
+                                             "vender":document.getElementById("D3").value.toString(),
+                                             "scale":document.getElementById("D4").value.toString(),
+                                             "msrp":document.getElementById("D7").value.toString(),
+                                             "qty": document.getElementById("D5").value.toString(),
+                                             "buy":document.getElementById("D6").value.toString(),
+                                             "des":document.getElementById("D8").value.toString(),
+                        };
+                        document.getElementById("D1").value = "";
+                        document.getElementById("D2").value = "";
+                        document.getElementById("D3").value = "";
+                        document.getElementById("D4").value = "";
+                        document.getElementById("D5").value = "";
+                        document.getElementById("D6").value = "";
+                        document.getElementById("D7").value = "";
+                        document.getElementById("D8").value = "";
+                            console.log(addproduct);
+                            $.ajax({
+                                type: "post",
+                                url: "/addproduct",
+                                data: addproduct,
+                                success: function(response){
+                                    alert(response);
+                                },
+                                error: function (error) {
+                                alert(error.responseText);
+                            }
+
+                            });
+                        pullpro();
+                    }
+                    function linecheck(e){
+                        productline = document.getElementById("tags").value.toString();
+                        console.log(productline);
+                            if(!linearr.includes(productline)){
+                                document.getElementById("C1").value = productline;
+                                document.getElementById('id04').style.display='block';
+                            }else{
+                                 pullpro();
+                                 console.log(pro);
+                            }
                         }
                         document.querySelector('#dd').addEventListener('blur',notii);
                         function notii(e){
-                            var product = document.getElementById("dd").value.toString();
+                            var productc = document.getElementById("dd").value.toString();
 
-                            if(!proarr.includes(product)){
-                                 alert("ss");
+                            if(!proarr.includes(productc)){
+                                document.getElementById('id05').style.display='block';
+                                document.getElementById("D1").value = productc;
+                                
                             }
                         }
-                    var jsonn = [];
-                    function submitst(){
-                        var aaa = {"name": document.getElementById("dd").value.toString(),
-                                   "qty":"2"};
-                                   var node = document.createElement("LI");
-                        var textnode = document.createTextNode(`${document.getElementById("dd").value.toString()}`);
-                        node.appendChild(textnode);
-                        document.getElementById("list").appendChild(node);
-                                   document.getElementById("dd").value ="";
-                                   document.getElementById("tags").value ="";
-                        
 
-                        jsonn.push(aaa);
-                        console.log(JSON.stringify(jsonn));
+                        function Genlist(){
+                            var text = "";
+                            var j = 0;
+                            jsonn.forEach(function(a) {
+                                text += tablest(a.name, a.line, a.qty , a.code)
+                                console.log(a.name);
+                            });
+                            document.getElementById("cartp").innerHTML = text;
+                        }
+
+                    
+                    function submitst(){
+                        var temp = "" ;
+                        var pcode = document.getElementById("dd").value.toString();
+                        console.log(pcode);
+                        var check = 0;
+                       
+                        if(pcode != ""){
+                            pro.forEach(function(a) {
+                                if(a.productCode == pcode){
+                                    temp = a.productName;
+                                }
+                            });
+                            var aaa = {"code": document.getElementById("dd").value.toString(),
+                                       "name": temp.toString(),
+                                       "line": document.getElementById("tags").value.toString(),
+                                       "p":document.getElementById("B4").value.toString(),
+                                       "qty":document.getElementById("B3").value.toString()};
+                            document.getElementById("B3").value="";
+                            document.getElementById("B4").value="";
+                            document.getElementById("dd").value ="";
+                            document.getElementById("tags").value ="";
+                            jsonn.forEach(function(a) {
+                                if(a.code == pcode){
+                                    a.qty = parseInt(aaa.qty)+parseInt(a.qty);
+                                    check = 1;
+                                }
+                            });
+                            if(check == 0){
+                               jsonn.push(aaa); 
+                            }
+                            
+                            console.log(JSON.stringify(jsonn));
+                            Genlist();
+                        }
+                        
+                    }
+
+                    function dellist(pcode){
+                        var temp = pcode.getAttribute("id");
+                        console.log(temp);
+                        var j = 0;
+                        jsonn.forEach(function(a) {
+                            if(a.code == temp){
+                                    jsonn.splice(j, 1);
+                                    console.log(jsonn);
+                                }
+                                j++;
+                        });
+                        
+                        Genlist();
+                            
                     }
                         var json = 0;
                         
@@ -561,14 +693,10 @@ session_start();
                         });
 
                         function addstockin(){
-                           console.log("allo");
-                           document.getElementById('id05').style.display='block';
-                            var stockin =  { 
-                                             "stockDate": document.getElementById("A1").value.toString(),
-                                             "productCode":document.getElementById("A2").value.toString(),
-                                             "quantityOrdered": document.getElementById("A3").value.toString(),
+                           if(jsonn.legth > 0){
+                            var stockin =  { "date":document.getElementById("B5").value.toString(),
                                              "comments":document.getElementById("A4").value.toString(),
-};
+                                             "dataarr":jsonn};
                             console.log(stockin);
                                             
                             $.ajax({
@@ -576,6 +704,8 @@ session_start();
                                 url: "/addstock",
                                 data: stockin,
                                 success: function(response){
+                                    alert(response);
+                            
                                     Gentable();
                                 },
                                 error: function (error) {
@@ -584,6 +714,10 @@ session_start();
                             }
 
                             });
+                           }else{
+                               alert("no product !!");
+                           }
+                           
                         }
 
                         function deleteitem(a){

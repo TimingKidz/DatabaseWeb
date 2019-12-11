@@ -143,15 +143,15 @@ session_start();
                     <div class="app-sidebar__inner">
                         <ul class="vertical-nav-menu">
 
-                            
-                                
-                          
+
+
+
 
 
                             <li class="app-sidebar__heading">Menu</li>
                             <li>
                                 <a href="../products">
-                                <i class="metismenu-icon pe-7s-box2"></i>
+                                    <i class="metismenu-icon pe-7s-box2"></i>
                                     Products
                                 </a>
                             </li>
@@ -169,19 +169,19 @@ session_start();
 
                             <li>
                                 <a href="../customer">
-                                <i class="metismenu-icon pe-7s-users"></i>
+                                    <i class="metismenu-icon pe-7s-users"></i>
                                     Customers
                                 </a>
                             </li>
                             <li>
                                 <a href="../saleorder" class="mm-active">
-                                <i class="metismenu-icon pe-7s-note2"></i>
+                                    <i class="metismenu-icon pe-7s-note2"></i>
                                     Saleorder
                                 </a>
                             </li>
                             <li>
-                            <a href="../dashboard">
-                            <i class="metismenu-icon pe-7s-cash"></i>
+                                <a href="../dashboard">
+                                    <i class="metismenu-icon pe-7s-cash"></i>
                                     Payment
                                 </a>
                             </li>
@@ -235,7 +235,12 @@ session_start();
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div id="orderdetail"></div>
-                                                    <div id="addressshow"></div>
+                                                    <div id="tPrice"></div>
+                                                    <div class="scroll-area-ad">
+                                                        <div class="scrollbar-container">
+                                                            <ul class="list-group" id="addressshow"></ul>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
 
@@ -319,10 +324,11 @@ session_start();
                             console.log(code)
                             console.log(json)
                             $.ajaxSetup({
-                                    headers: {
-                                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                                    }
-                                });
+                                headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                }
+                            });
+
                             function getorders() {
                                 var data = 0;
                                 $.ajax({
@@ -376,80 +382,84 @@ session_start();
                                 console.log("showjson", json);
                                 var temp = "";
                                 var t = "";
-                                var ship =0;
+                                var ship = 0;
                                 var bill = 0;
                                 ship = json.ship[0].shippingAddr_id
                                 bill = json.bill[0].billingAddr_id
-                                console.log("bill",bill)
-                                console.log("ship",ship)
-                                if(ship === bill){
-                                json.ship.forEach(function(a){
-                                    console.log("show map", a.mapNumber);
-                                    console.log(a);
-                                    t += '<li class="list-group-item" >';
-                                    t += '<b>Shipped and Billed to</b> <br>'
-                                    t += checkAddrDisplay(a);
-                                    t += `</li>`;
-                                });
-                                console.log(t)
-                                document.getElementById("addressshow").innerHTML = t;
-                                }else if(ship != bill){
-                                    json.ship.forEach(function(a){
-                                    t += '<li class="list-group-item" >';
-                                    t += '<b>Shipped to</b> <br>'
-                                    t += checkAddrDisplay(a);
-                                    t += `</li>`;
-                                });
-                                json.bill.forEach(function(a){
-                                    t += '<li class="list-group-item" >';
-                                    t += '<b>Billed to</b> <br>'
-                                    t += checkAddrDisplay(a);
-                                    t += `</li>`;
-                                });
-                                document.getElementById("addressshow").innerHTML = t;
+                                console.log("bill", bill)
+                                console.log("ship", ship)
+                                if (ship === bill) {
+                                    json.ship.forEach(function(a) {
+                                        console.log("show map", a.mapNumber);
+                                        console.log(a);
+                                        t += '<li class="list-group-item" >';
+                                        t += '<b>Shipped and Billed to</b> <br>'
+                                        t += checkAddrDisplay(a);
+                                        t += `</li>`;
+                                    });
+                                    console.log(t)
+                                    document.getElementById("addressshow").innerHTML = t;
+                                } else if (ship != bill) {
+                                    json.ship.forEach(function(a) {
+                                        t += '<li class="list-group-item" >';
+                                        t += '<b>Shipped to</b> <br>'
+                                        t += checkAddrDisplay(a);
+                                        t += `</li>`;
+                                    });
+                                    json.bill.forEach(function(a) {
+                                        t += '<li class="list-group-item" >';
+                                        t += '<b>Billed to</b> <br>'
+                                        t += checkAddrDisplay(a);
+                                        t += `</li>`;
+                                    });
+                                    document.getElementById("addressshow").innerHTML = t;
                                 }
                             }
                             Genaddr();
-                                
-                                function gentabledetail() {
-                                    json = <?php echo $jsorder ?>;
-                                    var tableproduct = "";
-                                    var i = 0;
-                                    console.log(json);
-                                    json.forEach(function(a) {
+                            var totalprice = 0;
 
-                                        tableproduct += tablesaledetail(a.orderNumber, a.productCode, a.quantityOrdered, a.priceEach, a.orderLineNumber);
-                                    });
-                                    document.getElementById("tablelist").innerHTML = tableproduct;
-                                }
-                                var g_comment = 0;
-
-                                function Gencom() {
-                                    var data = getorders();
-                                    console.log(data)
-                                    data.forEach(function(a) {
-
-                                        if (a.orderNumber == code) {
-                                            console.log("comments", a.comments)
-                                            document.getElementById('commentLabel').innerHTML = `<label for="exampleText" class=""></label><input name="comment" id="textcomment" placeholder="Comments......" type="textarea" class="form-control" value="${a.comments}">`;
-                                            g_comment = a.comments;
-                                        }
-                                    });
-                                }
-                                gentabledetail();
-                                Gencom();
-                                document.getElementById('editbutton').innerHTML = `<button onclick="editform(this)" type="button" id="editbutton"  class="mt-2 mb-2 mr-2 btn-transition btn btn-outline-warning">edit</button>`;;
-
+                            function gentabledetail() {
+                                json = <?php echo $jsorder ?>;
+                                var tableproduct = "";
+                                var i = 0;
+                                console.log("json", json);
                                 json.forEach(function(a) {
-                                    // detail name,tel,id
-                                    document.getElementById('orderdetail').innerHTML = `<b>Order ID : </b>${a.orderNumber}<br>`;
 
+                                    tableproduct += tablesaledetail(a.orderNumber, a.productCode, a.quantityOrdered, a.priceEach, a.orderLineNumber);
+                                    totalprice += (a.quantityOrdered * a.priceEach);
                                 });
+                                document.getElementById("tablelist").innerHTML = tableproduct;
+                            }
 
-                                function editcomment(id) {
-                                    document.getElementById('id02_edit').style.display = 'block';
-                                    var x = id.getAttribute("id");
-                                    var text = `<div class="mb-3 card">
+                            var g_comment = 0;
+
+                            function Gencom() {
+                                var data = getorders();
+                                console.log(data)
+                                data.forEach(function(a) {
+
+                                    if (a.orderNumber == code) {
+                                        console.log("comments", a.comments)
+                                        document.getElementById('commentLabel').innerHTML = `<label for="exampleText" class=""></label><input name="comment" id="textcomment" placeholder="Comments......" type="textarea" class="form-control" value="${a.comments}">`;
+                                        g_comment = a.comments;
+                                    }
+                                });
+                            }
+                            gentabledetail();
+                            var n = totalprice.toFixed(2);
+                            Gencom();
+                            document.getElementById('editbutton').innerHTML = `<button onclick="editform(this)" type="button" id="editbutton"  class="mt-2 mb-2 mr-2 btn-transition btn btn-outline-warning">edit</button>`;;
+                            document.getElementById('tPrice').innerHTML = `<b>Total Price :</b>${n}<br><br>`;
+                            json.forEach(function(a) {
+                                // detail name,tel,id
+                                document.getElementById('orderdetail').innerHTML = `<b>Order ID : </b>${a.orderNumber}<br>`;
+
+                            });
+
+                            function editcomment(id) {
+                                document.getElementById('id02_edit').style.display = 'block';
+                                var x = id.getAttribute("id");
+                                var text = `<div class="mb-3 card">
                         <div class="card-header-tab card-header-tab-animation card-header">
                             <div class="card-header-title">
                                 <i class="header-icon lnr-apartment icon-gradient bg-love-kiss"> </i>
@@ -467,35 +477,35 @@ session_start();
                         </div>
                     </div>`;
 
-                                    document.getElementById("detailpop_edit").innerHTML = text;
-                                }
-                                
+                                document.getElementById("detailpop_edit").innerHTML = text;
+                            }
 
-                                function editform() {
-                                    console.log(document.getElementById("textcomment"))
-                                    var comment = {
-                                        "comments": document.getElementById("textcomment").value.toString(),
-                                        "orderNumber": code.toString()
-                                    };
-                                    console.log("edit", comment);
-                                    $.ajax({
-                                        type: "put",
-                                        url: "/comment/" + code,
-                                        data: comment,
-                                        success: function(response) {
-                                            //gencomment
-                                            if (g_comment != comment.comments) {
-                                                alert("Are you sure to edit ?");
-                                                Gencom();
-                                            }
-                                        },
-                                        error: function(error) {
-                                            alert(error.responseText);
-                                            console.log(error.responseText);
+
+                            function editform() {
+                                console.log(document.getElementById("textcomment"))
+                                var comment = {
+                                    "comments": document.getElementById("textcomment").value.toString(),
+                                    "orderNumber": code.toString()
+                                };
+                                console.log("edit", comment);
+                                $.ajax({
+                                    type: "put",
+                                    url: "/comment/" + code,
+                                    data: comment,
+                                    success: function(response) {
+                                        //gencomment
+                                        if (g_comment != comment.comments) {
+                                            alert("Are you sure to edit ?");
+                                            Gencom();
                                         }
-                                    });
+                                    },
+                                    error: function(error) {
+                                        alert(error.responseText);
+                                        console.log(error.responseText);
+                                    }
+                                });
 
-                                }
+                            }
                         </script>
 
 

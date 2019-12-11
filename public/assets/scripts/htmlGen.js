@@ -261,6 +261,32 @@ function tableCart(i, col1, col2, col3, col4, col5, code, qty) {
 </tr>`
 }
 
+function tablest(col1, col2, col3 , code) {
+    return `<tr>
+    <td class="text-center text-muted"> ${code}</td>
+    <td>
+        <div class="widget-content p-0">
+            <div class="widget-content-wrapper">
+                <div class="widget-content-left mr-3">
+                    <div class="widget-content-left">
+                        <img width="40" class="rounded-circle" src="assets/images/avatars/4.jpg">
+                        </div>
+                    </div>
+                    <div class="widget-content-left flex2">
+                        <div class="widget-heading">${col1}</div>
+                        <div class="widget-subheading opacity-7">${col2}</div>
+                    </div>
+                </div>
+            </div>
+        </td>
+        <td class="text-center">
+            <div class="text-center">${col3}</div>
+        </td>
+        <td class="text-center">
+            <button onclick="dellist(this)" class="btn btn-danger btn-sm"  id="${code}">X</button>
+        </td>
+</tr>`
+}
 function detailPopupGen(productCode, productName, productScale, productVendor, quantityInStock, MSRP, productLine, productDescription) {
     return `
     <div class="mb-3 card">

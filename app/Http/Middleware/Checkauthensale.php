@@ -16,7 +16,7 @@ class Checkauthensale
     public function handle($request, Closure $next)
     {
         
-        if(strpos($request->session()->get('status'),'Sale') !== false){
+        if(!(strpos($request->session()->get('status'),'Sale') !== false)){
             return redirect('/products');
         }
        

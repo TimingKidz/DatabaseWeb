@@ -243,13 +243,15 @@ class DataController extends Controller
         $jobmm = array();
         $jobnm = array();
         $jobm = array();
+        $jobmmm = array();
         foreach ($data as &$value) {
-            if(job::$Match[$value->jobTitle] <= job::$Match[$code] and job::$Match[$value->jobTitle] > 0 ){array_push($jobmm,$value);}
+            if(job::$Match[$value->jobTitle] < job::$Match[$code] and job::$Match[$value->jobTitle] > 0 ){array_push($jobmm,$value);}
+            if(job::$Match[$value->jobTitle] > 0 ){array_push($jobmmm,array($value->employeeNumber,job::$Match[$value->jobTitle],$value->jobTitle));}
             if("$id" == $value->reportsTo){array_push($jobnm,$value);}
             if("$rep" == $value->employeeNumber){array_push($jobm,$value);}
         }
        
-        return json_encode(array("job"=>$jobEm,"data"=>$jobnm,"rep"=>$jobmm,"repTo"=>$jobm));
+        return json_encode(array("job"=>$jobEm,"data"=>$jobnm,"rep"=>$jobmm,"repTo"=>$jobm,"repTolist"=>$jobmmm));
     }
 
     public function test()

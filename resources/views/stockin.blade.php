@@ -489,7 +489,7 @@ session_start();
                         source: proarr
                         });
                     } );
-                    document.querySelector('#tags').addEventListener('blur',linecheck);
+                    document.querySelector('#dd').addEventListener('focus',linecheck);
                     
                     function re(){
                         document.getElementById('id04').style.display='none';
@@ -499,9 +499,10 @@ session_start();
                                              "html": document.getElementById("C2").value.toString(),
                                              "image":document.getElementById("C3").value.toString(),
                         };
-                        document.getElementById("C4").value = "";
-                        document.getElementById("C2").value = "";
-                        document.getElementById("C3").value = "";
+                        if(addproductline.Line != ""){
+                            document.getElementById("C4").value = "";
+                            document.getElementById("C2").value = "";
+                            document.getElementById("C3").value = "";
                             console.log(addproductline);
                             $.ajax({
                                 type: "post",
@@ -516,8 +517,12 @@ session_start();
 
                             });
 
-                        pullline();
-                        linecheck();
+                            pullline();
+                            linecheck();
+                        }else{
+                            alert("ProductLine must be not null !!");
+                        }
+                        
                     }
 
                     function re2(){
@@ -529,16 +534,13 @@ session_start();
                                              "vender":document.getElementById("D3").value.toString(),
                                              "scale":document.getElementById("D4").value.toString(),
                                              "msrp":document.getElementById("D7").value.toString(),
-                                             "qty": document.getElementById("D5").value.toString(),
-                                             "buy":document.getElementById("D6").value.toString(),
                                              "des":document.getElementById("D8").value.toString(),
                         };
+                        if(addproduct.code != "" && addproduct.name != "" && addproduct.line != "" && addproduct.vender != "" && addproduct.scale != "" && addproduct.msrp != "" && addproduct.des !=""){
                         document.getElementById("D1").value = "";
                         document.getElementById("D2").value = "";
                         document.getElementById("D3").value = "";
                         document.getElementById("D4").value = "";
-                        document.getElementById("D5").value = "";
-                        document.getElementById("D6").value = "";
                         document.getElementById("D7").value = "";
                         document.getElementById("D8").value = "";
                             console.log(addproduct);
@@ -555,6 +557,10 @@ session_start();
 
                             });
                         pullpro();
+                        }else{
+                            alert("input must not be null !!")
+                        }
+                        
                     }
                     function linecheck(e){
                         productline = document.getElementById("tags").value.toString();
@@ -567,7 +573,7 @@ session_start();
                                  console.log(pro);
                             }
                         }
-                        document.querySelector('#dd').addEventListener('blur',notii);
+                        document.querySelector('#B3').addEventListener('focus',notii);
                         function notii(e){
                             var productc = document.getElementById("dd").value.toString();
 

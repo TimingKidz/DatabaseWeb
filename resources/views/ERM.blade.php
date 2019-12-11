@@ -359,9 +359,15 @@ session_start();
                                                 </div>`;
                                                 document.getElementById("result").innerHTML = tableproduct;
                             }else{
+                                var state =0 ;
                                 json.data.forEach(function(a) {
                                     if(a.reportsTo == code){
-                                        tableproduct += tableERM(a.employeeNumber,a.firstName,a.lastName,a.email,a.jobTitle,a.city,a.country,jQuery.isEmptyObject(json.repTo[0]));
+                                        if(a.jobTitle == "President"){
+                                            state = 1;
+                                        }else if(a.jobTitle == "Sales Rep"){
+                                            state = 2;
+                                        }
+                                        tableproduct += tableERM(a.employeeNumber,a.firstName,a.lastName,a.email,a.jobTitle,a.city,a.country,state);
                                     }
                                 });
                                 document.getElementById("tablelist").innerHTML = tableproduct;
@@ -371,27 +377,42 @@ session_start();
                         Gentable();
 
                         function downn(a){
+                            var o = 0;
+                            var level =0;
                             id = a.getAttribute("id");
                             document.getElementById('id04').style.display='block'
+                            json.repTolist.forEach(function(a) {
+                                if(a[0]==id){
+                                    level=parseInt(a[1]);
+                                }
+                               
+                            });
                             var text = "";
                             json.job.forEach(function(a) {
-                                console.log(a[0]);
+                                if(a[1]==level-1){
                                 text += `<option>${a[0]}</option>`; 
+                                }
+                                
                             });
                             document.getElementById("select").innerHTML = text;
                             text = "";
-                            json.rep.forEach(function(a) {
-                                text += `<option>${a.employeeNumber}</option>`; 
+                            json.repTolist.forEach(function(a) {
+                                if(a[1]==level){
+                                    text += `<option>${a[0]}</option>`; 
+                                }
+                                
                             });
+                            
                             document.getElementById("select1").innerHTML = text;
+                            not();
                             document.querySelector('#select1').addEventListener('input',not);
                             function not(e){
                                 var input = document.getElementById("select1").value;
                                 console.log(input);
                                 var text = "";
-                                json.rep.forEach(function(a) {
-                                    if(input == a.employeeNumber){
-                                        text += `<h6>${a.jobTitle}</h6>`; 
+                                json.repTolist.forEach(function(a) {
+                                    if(input == a[0]){
+                                        text = `<h6>${a[2]}</h6>`; 
                                     }
                                 });
                                 document.getElementById("lebel1").innerHTML = text;
@@ -400,12 +421,49 @@ session_start();
                        
                         var id = 0;
                         function popup(a){
+                            var o=0;
+                            var level=0;
                             id = a.getAttribute("id");
                             document.getElementById('id04').style.display='block'
                             var text = "<?php echo session('status');?>";
-                            document.getElementById("select").innerHTML = `<option>${text}</option>`;
-                            document.getElementById("select1").innerHTML =  `<option>${json.repTo[0].employeeNumber}</option>`;
-                            document.getElementById("lebel1").innerHTML = `<h6>${json.repTo[0].jobTitle}</h6>`;
+                            json.repTolist.forEach(function(a) {
+                                if(a[0]==id){
+                                    level=parseInt(a[1]);
+                                }
+                               
+                            });
+                            
+                            var text = "";
+                            json.repTolist.forEach(function(a) {
+                                if(a[1]==level+1){
+                                text += `<option>${a[2]}</option>`; 
+                                }
+                                
+                            });
+                            console.log(json.repTolist);
+                            document.getElementById("select").innerHTML = text;
+                            text = "";
+                            json.repTolist.forEach(function(a) {
+                                if(a[1]==level+2){
+                                    text += `<option>${a[0]}</option>`; 
+                                }
+                                
+                            });
+                            
+                            document.getElementById("select1").innerHTML = text ;
+                            not();
+                            document.querySelector('#select1').addEventListener('input',not);
+                            function not(e){
+                                var input = document.getElementById("select1").value;
+                                console.log(input);
+                                var text = "";
+                                json.repTolist.forEach(function(a) {
+                                    if(input == a[0]){
+                                        text = `<h6>${a[2]}</h6>`; 
+                                    }
+                                });
+                                document.getElementById("lebel1").innerHTML = text;
+                            }
                         }
 
 
@@ -419,7 +477,16 @@ session_start();
                             json.data.forEach(function(a) {
                                 var name = a.firstName+a.lastName;
                                 if (((name.toString()).toUpperCase()).includes(filter)){
-                                    tableproduct += tableERM(a.employeeNumber,a.firstName,a.lastName,a.email,a.jobTitle,a.city,a.country);
+                                    var state =0 ;
+                                    if(a.reportsTo == code){
+                                        if(a.jobTitle == "President"){
+                                            state = 1;
+                                        }else if(a.jobTitle == "Sales Rep"){
+                                            state = 2;
+                                        }
+                                        tableproduct += tableERM(a.employeeNumber,a.firstName,a.lastName,a.email,a.jobTitle,a.city,a.country,state);
+                                    }
+                                
                                 }
                             });
                             document.getElementById("tablelist").innerHTML = tableproduct;

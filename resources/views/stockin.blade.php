@@ -326,20 +326,21 @@ session_start();
                             </div>
                             <div class="col-sm-1 mt-3">
                                 <button class= "col-sm mt-2 btn btn-warning"onclick="submitst()">Add</button>
-                            </div>
+                            </div>                      
+                        </div>
                             <div class="col-sm-6"><h5 class="card-title">Stock-in</h5></div>
                            
-                        </div>                        
                         <div class="row scroll-area-xs">   
                             <div class="scrollbar-container ps--active-y"> 
                                 <div class="col-md-12">
                                     <div class="table-responsive">
-                                        <table class="align-middle mb-0 table table-wrapper table-borderless table-hover">
+                                        <table style="table-layout: fixed" class="align-middle mb-0 table table-wrapper table-borderless table-hover">
                                             <thead>
                                                 <tr>
-                                                    <th class="text-center">#</th>
-                                                    <th>ProductCode</th>
-                                                    <th class="text-center">Quantity</th>
+                                                    <th width="20%" class="text-center">#</th>
+                                                    <th width="50%">ProductCode</th>
+                                                    <th width="20%" class="text-center">Quantity</th>
+                                                    <th width="10%" class="text-center"></th>
                                                 </tr>
                                             </thead>
                                             <tbody id="cartp">

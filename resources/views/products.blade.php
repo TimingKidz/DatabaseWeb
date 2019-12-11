@@ -115,19 +115,19 @@ session_start();
                             <div class="col-sm-6"><h5 class="card-title">Cart</h5></div>
                             <div class="col-sm-6"><button id="clearbut" onclick="clearall()" class="pull-right btn btn-outline-link">Clear All</button></div>
                         </div>                        
-                        <div class="row scroll-area">   
+                        <div class="row scroll-area-c">   
                             <div class="scrollbar-container ps--active-y"> 
                                 <div class="col-md-12">
                                     <div class="table-responsive">
-                                        <table class="align-middle mb-0 table table-wrapper table-borderless table-hover">
+                                        <table style="table-layout: fixed" class="align-middle mb-0 table table-wrapper table-borderless table-hover">
                                             <thead>
                                                 <tr>
-                                                    <th class="text-center">#</th>
-                                                    <th>Name</th>
-                                                    <th class="text-center">Price</th>
-                                                    <th class="text-center">Qty.</th>   
-                                                    <th class="text-center">Total</th>                                    
-                                                    <th class="text-center"></th>
+                                                    <th width="5%" class="text-center">#</th>
+                                                    <th width="40%">Name</th>
+                                                    <th width="15%" class="text-center">Price</th>
+                                                    <th width="15%" class="text-center">Qty.</th>   
+                                                    <th width="15%" class="text-center">Total</th>                                    
+                                                    <th width="7%" class="text-center"></th>
                                                 </tr>
                                             </thead>
                                             <tbody id="cartp">
@@ -142,7 +142,7 @@ session_start();
                 
                     <div class="row">
                         <div class="ml-3 mr-3 mb-3 fixed-bottom">
-                            <div class="row">
+                            <div class="form-row">
                                 <div class="col-sm-4">
                                     <div class="position-relative form-group"><label for="customernumber">Customer Number</label><input onchange="cusAddr(this)" id="customernumber" placeholder="insert customer number" type="" class="form-control"></div>
                                 </div>
@@ -153,7 +153,7 @@ session_start();
                                     <div class="position-relative form-group"><label for="reqdate">Required Date</label><input id="reqdate" type="date" class="form-control"></div>
                                 </div>                                
                             </div>
-                            <div class="row">
+                            <div class="form-row">
                                 <div class="col-sm-6">
                                     <div class="position-relative form-group"><label for="shipaddr">Shipping Address</label><select disabled name="select" id="shipaddr" class="form-control">
                                         <!-- getAddr -->
@@ -165,20 +165,28 @@ session_start();
                                     </select></div>
                                 </div>
                             </div>
-                            <div class="row mb-2">
-                                
+                            <div class="form-row mb-2">
+                                <div class="col-sm-4 my-auto">
+                                    <div class="col-sm-12 border p-2">
+                                        <h6 class="card-title pt-1">Discount</h6>
+                                        <h4 id="disam">$0.00</h4>
+                                    </div>                                    
+                                </div>
+                                <div class="col-sm-4 my-auto">  
+                                    <div class="col-sm-12 border p-2">
+                                        <h6 class="card-title pt-1">Subtotal</h6>                               
+                                        <h4 id="cartTotal">$0.00</h4>
+                                    </div>   
+                                </div>
+                                <div class="col-sm-4 my-auto">
+                                    <div class="col-sm-12 border p-2">
+                                        <h6 class="card-title pt-1">Total</h6>                               
+                                        <h4 id="realcartTotal">$0.00</h4>
+                                    </div>
+                                </div>
                             </div>
                             <div class="row">
-                                <div class="col-sm-2">
-                                    <h6 class="card-title pt-1">Total</h6>
-                                </div>
-                                <div class="col-sm-2">                                    
-                                    <h4 id="cartTotal">$0.00</h4>
-                                </div>
-                                <div class="col-sm-5 my-auto">
-                                    <h6 id="disam" class="text-danger"></h6>
-                                </div>
-                                <div class="col-sm-3">
+                                <div class="col-sm-12">
                                     <button id="prbut" onclick="proceed()" class="pull-right mt-1 btn btn-warning" disabled>Check out</button>
                                 </div>
                             </div>
@@ -543,6 +551,12 @@ session_start();
                                 });
                                 document.getElementById("cartp").innerHTML = tablecart;   
                                 document.getElementById("cartTotal").innerHTML = "$"+(total).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+                                document.getElementById("realcartTotal").innerHTML = "$"+(total).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+                                if(document.getElementById("voucher").value != ""){
+                                    var dis = document.getElementById("disam").innerHTML.slice(1);
+                                    var newTotal = parseFloat(total) - parseFloat(dis);
+                                    document.getElementById("realcartTotal").innerHTML = "$"+newTotal.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+                                }
                                 if($('#customernumber').val() != ""){
                                     document.getElementById("prbut").disabled = false;
                                 }else{
@@ -551,6 +565,8 @@ session_start();
                             }else{
                                 document.getElementById("cartp").innerHTML = "";
                                 document.getElementById("cartTotal").innerHTML = "$0.00";
+                                document.getElementById("realcartTotal").innerHTML = "$0.00";
+                                document.getElementById("disam").innerHTML = "$0.00";
                                 document.getElementById("prbut").disabled = true;                               
                             }
                             
@@ -569,8 +585,7 @@ session_start();
                                         alert('Reach Max Quantity in stock');
                                     }else{
                                         genCart();
-                                    }                                    
-                                    // document.getElementById("cartTotal").innerHTML = "$"+data;
+                                    }
                                 }
                             });
                         }   
@@ -579,7 +594,7 @@ session_start();
                                 addToCart(a, 1);
                             }else{
                                 addToCart(a, a.value);
-                            }
+                            }                            
                         }
                         function cusAddr(a){
                             if(a.value != ""){
@@ -616,12 +631,13 @@ session_start();
                                                 document.getElementById("prbut").disabled = false; 
                                             }
                                             
-                                        }else{                                            
+                                        }else{               
+                                            alert("This Customer Number is not exist.");                             
                                             document.getElementById("shipaddr").innerHTML = "";
                                             document.getElementById("shipaddr").disabled = true;
                                             document.getElementById("billaddr").innerHTML = "";
                                             document.getElementById("billaddr").disabled = true;
-                                            document.getElementById("prbut").disabled = true;
+                                            document.getElementById("prbut").disabled = true;                                            
                                         }                                     
                                     }
                                 });
@@ -647,30 +663,39 @@ session_start();
                                 dataType: 'json',
                                 success: function (data) {
                                     console.log(data);
-                                    if(data == 0){
+                                    if(data == -1){
+                                        document.getElementById("cartTotal").innerHTML = "$0.00";
+                                        document.getElementById("realcartTotal").innerHTML = "$0.00";
+                                        document.getElementById("disam").innerHTML = "$0.00";
+                                        $('#voucher').val("");
+                                    }else if(data == 0){
                                         document.getElementById("cartTotal").innerHTML = "$"+(total).replace(/\d(?=(\d{3})+\.)/g, '$&,');
-                                        document.getElementById("disam").innerHTML = "";
+                                        document.getElementById("realcartTotal").innerHTML = "$"+(total).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+                                        document.getElementById("disam").innerHTML = "$0.00";
                                         $('#voucher').val("");
                                     }else if(data == 1){
                                         alert('Out of code');
                                         document.getElementById("cartTotal").innerHTML = "$"+(total).replace(/\d(?=(\d{3})+\.)/g, '$&,');
-                                        document.getElementById("disam").innerHTML = "";
+                                        document.getElementById("realcartTotal").innerHTML = "$"+(total).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+                                        document.getElementById("disam").innerHTML = "$0.00";
                                         $('#voucher').val("");
                                     }else if (data == 2){
                                         alert('Code expired');
                                         document.getElementById("cartTotal").innerHTML = "$"+(total).replace(/\d(?=(\d{3})+\.)/g, '$&,');
-                                        document.getElementById("disam").innerHTML = "";
+                                        document.getElementById("realcartTotal").innerHTML = "$"+(total).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+                                        document.getElementById("disam").innerHTML = "$0.00";
                                         $('#voucher').val("");
                                     }else if (data == 3){
                                         alert('No such code');
                                         document.getElementById("cartTotal").innerHTML = "$"+(total).replace(/\d(?=(\d{3})+\.)/g, '$&,');
-                                        document.getElementById("disam").innerHTML = "";
+                                        document.getElementById("realcartTotal").innerHTML = "$"+(total).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+                                        document.getElementById("disam").innerHTML = "$0.00";
                                         $('#voucher').val("");
                                     }else{
                                         discountAmount = data[0]["discountAmount"];
                                         var newTotal = parseFloat(total) - discountAmount;
-                                        document.getElementById("cartTotal").innerHTML = "$"+newTotal.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
-                                        document.getElementById("disam").innerHTML = "-"+discountAmount;
+                                        document.getElementById("realcartTotal").innerHTML = "$"+newTotal.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+                                        document.getElementById("disam").innerHTML = "$"+parseFloat(discountAmount).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
                                     }                                     
                                 },
                                 error: function(err){
@@ -697,17 +722,17 @@ session_start();
                                     console.log(data);
                                     if(data == 1){
                                         alert('Cart Empty');
-                                    }
-                                    genCart();
-                                    Gentable();
-                                    $('#customernumber').val('');
-                                    $('#reqdate').val('');
-                                    $('#voucher').val('');
+                                    }                                    
+                                    $('#customernumber').val("");
+                                    $('#reqdate').val("");
+                                    $('#voucher').val("");
                                     document.getElementById("shipaddr").innerHTML = "";
                                     document.getElementById("shipaddr").disabled = true;
                                     document.getElementById("billaddr").innerHTML = "";
                                     document.getElementById("billaddr").disabled = true;
                                     document.getElementById("TooltipDemo").click();
+                                    genCart();
+                                    Gentable();
                                 },
                                 error: function(err){
                                     console.log(err);

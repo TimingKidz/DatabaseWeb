@@ -233,6 +233,7 @@ session_start();
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div id="orderdetail"></div>
+                                                    <div id="addressshow"></div>
                                                 </div>
                                             </div>
 
@@ -275,9 +276,9 @@ session_start();
                                                             <table class="align-middle mb-0 table table-borderless table-striped table-hover">
                                                                 <thead>
                                                                     <tr>
-                                                                        
+
                                                                         <th>Product Code</th>
-                                                                        
+
                                                                         <th class="text-center">qty</th>
                                                                         <th class="text-center">priceEach
 
@@ -309,12 +310,17 @@ session_start();
                         <script type="text/javascript">
                             var json = 0;
                             var code = 0;
-                            
-                            
+
+
                             code = <?php echo $id ?>;
                             json = <?php echo $jsorder ?>;
                             console.log(code)
                             console.log(json)
+                            $.ajaxSetup({
+                                    headers: {
+                                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                    }
+                                });
                             function getorders() {
                                 var data = 0;
                                 $.ajax({
@@ -328,44 +334,120 @@ session_start();
 
                                 return JSON.parse(data);
                             }
-                            function gentabledetail(){
-                                json = <?php echo $jsorder ?>;
-                            var tableproduct = "";
-                            var i = 0;
-                            console.log(json);
-                            json.forEach(function(a) {
-                                
-                                tableproduct += tablesaledetail(a.orderNumber,a.productCode,a.quantityOrdered,a.priceEach,a.orderLineNumber);
-                            });
-                            document.getElementById("tablelist").innerHTML = tableproduct;
-                            }
-                            var g_comment =0;
-                            function Gencom() {
-                                var data = getorders();
-                                console.log(data)
-                                data.forEach(function(a) {
 
-                                    if (a.orderNumber == code) {
-                                        console.log("comments", a.comments)
-                                        document.getElementById('commentLabel').innerHTML = `<label for="exampleText" class=""></label><input name="comment" id="textcomment" placeholder="Comments......" type="textarea" class="form-control" value="${a.comments}">`;
-                                        g_comment = a.comments;
-                                    }
+                            function ajaxget() {
+                                var data = 0;
+                                $.ajax({
+                                    type: "post",
+                                    url: "/findaddrshiped/" + code,
+                                    success: function(response) {
+                                        data = response;
+                                    },
+                                    async: false
+
                                 });
+                                return JSON.parse(data);
                             }
-                            gentabledetail();
-                            Gencom();
-                            document.getElementById('editbutton').innerHTML = `<button onclick="editform(this)" type="button" id="editbutton"  class="mt-2 mb-2 mr-2 btn-transition btn btn-outline-warning">edit</button>`;;
 
-                            json.forEach(function(a) {
-                                // detail name,tel,id
-                                document.getElementById('orderdetail').innerHTML = `<b>Order ID : </b>${a.orderNumber}<br>`;
+                            function checkAddrDisplay(a) {
+                                // address display
+                                // document.getElementById('addrdisp').innerHTML = `${a.addressLine1}<br>${a.addressLine2}<br>${a.city},${a.state},${a.country},${a.postalCode}`;
+                                if (a.addressLine2 == "" && (a.state == "" && a.postalCode != "")) { //001
+                                    return `${a.addressLine1}<br>${a.city},${a.country},${a.postalCode}`;
+                                } else if (a.addressLine2 == "" && (a.state != "" && a.postalCode == "")) { //010
+                                    return `${a.addressLine1}<br>${a.city},${a.state},${a.country},${a.postalCode}`;
+                                } else if (a.addressLine2 == "" && (a.state != "" && a.postalCode != "")) { //011
+                                    return `${a.addressLine1}<br>${a.city},${a.state},${a.country},${a.postalCode}`;
+                                } else if (a.addressLine2 != "" && (a.state == "" && a.postalCode == "")) { //100
+                                    return `${a.addressLine1}<br>${a.addressLine2}<br>${a.city},${a.country}`;
+                                } else if (a.addressLine2 != "" && (a.state == "" && a.postalCode != "")) { //101
+                                    return `${a.addressLine1}<br>${a.addressLine2}<br>${a.city},${a.country},${a.postalCode}`;
+                                } else if (a.addressLine2 != "" && (a.state != "" && a.postalCode == "")) { //110
+                                    return `${a.addressLine1}<br>${a.addressLine2}<br>${a.city},${a.state},${a.country}`;
+                                } else if (a.addressLine2 != "" && (a.state != "" && a.postalCode != "")) { //111
+                                    return `${a.addressLine1}<br>${a.addressLine2}<br>${a.city},${a.state},${a.country},${a.postalCode}`;
+                                }
+                            }
 
-                            });
+                            function Genaddr() {
+                                json = ajaxget();
+                                console.log("showjson", json);
+                                var temp = "";
+                                var t = "";
+                                var ship =0;
+                                var bill = 0;
+                                ship = json.ship[0].shippingAddr_id
+                                bill = json.bill[0].billingAddr_id
+                                console.log("bill",bill)
+                                console.log("ship",ship)
+                                if(ship === bill){
+                                json.ship.forEach(function(a){
+                                    console.log("show map", a.mapNumber);
+                                    console.log(a);
+                                    t += '<li class="list-group-item" >';
+                                    t += '<b>Shipped and Billed to</b> <br>'
+                                    t += checkAddrDisplay(a);
+                                    t += `</li>`;
+                                });
+                                console.log(t)
+                                document.getElementById("addressshow").innerHTML = t;
+                                }else if(ship != bill){
+                                    json.ship.forEach(function(a){
+                                    t += '<li class="list-group-item" >';
+                                    t += '<b>Shipped to</b> <br>'
+                                    t += checkAddrDisplay(a);
+                                    t += `</li>`;
+                                });
+                                json.bill.forEach(function(a){
+                                    t += '<li class="list-group-item" >';
+                                    t += '<b>Billed to</b> <br>'
+                                    t += checkAddrDisplay(a);
+                                    t += `</li>`;
+                                });
+                                document.getElementById("addressshow").innerHTML = t;
+                                }
+                            }
+                            Genaddr();
+                                
+                                function gentabledetail() {
+                                    json = <?php echo $jsorder ?>;
+                                    var tableproduct = "";
+                                    var i = 0;
+                                    console.log(json);
+                                    json.forEach(function(a) {
 
-                            function editcomment(id) {
-                                document.getElementById('id02_edit').style.display = 'block';
-                                var x = id.getAttribute("id");
-                                var text = `<div class="mb-3 card">
+                                        tableproduct += tablesaledetail(a.orderNumber, a.productCode, a.quantityOrdered, a.priceEach, a.orderLineNumber);
+                                    });
+                                    document.getElementById("tablelist").innerHTML = tableproduct;
+                                }
+                                var g_comment = 0;
+
+                                function Gencom() {
+                                    var data = getorders();
+                                    console.log(data)
+                                    data.forEach(function(a) {
+
+                                        if (a.orderNumber == code) {
+                                            console.log("comments", a.comments)
+                                            document.getElementById('commentLabel').innerHTML = `<label for="exampleText" class=""></label><input name="comment" id="textcomment" placeholder="Comments......" type="textarea" class="form-control" value="${a.comments}">`;
+                                            g_comment = a.comments;
+                                        }
+                                    });
+                                }
+                                gentabledetail();
+                                Gencom();
+                                document.getElementById('editbutton').innerHTML = `<button onclick="editform(this)" type="button" id="editbutton"  class="mt-2 mb-2 mr-2 btn-transition btn btn-outline-warning">edit</button>`;;
+
+                                json.forEach(function(a) {
+                                    // detail name,tel,id
+                                    document.getElementById('orderdetail').innerHTML = `<b>Order ID : </b>${a.orderNumber}<br>`;
+
+                                });
+
+                                function editcomment(id) {
+                                    document.getElementById('id02_edit').style.display = 'block';
+                                    var x = id.getAttribute("id");
+                                    var text = `<div class="mb-3 card">
                         <div class="card-header-tab card-header-tab-animation card-header">
                             <div class="card-header-title">
                                 <i class="header-icon lnr-apartment icon-gradient bg-love-kiss"> </i>
@@ -383,38 +465,35 @@ session_start();
                         </div>
                     </div>`;
 
-                                document.getElementById("detailpop_edit").innerHTML = text;
-                            }
-                            $.ajaxSetup({
-                            headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                            }
-                        });
-                            function editform() {
-                                console.log(document.getElementById("textcomment"))
-                                var comment = {
-                                    "comments": document.getElementById("textcomment").value.toString(),
-                                    "orderNumber": code.toString()
-                                };
-                                console.log("edit", comment);
-                                $.ajax({
-                                    type: "put",
-                                    url: "/comment/" + code,
-                                    data: comment,
-                                    success: function(response) {
-                                        //gencomment
-                                        if(g_comment != comment.comments){
-                                            alert("Are you sure to edit ?");
-                                        Gencom();
-                                        }
-                                    },
-                                    error: function(error) {
-                                        alert(error.responseText);
-                                        console.log(error.responseText);
-                                    }
-                                });
+                                    document.getElementById("detailpop_edit").innerHTML = text;
+                                }
                                 
-                            }
+
+                                function editform() {
+                                    console.log(document.getElementById("textcomment"))
+                                    var comment = {
+                                        "comments": document.getElementById("textcomment").value.toString(),
+                                        "orderNumber": code.toString()
+                                    };
+                                    console.log("edit", comment);
+                                    $.ajax({
+                                        type: "put",
+                                        url: "/comment/" + code,
+                                        data: comment,
+                                        success: function(response) {
+                                            //gencomment
+                                            if (g_comment != comment.comments) {
+                                                alert("Are you sure to edit ?");
+                                                Gencom();
+                                            }
+                                        },
+                                        error: function(error) {
+                                            alert(error.responseText);
+                                            console.log(error.responseText);
+                                        }
+                                    });
+
+                                }
                         </script>
 
 

@@ -179,7 +179,7 @@ session_start();
                                 </a>
                             </li>
                             <li>
-                                <a href="dashboard-boxes.html">
+                                <a href="../dashboard">
                                 <i class="metismenu-icon pe-7s-cash"></i>
                                     Payment
                                 </a>
@@ -462,6 +462,7 @@ session_start();
                             });
                             document.getElementById("tablelist").innerHTML = tableproduct;
                             }
+                            var g_comment = 0;
                             function Gencom() {
                                 var data = getcomments(code);
                                 console.log(data);
@@ -470,6 +471,7 @@ session_start();
                                     if (a.stockNumber == code) {
                                         console.log("comments", a.comments)
                                         document.getElementById('commentLabel').innerHTML = `<label for="exampleText" class=""></label><input name="comment" id="textcomment" placeholder="Comments......" type="textarea" class="form-control" value="${a.comments}">`;
+                                        g_comment = a.comments;
                                     }
                                 });
                             }
@@ -520,7 +522,10 @@ session_start();
                                     data: comment,
                                     success: function(response) {
                                         //gencomment
-                                        Gencom();
+                                        if (g_comment != comment.comments) {
+                                                alert("Are you sure to edit ?");
+                                                Gencom();
+                                            }
                                     },
                                     error: function(error) {
                                         alert(error.responseText);

@@ -375,6 +375,7 @@ session_start();
                             document.getElementById('id04').style.display='block'
                             var text = "";
                             json.job.forEach(function(a) {
+                                console.log(a[0]);
                                 text += `<option>${a[0]}</option>`; 
                             });
                             document.getElementById("select").innerHTML = text;

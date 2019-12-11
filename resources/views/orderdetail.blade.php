@@ -13,7 +13,7 @@ session_start();
     <meta http-equiv="Content-Language" content="en">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
-    <title>Products</title>
+    <title>Orderdetail</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
     <meta name="description" content="This is an example dashboard created using build-in elements and components.">
     <meta name="msapplication-tap-highlight" content="no">
@@ -27,7 +27,7 @@ session_start();
     =========================================================
     * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
     -->
-
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon-16x16.png">
     <link href="../main.css" rel="stylesheet">
 </head>
 
@@ -143,19 +143,15 @@ session_start();
                     <div class="app-sidebar__inner">
                         <ul class="vertical-nav-menu">
 
-                            <li class="app-sidebar__heading">Dashboard</li>
-                            <li>
-                                <a href="dashboard-boxes.html">
-                                    <i class="metismenu-icon pe-7s-display2"></i>
-                                    Dashboard
-                                </a>
-                            </li>
+                            
+                                
+                          
 
 
                             <li class="app-sidebar__heading">Menu</li>
                             <li>
                                 <a href="../products">
-                                    <i class="metismenu-icon pe-7s-display2"></i>
+                                <i class="metismenu-icon pe-7s-box2"></i>
                                     Products
                                 </a>
                             </li>
@@ -164,7 +160,7 @@ session_start();
                             if (strpos(session('status'), 'Sale') !== false) {
                                 echo '<li>
                                     <a href="../stockin">
-                                        <i class="metismenu-icon pe-7s-display2"></i>
+                                    <i class="metismenu-icon pe-7s-box1"></i>
                                         Stock In
                                     </a>
                                 </li>';
@@ -173,21 +169,27 @@ session_start();
 
                             <li>
                                 <a href="../customer">
-                                    <i class="metismenu-icon pe-7s-display2"></i>
+                                <i class="metismenu-icon pe-7s-users"></i>
                                     Customers
                                 </a>
                             </li>
                             <li>
                                 <a href="../saleorder" class="mm-active">
-                                    <i class="metismenu-icon pe-7s-display2"></i>
+                                <i class="metismenu-icon pe-7s-note2"></i>
                                     Saleorder
+                                </a>
+                            </li>
+                            <li>
+                            <a href="../dashboard">
+                            <i class="metismenu-icon pe-7s-cash"></i>
+                                    Payment
                                 </a>
                             </li>
                             <?php
                             if (session('status') != "Sales Rep") {
                                 echo '<li>
                                             <a href="../ERM">
-                                                <i class="metismenu-icon pe-7s-note2"></i>
+                                            <i class="metismenu-icon pe-7s-user"></i>
                                             ERM
                                             </a>
                                         </li>';

@@ -28,6 +28,7 @@ session_start();
     * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
     -->
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon-16x16.png">
 <link href="../main.css" rel="stylesheet"></head>
 
 <body>
@@ -142,19 +143,14 @@ session_start();
                             <ul class="vertical-nav-menu">
                                 
                                 
-                            <li class="app-sidebar__heading">Dashboard</li>
-                            <li>
-                                    <a href="../dashboard">
-                                        <i class="metismenu-icon pe-7s-display2"></i>
-                                        Dashboard
-                                    </a>
-                                </li>
+                            
+                            
 
 
                                 <li class="app-sidebar__heading">Menu</li>
                                 <li>
                                     <a href="../products">
-                                        <i class="metismenu-icon pe-7s-display2"></i>
+                                    <i class="metismenu-icon pe-7s-box2"></i>
                                         Products
                                     </a>
                                 </li>
@@ -162,7 +158,7 @@ session_start();
                                 if(strpos(session('status'),'Sale') !== false){
                                     echo '<li>
                                     <a href="../stockin" class="mm-active">
-                                        <i class="metismenu-icon pe-7s-display2"></i>
+                                    <i class="metismenu-icon pe-7s-box1"></i>
                                         Stock In
                                     </a>
                                 </li>';
@@ -172,21 +168,27 @@ session_start();
                                 
                                 <li>
                                     <a href="../customer">
-                                        <i class="metismenu-icon pe-7s-display2"></i>
+                                    <i class="metismenu-icon pe-7s-users"></i>
                                         Customers
                                     </a>
                                 </li>
                                 <li>
                                     <a href="../saleorder">
-                                        <i class="metismenu-icon pe-7s-display2"></i>
+                                    <i class="metismenu-icon pe-7s-note2"></i>
                                         Saleorder
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="../dashboard">
+                                    <i class="metismenu-icon pe-7s-cash"></i>
+                                        Payment
                                     </a>
                                 </li>
                                 <?php
                                         if(session('status') != "Sales Rep"){
                                         echo '<li>
                                             <a href="../ERM">
-                                                <i class="metismenu-icon pe-7s-note2"></i>
+                                            <i class="metismenu-icon pe-7s-user"></i>
                                             ERM
                                             </a>
                                         </li>';
@@ -280,12 +282,8 @@ session_start();
                                     <div class="col-md-3">
                                         <div class="position-relative form-group"><label for="exampleEmail11" class="">ProductScale</label><input name="ProductScale" id="D4" placeholder="..." type="text" class="form-control"></div>
                                     </div>
-                                    <div class="col-md-3">
-                                        <div class="position-relative form-group"><label for="exampleEmail11" class="">QuantityInStock</label><input name="QuantityInStock" id="D5" placeholder="..." type="text" class="form-control"></div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="position-relative form-group"><label for="exampleEmail11" class="">BuyPrice</label><input name="BuyPrice" id="D6" placeholder="..." type="text" class="form-control"></div>
-                                    </div>  
+                                    
+                                     
                                     <div class="col-md-3">
                                         <div class="position-relative form-group"><label for="exampleEmail11" class="">MSRP</label><input name="MSRP" id="D7" placeholder="..." type="text" class="form-control"></div>
                                     </div>          
@@ -492,7 +490,7 @@ session_start();
                     document.querySelector('#dd').addEventListener('focus',linecheck);
                     
                     function re(){
-                        document.getElementById('id04').style.display='none';
+                        
                         var addproductline =  { 
                                              "Line": document.getElementById("C1").value.toString(),
                                              "text":document.getElementById("C4").value.toString(),
@@ -500,6 +498,7 @@ session_start();
                                              "image":document.getElementById("C3").value.toString(),
                         };
                         if(addproductline.Line != ""){
+                            
                             document.getElementById("C4").value = "";
                             document.getElementById("C2").value = "";
                             document.getElementById("C3").value = "";
@@ -510,6 +509,7 @@ session_start();
                                 data: addproductline,
                                 success: function(response){
                                     alert(response);
+                                    document.getElementById('id04').style.display='none';
                                 },
                                 error: function (error) {
                                 alert(error.responseText);
@@ -526,7 +526,7 @@ session_start();
                     }
 
                     function re2(){
-                        document.getElementById('id05').style.display='none';
+                        
                         var addproduct =  { 
                                              "code": document.getElementById("D1").value.toString(),
                                              "name":document.getElementById("D2").value.toString(),
@@ -537,6 +537,7 @@ session_start();
                                              "des":document.getElementById("D8").value.toString(),
                         };
                         if(addproduct.code != "" && addproduct.name != "" && addproduct.line != "" && addproduct.vender != "" && addproduct.scale != "" && addproduct.msrp != "" && addproduct.des !=""){
+                           
                         document.getElementById("D1").value = "";
                         document.getElementById("D2").value = "";
                         document.getElementById("D3").value = "";
@@ -550,6 +551,7 @@ session_start();
                                 data: addproduct,
                                 success: function(response){
                                     alert(response);
+                                    document.getElementById('id05').style.display='none';
                                 },
                                 error: function (error) {
                                 alert(error.responseText);
@@ -574,6 +576,7 @@ session_start();
                             }
                         }
                         document.querySelector('#B3').addEventListener('focus',notii);
+                        document.querySelector('#B4').addEventListener('focus',notii);
                         function notii(e){
                             var productc = document.getElementById("dd").value.toString();
 
@@ -711,7 +714,8 @@ session_start();
                                 data: stockin,
                                 success: function(response){
                                     alert(response);
-                            
+                                    jsonn.splice(0, jsonn.length);
+                                    Genlist();
                                     Gentable();
                                 },
                                 error: function (error) {
@@ -728,7 +732,6 @@ session_start();
 
                         function deleteitem(a){
                             var p = a.getAttribute("name");
-                            console.log(json);
                             $.ajax({
                                 type: 'delete',
                                 url: '/stockin/'+p,

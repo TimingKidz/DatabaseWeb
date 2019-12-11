@@ -25,8 +25,9 @@ session_start();
     =========================================================
     * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
     -->
-    
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon-16x16.png">
 <link href="../main.css" rel="stylesheet"></head>
+
 
 <body>
 
@@ -230,13 +231,9 @@ session_start();
                         <div class="app-sidebar__inner">
                             <ul class="vertical-nav-menu">
                                 
-                            <li class="app-sidebar__heading">Dashboard</li>
-                            <li>
-                                    <a href="../dashboard">
-                                        <i class="metismenu-icon pe-7s-display2"></i>
-                                        Dashboard
-                                    </a>
-                                </li>
+                            
+                                    
+                                
 
 
                                 <li class="app-sidebar__heading">Menu</li>
@@ -271,11 +268,17 @@ session_start();
                                         Saleorder
                                     </a>
                                 </li>
+                                <li>
+                                <a href="../dashboard">
+                                <i class="metismenu-icon pe-7s-cash"></i>
+                                        Payment
+                                    </a>
+                                </li>
                                 <?php
                                         if(session('status') != "Sales Rep"){
                                         echo '<li>
                                             <a href="../ERM">
-                                                <i class="metismenu-icon pe-7s-note2"></i>
+                                            <i class="metismenu-icon pe-7s-user"></i>
                                             ERM
                                             </a>
                                         </li>';
@@ -555,6 +558,9 @@ session_start();
                                 if(document.getElementById("voucher").value != ""){
                                     var dis = document.getElementById("disam").innerHTML.slice(1);
                                     var newTotal = parseFloat(total) - parseFloat(dis);
+                                    if(newTotal < 0){
+                                        newTotal = 0;
+                                    }
                                     document.getElementById("realcartTotal").innerHTML = "$"+newTotal.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
                                 }
                                 if($('#customernumber').val() != ""){
@@ -694,6 +700,9 @@ session_start();
                                     }else{
                                         discountAmount = data[0]["discountAmount"];
                                         var newTotal = parseFloat(total) - discountAmount;
+                                        if(newTotal < 0){
+                                            newTotal = 0;
+                                        }
                                         document.getElementById("realcartTotal").innerHTML = "$"+newTotal.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
                                         document.getElementById("disam").innerHTML = "$"+parseFloat(discountAmount).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
                                     }                                     

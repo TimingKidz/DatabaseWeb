@@ -27,7 +27,7 @@ session_start();
     =========================================================
     * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
     -->
-
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon-16x16.png">
     <link href="../main.css" rel="stylesheet">
 </head>
 
@@ -143,19 +143,14 @@ session_start();
                     <div class="app-sidebar__inner">
                         <ul class="vertical-nav-menu">
 
-                            <li class="app-sidebar__heading">Dashboard</li>
-                            <li>
-                                <a href="dashboard-boxes.html">
-                                    <i class="metismenu-icon pe-7s-display2"></i>
-                                    Dashboard
-                                </a>
-                            </li>
+                            
+                            
 
 
                             <li class="app-sidebar__heading">Menu</li>
                             <li>
                                 <a href="../products">
-                                    <i class="metismenu-icon pe-7s-display2"></i>
+                                <i class="metismenu-icon pe-7s-box2"></i>
                                     Products
                                 </a>
                             </li>
@@ -164,7 +159,7 @@ session_start();
                             if (strpos(session('status'), 'Sale') !== false) {
                                 echo '<li>
                                     <a href="../stockin" class="mm-active">
-                                        <i class="metismenu-icon pe-7s-display2"></i>
+                                    <i class="metismenu-icon pe-7s-box1"></i>
                                         Stock In
                                     </a>
                                 </li>';
@@ -173,21 +168,27 @@ session_start();
 
                             <li>
                                 <a href="../customer">
-                                    <i class="metismenu-icon pe-7s-display2"></i>
+                                <i class="metismenu-icon pe-7s-users"></i>
                                     Customers
                                 </a>
                             </li>
                             <li>
                                 <a href="../saleorder">
-                                    <i class="metismenu-icon pe-7s-display2"></i>
+                                <i class="metismenu-icon pe-7s-note2"></i>
                                     Saleorder
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../dashboard">
+                                <i class="metismenu-icon pe-7s-cash"></i>
+                                    Payment
                                 </a>
                             </li>
                             <?php
                             if (session('status') != "Sales Rep") {
                                 echo '<li>
                                             <a href="../ERM">
-                                                <i class="metismenu-icon pe-7s-note2"></i>
+                                            <i class="metismenu-icon pe-7s-user"></i>
                                             ERM
                                             </a>
                                         </li>';
@@ -391,8 +392,6 @@ session_start();
                             function delalert(stockinNumber){
                                 var p = stockinNumber.getAttribute("id");
                                 var n = stockinNumber.getAttribute("name");
-                                console.log(p+"  productCode");
-                                console.log(n+"  stockNumber");
                                 document.getElementById('id03').style.display='block';
                                 document.getElementById('delbut').setAttribute("name",p);
                                 document.getElementById('delbut').setAttribute("value",n);
@@ -402,7 +401,6 @@ session_start();
                             var stock=0;
                             function update(a){
                             var stockkNumber = a.getAttribute("id");
-                            console.log(stockkNumber);
                             document.getElementById('id04').style.display='block';
                             json=getstockHD();
                             json.forEach(function(a) {
@@ -419,16 +417,16 @@ session_start();
                             document.getElementById('id04').style.display='none'; 
                             var update =  { "date": document.getElementById("dates").value.toString(), 
                                              "quantityOrdered": document.getElementById("A4").value.toString(),
-                                             "stockNumber": stock.stockNumber.toString()
+                                             "stockNumber": stock.stockNumber.toString(),
+                                             "productCode":stock.productCode.toString()
                                              };
-                            console.log(update);
                             $.ajax({
                                 type: "put",
                                 url: "/updatestock",
                                 data: update,
                                 success: function(response){
                                     gentabledetail();
-                                    console.log('sss');
+                                    console.log('Update Success');
                                 },
                                 error: function (error) {
                                     console.log(error);
@@ -442,20 +440,12 @@ session_start();
                             function deleteitem(a){
                                 var p = a.getAttribute("name");
                                 var n = a.getAttribute("value");
-                                console.log(p+"  productCode");
-                                console.log(n+"  stockNumber");
-                                console.log(json);
-                                console.log('/stockin/'+n+'/'+p);
                             $.ajax({
                                 type: 'delete',
                                 url: '/stockin/'+n+'/'+p, 
                                 success: function (data) {         
                                     document.getElementById('id03').style.display='none';
-                                    const index = json.findIndex(x => x.productCode == p);
-                                    console.log(index)+"  index";
-                                    if (index !== undefined) json.splice(index, 1);
-                                    console.log(json);
-                                    console.log("delete success");
+                            
                                     gentabledetail();
                                 }
                             });
@@ -471,6 +461,7 @@ session_start();
                             });
                             document.getElementById("tablelist").innerHTML = tableproduct;
                             }
+                            var g_comment = 0;
                             function Gencom() {
                                 var data = getcomments(code);
                                 console.log(data);
@@ -479,6 +470,7 @@ session_start();
                                     if (a.stockNumber == code) {
                                         console.log("comments", a.comments)
                                         document.getElementById('commentLabel').innerHTML = `<label for="exampleText" class=""></label><input name="comment" id="textcomment" placeholder="Comments......" type="textarea" class="form-control" value="${a.comments}">`;
+                                        g_comment = a.comments;
                                     }
                                 });
                             }
@@ -529,7 +521,10 @@ session_start();
                                     data: comment,
                                     success: function(response) {
                                         //gencomment
-                                        Gencom();
+                                        if (g_comment != comment.comments) {
+                                                alert("Are you sure to edit ?");
+                                                Gencom();
+                                            }
                                     },
                                     error: function(error) {
                                         alert(error.responseText);

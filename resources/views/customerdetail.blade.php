@@ -13,7 +13,7 @@ session_start();
     <meta http-equiv="Content-Language" content="en">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
-    <title>Products</title>
+    <title>Customerdetail</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
     <meta name="description" content="This is an example dashboard created using build-in elements and components.">
     <meta name="msapplication-tap-highlight" content="no">
@@ -27,7 +27,7 @@ session_start();
     =========================================================
     * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
     -->
-
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon-16x16.png">
     <link href="../main.css" rel="stylesheet">
 </head>
 
@@ -147,12 +147,8 @@ session_start();
                     <div class="app-sidebar__inner">
                         <ul class="vertical-nav-menu">
 
-                            <li class="app-sidebar__heading">Dashboard</li>
-                            <li>
-                                <a href="../dashboard-boxes.html">
-                                    <i class="metismenu-icon pe-7s-display2"></i>
-                                    Dashboard
-                                </a>
+                            
+                                
                             </li>
 
 
@@ -187,16 +183,22 @@ session_start();
                                     Saleorder
                                 </a>
                             </li>
+                            <li>
+                            <a href="../dashboard">
+                            <i class="metismenu-icon pe-7s-cash"></i>
+                                    Payment
+                                </a>
+                            </li>
                             <?php
-                                        if(session('status') != "Sales Rep"){
-                                        echo '<li>
+                            if (session('status') != "Sales Rep") {
+                                echo '<li>
                                             <a href="../ERM">
-                                                <i class="metismenu-icon pe-7s-note2"></i>
+                                            <i class="metismenu-icon pe-7s-user"></i>
                                             ERM
                                             </a>
                                         </li>';
-                                        }
-                                ?>
+                            }
+                            ?>
 
 
                         </ul>
@@ -426,7 +428,7 @@ session_start();
 
                     function Genaddr() {
                         json = ajaxget();
-                        console.log("showjson",json);
+                        console.log("showjson", json);
                         var temp = "";
                         var t = "";
 
@@ -711,6 +713,7 @@ session_start();
                     }
 
                     function submitform() {
+
                         var Address = {
                             "addressLine1": document.getElementById("Address").value.toString(),
                             "addressLine2": document.getElementById("Address2").value.toString(),
@@ -720,22 +723,27 @@ session_start();
                             "postalCode": document.getElementById("PostalCode").value.toString(),
                             "customerNumber": customerID.toString()
                         };
-                        console.log("add", Address);
-                        $.ajax({
-                            type: "post",
-                            url: "/customerAddr",
-                            data: Address,
-                            success: function(response) {
-                                //gennaddr
+                        if (Address.addressLine1 != "" && Address.addressLine2 != "" && Address.city != "" && Address.city != "" && Address.state != "" && Address.country != "" && Address.postalCode != "") {
+                            console.log("add", Address);
+                            $.ajax({
+                                type: "post",
+                                url: "/customerAddr",
+                                data: Address,
+                                success: function(response) {
+                                    //gennaddr
 
-                                if (alert('Are you sure to Add?')) {} else window.location.reload();
-                            },
-                            error: function(error) {
-                                alert(error.responseText);
-                                console.log(error.responseText);
-                            }
-                        });
-                        document.getElementById('id02_add').style.display = 'none';
+                                    if (alert('Are you sure to Add?')) {} else window.location.reload();
+                                },
+                                error: function(error) {
+                                    alert(error.responseText);
+                                    console.log(error.responseText);
+                                }
+                            });
+                            document.getElementById('id02_add').style.display = 'none';
+                        } else {
+                            alert("Address : Adrress line1 , City , Country\nMust not be Null !!");
+                        }
+
                     }
 
                     function editform(mapNumber, customerID) {

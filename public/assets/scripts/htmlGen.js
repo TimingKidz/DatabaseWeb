@@ -49,6 +49,25 @@ function tablecustomer(customerNumber, customerName, city, country, postalCode, 
         </tr>`
 }
 
+function tablepay(i, col1, col2,col3,col4) {
+    return ` 
+    <tr>
+            <td class="text-center text-muted"> ${i}</td>
+            <td>
+                <div class="widget-content p-0">
+                    <div class="widget-content-wrapper">
+                        
+                        <div class="widget-content-left flex2">
+                            <div class="widget-heading">${col1}</div>
+                                <div class="widget-subheading opacity-7">${col2}</div>
+                        </div>
+                    </div>
+            </td>
+                <td class="text-center">${col3}</td>
+                <td class="text-center">${col4}</td>
+        </tr>`
+}
+
 function tableERM(a, b, c, e, f, g, h, op) {
     if (op == 1) {
         return ` 

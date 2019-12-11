@@ -47,6 +47,12 @@ class DataController extends Controller
         return json_encode($data);
     }
 
+    public function getpayment(Request $request)
+    {
+        $data = DB::select("select * from payments");
+        return json_encode($data);
+    }
+
     public function addproductline(Request $request)
     {
         try {

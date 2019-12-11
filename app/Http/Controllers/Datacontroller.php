@@ -177,6 +177,7 @@ class DataController extends Controller
         $data = DB::select("select * from stockinHeader join stockinDetails on stockinNumber=stockNumber where stockNumber='$stockinNumber'");
         return json_encode($data);
     }
+ 
 
     public function customerdetail($id)
     {
@@ -216,13 +217,31 @@ class DataController extends Controller
 
     public function deletestockHeader($code)
     {
-        $deleted = DB::delete("delete from stockinHeader where stockNumber = '$code'");
+        $detail = DB::select("select * from stockinDetails where stockinNumber='$code'");
+        
+        
+        foreach($detail as $value){
+            $qty = DB::select("select quantityInStock from products where productCode='$value->productCode'");
+            $qtyordered = DB::select("select quantityOrdered from stockinDetails where stockinNumber='$value->stockinNumber' and productCode='$value->productCode'");
+            $qty=(int)$qty[0]->quantityInStock;
+            $qtyordered=(int)$qtyordered[0]->quantityOrdered;
+            $totalqty=$qty-$qtyordered;
+            DB::update("update products set quantityInStock = $totalqty where productCode='$value->productCode'");
+        }
+        DB::delete("delete from stockinHeader where stockNumber = '$code'");
         return 'success';
     }
 
     public function deletestockDetail($stockinNumber, $productCode)
-    {
-        $deleted = DB::delete("delete from stockinDetails where productCode ='$productCode' and stockinNumber='$stockinNumber'");
+    {   
+        $qty = DB::select("select quantityInStock from products where productCode='$productCode'");
+        $qtyordered = DB::select("select quantityOrdered from stockinDetails where stockinNumber='$stockinNumber' and productCode='$productCode'");
+        $qty=(int)$qty[0]->quantityInStock;
+        $qtyordered=(int)$qtyordered[0]->quantityOrdered;
+        $totalqty=$qty-$qtyordered;
+        DB::delete("delete from stockinDetails where productCode ='$productCode' and stockinNumber='$stockinNumber'");
+        DB::update("update products set quantityInStock = $totalqty where productCode='$productCode'");
+
         return 'success';
     }
 

@@ -440,7 +440,6 @@ session_start();
                             function deleteitem(a){
                                 var p = a.getAttribute("name");
                                 var n = a.getAttribute("value");
-                                console.log(json);
                             $.ajax({
                                 type: 'delete',
                                 url: '/stockin/'+n+'/'+p, 

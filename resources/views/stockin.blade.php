@@ -28,6 +28,7 @@ session_start();
     * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
     -->
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon-16x16.png">
 <link href="../main.css" rel="stylesheet"></head>
 
 <body>

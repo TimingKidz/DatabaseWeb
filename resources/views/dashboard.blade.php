@@ -30,6 +30,7 @@ session_start();
     
 <link href="../main.css" rel="stylesheet"></head>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon-16x16.png">
 <body>
 
     <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">

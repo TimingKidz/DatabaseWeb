@@ -452,11 +452,7 @@ session_start();
                                 url: '/stockin/'+n+'/'+p, 
                                 success: function (data) {         
                                     document.getElementById('id03').style.display='none';
-                                    const index = json.findIndex(x => x.productCode == p);
-                                    console.log(index)+"  index";
-                                    if (index !== undefined) json.splice(index, 1);
-                                    console.log(json);
-                                    console.log("delete success");
+                            
                                     gentabledetail();
                                 }
                             });

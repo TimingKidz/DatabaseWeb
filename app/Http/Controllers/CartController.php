@@ -127,6 +127,9 @@ class CartController extends Controller
                 $total = $request->session()->get('cartTotal');
             }else{
                 $total = $request->session()->get('cartTotal') - $request->vdis;
+                if($total < 0){
+                    $total = 0;
+                }
                 DB::update("update voucher
                 set remaining = remaining - 1
                 where voucherNumber = '$request->vcode'");

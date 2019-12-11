@@ -558,6 +558,9 @@ session_start();
                                 if(document.getElementById("voucher").value != ""){
                                     var dis = document.getElementById("disam").innerHTML.slice(1);
                                     var newTotal = parseFloat(total) - parseFloat(dis);
+                                    if(newTotal < 0){
+                                        newTotal = 0;
+                                    }
                                     document.getElementById("realcartTotal").innerHTML = "$"+newTotal.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
                                 }
                                 if($('#customernumber').val() != ""){
@@ -697,6 +700,9 @@ session_start();
                                     }else{
                                         discountAmount = data[0]["discountAmount"];
                                         var newTotal = parseFloat(total) - discountAmount;
+                                        if(newTotal < 0){
+                                            newTotal = 0;
+                                        }
                                         document.getElementById("realcartTotal").innerHTML = "$"+newTotal.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
                                         document.getElementById("disam").innerHTML = "$"+parseFloat(discountAmount).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
                                     }                                     

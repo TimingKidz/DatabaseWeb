@@ -326,20 +326,21 @@ session_start();
                             </div>
                             <div class="col-sm-1 mt-3">
                                 <button class= "col-sm mt-2 btn btn-warning"onclick="submitst()">Add</button>
-                            </div>
+                            </div>                      
+                        </div>
                             <div class="col-sm-6"><h5 class="card-title">Stock-in</h5></div>
                            
-                        </div>                        
                         <div class="row scroll-area-xs">   
                             <div class="scrollbar-container ps--active-y"> 
                                 <div class="col-md-12">
                                     <div class="table-responsive">
-                                        <table class="align-middle mb-0 table table-wrapper table-borderless table-hover">
+                                        <table style="table-layout: fixed" class="align-middle mb-0 table table-wrapper table-borderless table-hover">
                                             <thead>
                                                 <tr>
-                                                    <th class="text-center">#</th>
-                                                    <th>ProductCode</th>
-                                                    <th class="text-center">Quantity</th>
+                                                    <th width="20%" class="text-center">#</th>
+                                                    <th width="50%">ProductCode</th>
+                                                    <th width="20%" class="text-center">Quantity</th>
+                                                    <th width="10%" class="text-center"></th>
                                                 </tr>
                                             </thead>
                                             <tbody id="cartp">
@@ -490,16 +491,18 @@ session_start();
                     document.querySelector('#dd').addEventListener('focus',linecheck);
                     
                     function re(){
-                        document.getElementById('id04').style.display='none';
+                        
                         var addproductline =  { 
                                              "Line": document.getElementById("C1").value.toString(),
                                              "text":document.getElementById("C4").value.toString(),
                                              "html": document.getElementById("C2").value.toString(),
                                              "image":document.getElementById("C3").value.toString(),
                         };
-                        document.getElementById("C4").value = "";
-                        document.getElementById("C2").value = "";
-                        document.getElementById("C3").value = "";
+                        if(addproductline.Line != ""){
+                            
+                            document.getElementById("C4").value = "";
+                            document.getElementById("C2").value = "";
+                            document.getElementById("C3").value = "";
                             console.log(addproductline);
                             $.ajax({
                                 type: "post",
@@ -507,6 +510,7 @@ session_start();
                                 data: addproductline,
                                 success: function(response){
                                     alert(response);
+                                    document.getElementById('id04').style.display='none';
                                 },
                                 error: function (error) {
                                 alert(error.responseText);
@@ -514,12 +518,16 @@ session_start();
 
                             });
 
-                        pullline();
-                        linecheck();
+                            pullline();
+                            linecheck();
+                        }else{
+                            alert("ProductLine must be not null !!");
+                        }
+                        
                     }
 
                     function re2(){
-                        document.getElementById('id05').style.display='none';
+                        
                         var addproduct =  { 
                                              "code": document.getElementById("D1").value.toString(),
                                              "name":document.getElementById("D2").value.toString(),
@@ -527,16 +535,14 @@ session_start();
                                              "vender":document.getElementById("D3").value.toString(),
                                              "scale":document.getElementById("D4").value.toString(),
                                              "msrp":document.getElementById("D7").value.toString(),
-                                             
-                                             
                                              "des":document.getElementById("D8").value.toString(),
                         };
+                        if(addproduct.code != "" && addproduct.name != "" && addproduct.line != "" && addproduct.vender != "" && addproduct.scale != "" && addproduct.msrp != "" && addproduct.des !=""){
+                           
                         document.getElementById("D1").value = "";
                         document.getElementById("D2").value = "";
                         document.getElementById("D3").value = "";
                         document.getElementById("D4").value = "";
-                        
-                        
                         document.getElementById("D7").value = "";
                         document.getElementById("D8").value = "";
                             console.log(addproduct);
@@ -546,6 +552,7 @@ session_start();
                                 data: addproduct,
                                 success: function(response){
                                     alert(response);
+                                    document.getElementById('id05').style.display='none';
                                 },
                                 error: function (error) {
                                 alert(error.responseText);
@@ -553,6 +560,10 @@ session_start();
 
                             });
                         pullpro();
+                        }else{
+                            alert("input must not be null !!")
+                        }
+                        
                     }
                     function linecheck(e){
                         productline = document.getElementById("tags").value.toString();
@@ -566,6 +577,7 @@ session_start();
                             }
                         }
                         document.querySelector('#B3').addEventListener('focus',notii);
+                        document.querySelector('#B4').addEventListener('focus',notii);
                         function notii(e){
                             var productc = document.getElementById("dd").value.toString();
 
@@ -691,7 +703,6 @@ session_start();
                         });
 
                         function addstockin(){
-                            
                            if(jsonn.length > 0){
                             var stockin =  { "date":document.getElementById("B5").value.toString(),
                                              "comments":document.getElementById("A4").value.toString(),

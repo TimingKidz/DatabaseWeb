@@ -486,7 +486,7 @@ session_start();
                         source: proarr
                         });
                     } );
-                    document.querySelector('#tags').addEventListener('blur',linecheck);
+                    document.querySelector('#dd').addEventListener('focus',linecheck);
                     
                     function re(){
                         document.getElementById('id04').style.display='none';
@@ -564,7 +564,7 @@ session_start();
                                  console.log(pro);
                             }
                         }
-                        document.querySelector('#dd').addEventListener('blur',notii);
+                        document.querySelector('#B3').addEventListener('focus',notii);
                         function notii(e){
                             var productc = document.getElementById("dd").value.toString();
 

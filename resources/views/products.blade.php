@@ -302,6 +302,42 @@ session_start();
             </div>
         </div> 
     </div>
+    <div id="id04" class="modal"> 
+        <div class="modal-content animate"> 
+            <div class="main-card card">
+                <div class="card-body "><h4></h4>
+                <span onclick="document.getElementById('id04').style.display='none'" class="close" title="Close Modal">×</span> 
+                    <div class="">
+                        <div class="main-card">
+                            <div class="card-body"><h5 class="card-title">Add Voucher</h5>
+                                <div class="form-row">
+                                    <div class="col-md-4 my-auto">
+                                        <div class="position-relative form-group"><label for="exampleEmail11" class="">VoucherName</label><input name="VoucherNumber" id="E1" placeholder="..." type="text" class="form-control"></div>
+                                    </div>
+                                    <div class="col-md-4 my-auto">
+                                        <div class="position-relative form-group"><label for="exampleEmail11" class="">remaining</label><input name="remaining" id="E2" placeholder="..." type="number" min="0" class="form-control"></div>
+                                    </div>
+                                    <div class="col-md-4 my-auto">
+                                        <div class="position-relative form-group"><label for="exampleEmail11" class="">discountAmount</label><input name="DiscountAmount" id="E3" placeholder="..." type="number" min="0" class="form-control"></div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-md-5">
+                                        <div class="position-relative form-group"><label for="exampleEmail11" class="">expireDate</label><input name="ExpireDate" id="E4" placeholder="..." type="date" class="form-control"></div>
+                                    </div>        
+                                </div>
+                            </div>
+                        <div class="form-row">
+                            <div class="col-md-12 text-right">
+                                <button type="button" onclick="re()" class="btn btn-success">Add</button>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div> 
+    </div>
               
                
     <div id="id02" class="modal" id="detailpopup"> 
@@ -341,6 +377,15 @@ session_start();
                                             <button class="close"></button>
                                         </div>
                                     </div>
+                                    <?php
+                                        if(session('status') == "VP Marketing")
+                                        {
+                                        echo '<div class="col-md-8 text-right">
+                                                <button type="button" onclick="popupVoucher()" class="btn btn-success">Add Voucher</button>
+                                        </div>';
+                                        }
+                                    ?>
+                                    
                                 </div>
                                     <div class="table-responsive">
                                         <table class="align-middle mb-0 table table-borderless table-striped table-hover">
@@ -713,6 +758,39 @@ session_start();
                             });
                             document.getElementById("detailpop").innerHTML = text;
                         }
+
+                        function popupVoucher(){
+                            document.getElementById('id04').style.display='block';
+                        }
+
+                        function re(){
+                        document.getElementById('id04').style.display='none';
+                        var addVoucher =  { 
+                                             "VoucherNumber": document.getElementById("E1").value.toString(),
+                                             "remaining":document.getElementById("E2").value.toString(),
+                                             "discountAmount": document.getElementById("E3").value.toString(),
+                                             "expireDate":document.getElementById("E4").value.toString(),
+                        };
+                        document.getElementById("E1").value = "";
+                        document.getElementById("E2").value = "";
+                        document.getElementById("E3").value = "";
+                        document.getElementById("E4").value = "";
+                            console.log(addVoucher);
+                            $.ajax({
+                                type: "post",
+                                url: "/addVoucher",
+                                data: addVoucher,
+                                success: function(response){
+                                    if(response == 1){
+                                        alert("Add Success");                             
+                                    }else{
+                                        alert("Voucher Name Already exist.");
+                                    }
+                                
+                            }
+
+                            });
+                    }
                                             
                     </script>
                     

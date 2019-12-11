@@ -63,6 +63,7 @@ class Kernel extends HttpKernel
         'checkuser' => \App\Http\Middleware\checkuser::class,
         'checkauth' => \App\Http\Middleware\Checkauthen::class,
         'checkauthsale' => \App\Http\Middleware\Checkauthensale::class,
+        'checkvp' => \App\Http\Middleware\vpmarketing::class,
     ];
 
     /**

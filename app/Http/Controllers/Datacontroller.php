@@ -119,8 +119,19 @@ class DataController extends Controller
         return json_encode($data);
     }
 
+    public function VoucherAdd(Request $request)
+    {   
+        try{
+            DB::insert("insert into voucher
+            values('$request->VoucherNumber','$request->remaining','$request->discountAmount','$request->expireDate' )");
+            return 1;
+        }catch (Exception $e){
+            return 2;
+        }
+    }
+
     public function getproductline()
-    {
+    {   
         $data = DB::select('select * from productlines');
         return json_encode($data);
     }

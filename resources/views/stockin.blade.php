@@ -693,7 +693,7 @@ session_start();
                         });
 
                         function addstockin(){
-                           if(jsonn.legth > 0){
+                           if(jsonn.length > 0){
                             var stockin =  { "date":document.getElementById("B5").value.toString(),
                                              "comments":document.getElementById("A4").value.toString(),
                                              "dataarr":jsonn};

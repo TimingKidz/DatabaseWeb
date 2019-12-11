@@ -15683,6 +15683,11 @@ legend {
     height: 400px
 }
 
+.scroll-area-c {
+    overflow-x: hidden;
+    height: 340px
+}
+
 .scroll-area-ad {
     height: 121.2px;
     overflow-x: hidden;
@@ -24528,6 +24533,7 @@ span.psw {
 
 
 /*style the model content box*/
+
 .modal-content-more {
     background-color: #fefefe;
     margin: 5% auto 15% auto;
@@ -24556,6 +24562,7 @@ span.psw {
     margin: 5% auto 15% auto;
     width: 35%;
 }
+
 
 /*style the close button*/
 
@@ -24609,4 +24616,3 @@ span.psw {
         width: 100%;
     }
 }
-

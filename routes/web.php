@@ -22,23 +22,34 @@ Route::group(['middleware' => 'checkuser'], function () {
     Route::post('/getAddr/{id}','CartController@getAddr');
     Route::post('/getVoucher/{id}','CartController@getVoucher');
     Route::post('/getAddToCart/{id}/{qty}','CartController@getAddToCart');  
-    Route::post('/deleteFromCart/{id}','CartController@deleteFromCart');  
+    Route::post('/deleteFromCart/{id}','CartController@deleteFromCart');
     Route::post('/clearall','CartController@clearall');  
     Route::put('/proceed','CartController@cartCheckout');
 
     Route::get('/getAllProducts', 'DataController@getAllProduct');
-    Route::get('/products', 'DataController@indexem');
+    Route::get('/products', 'DataController@indexem'); 
     Route::get('/customer', 'DataController@customer');
     Route::get('/customer/{id}', 'DataController@customerdetail');
     Route::group(['middleware' => 'checkauth'], function () {
         Route::get('/ERM', 'DataController@erm');
         Route::get('/ermReq', 'DataController@ermReq');
     });
-    Route::group(['middleware' => 'checkauthsale'], function () { });
+
+    Route::group(['middleware' => 'checkvp'], function () {
+       Route::post('/addVoucher','DataController@VoucherAdd');  
+    });
+    Route::group(['middleware' => 'checkauthsale'], function () { 
+        Route::get('/stockin', 'DataController@stockin');
+        Route::delete('/stockin/{code}','DataController@deletestockHeader');
+        Route::delete('/stockin/{stockinNumber}/{productCode}','DataController@deletestockDetail');
+        Route::get('/stockin/{stockNumber}','DataController@stockindetails');
+        Route::get('/stockinreq/{stockinNumber}','DataController@stockHD');
+        Route::get('/stockincomment/{code}','DataController@getcommentstockin');
+        Route::post('/addstock','DataController@addstockin');
+        Route::get('/getstock','DataController@getstockin');
+    });
     Route::delete('/products/{code}', 'DataController@deletepro');
     Route::delete('/customers/{code}', 'DataController@deletecus');
-    Route::delete('/stockin/{code}','DataController@deletestockHeader');
-    Route::delete('/stockin/{stockinNumber}/{productCode}','DataController@deletestockDetail');
     Route::post('/getproductline','DataController@getproductline');
     Route::post('/getProducts','DataController@getProduct');
     Route::post('/logout', 'DataController@logout');
@@ -51,15 +62,13 @@ Route::group(['middleware' => 'checkuser'], function () {
     Route::get('/saleorder/{id}', 'DataController@saleorderdetail');
     Route::post('/addproduct','DataController@addproduct');
     Route::post('/addproductline','DataController@addproductline');
-    Route::get('/stockin', 'DataController@stockin');
-    Route::post('/addstock','DataController@addstockin');
-    Route::get('/getstock','DataController@getstockin');
-    Route::get('/stockin/{stockNumber}','DataController@stockindetails');
-    Route::get('/stockinreq/{stockinNumber}','DataController@stockHD');
-    Route::get('/stockincomment/{code}','DataController@getcommentstockin');
+    
+
+
     Route::post('/customerAddr', 'DataController@addMulAddr');
     Route::put('/customerAddrupdate', 'DataController@updateMulAddr');
     Route::post('/customerAddrdelete/{map}', 'DataController@deleteMulAddr');
+    Route::post('/findaddrshiped/{order}','AddrController@findshiped');
     // Route::get('/getcus','DataController@cus');
     Route::post('/customer/{id}', 'DataController@customerdetail_id');
     Route::put('/comment/{id}', 'DataController@editComment');

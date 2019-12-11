@@ -92,8 +92,11 @@ class CartController extends Controller
     }
 
     public function getVoucher(Request $request, $id){
-        if(!($request->session()->has('cart')) || $id == "null"){
+        if($id == "null"){
             return 0;
+        }
+        if(!$request->session()->has('cart')){
+            return -1;
         }
         try{
             $data = DB::select("select * from voucher where voucherNumber = '$id'");

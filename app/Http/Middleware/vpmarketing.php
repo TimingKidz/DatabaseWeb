@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 
-class Checkauthensale
+class vpmarketing
 {
     /**
      * Handle an incoming request.
@@ -15,12 +15,9 @@ class Checkauthensale
      */
     public function handle($request, Closure $next)
     {
-        
-        if(!(strpos($request->session()->get('status'),'Sale') !== false)){
+        if($request->session()->get('status') != "VP Marketing"){
             return redirect('/products');
         }
-       
-    
-    return $next($request);
+        return $next($request);
     }
 }

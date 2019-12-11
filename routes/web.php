@@ -22,17 +22,21 @@ Route::group(['middleware' => 'checkuser'], function () {
     Route::post('/getAddr/{id}','CartController@getAddr');
     Route::post('/getVoucher/{id}','CartController@getVoucher');
     Route::post('/getAddToCart/{id}/{qty}','CartController@getAddToCart');  
-    Route::post('/deleteFromCart/{id}','CartController@deleteFromCart');  
+    Route::post('/deleteFromCart/{id}','CartController@deleteFromCart');
     Route::post('/clearall','CartController@clearall');  
     Route::put('/proceed','CartController@cartCheckout');
 
     Route::get('/getAllProducts', 'DataController@getAllProduct');
-    Route::get('/products', 'DataController@indexem');
+    Route::get('/products', 'DataController@indexem'); 
     Route::get('/customer', 'DataController@customer');
     Route::get('/customer/{id}', 'DataController@customerdetail');
     Route::group(['middleware' => 'checkauth'], function () {
         Route::get('/ERM', 'DataController@erm');
         Route::get('/ermReq', 'DataController@ermReq');
+    });
+
+    Route::group(['middleware' => 'checkvp'], function () {
+       Route::post('/addVoucher','DataController@VoucherAdd');  
     });
     Route::group(['middleware' => 'checkauthsale'], function () { 
         Route::get('/stockin', 'DataController@stockin');

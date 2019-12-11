@@ -142,19 +142,14 @@ session_start();
                             <ul class="vertical-nav-menu">
                                 
                                 
-                            <li class="app-sidebar__heading">Dashboard</li>
-                            <li>
-                                    <a href="../dashboard">
-                                        <i class="metismenu-icon pe-7s-display2"></i>
-                                        Dashboard
-                                    </a>
-                                </li>
+                            
+                            
 
 
                                 <li class="app-sidebar__heading">Menu</li>
                                 <li>
                                     <a href="../products">
-                                        <i class="metismenu-icon pe-7s-display2"></i>
+                                    <i class="metismenu-icon pe-7s-box2"></i>
                                         Products
                                     </a>
                                 </li>
@@ -162,7 +157,7 @@ session_start();
                                 if(strpos(session('status'),'Sale') !== false){
                                     echo '<li>
                                     <a href="../stockin" class="mm-active">
-                                        <i class="metismenu-icon pe-7s-display2"></i>
+                                    <i class="metismenu-icon pe-7s-box1"></i>
                                         Stock In
                                     </a>
                                 </li>';
@@ -172,21 +167,27 @@ session_start();
                                 
                                 <li>
                                     <a href="../customer">
-                                        <i class="metismenu-icon pe-7s-display2"></i>
+                                    <i class="metismenu-icon pe-7s-users"></i>
                                         Customers
                                     </a>
                                 </li>
                                 <li>
                                     <a href="../saleorder">
-                                        <i class="metismenu-icon pe-7s-display2"></i>
+                                    <i class="metismenu-icon pe-7s-note2"></i>
                                         Saleorder
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="../dashboard">
+                                    <i class="metismenu-icon pe-7s-cash"></i>
+                                        Payment
                                     </a>
                                 </li>
                                 <?php
                                         if(session('status') != "Sales Rep"){
                                         echo '<li>
                                             <a href="../ERM">
-                                                <i class="metismenu-icon pe-7s-note2"></i>
+                                            <i class="metismenu-icon pe-7s-user"></i>
                                             ERM
                                             </a>
                                         </li>';
@@ -280,12 +281,8 @@ session_start();
                                     <div class="col-md-3">
                                         <div class="position-relative form-group"><label for="exampleEmail11" class="">ProductScale</label><input name="ProductScale" id="D4" placeholder="..." type="text" class="form-control"></div>
                                     </div>
-                                    <div class="col-md-3">
-                                        <div class="position-relative form-group"><label for="exampleEmail11" class="">QuantityInStock</label><input name="QuantityInStock" id="D5" placeholder="..." type="text" class="form-control"></div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="position-relative form-group"><label for="exampleEmail11" class="">BuyPrice</label><input name="BuyPrice" id="D6" placeholder="..." type="text" class="form-control"></div>
-                                    </div>  
+                                    
+                                     
                                     <div class="col-md-3">
                                         <div class="position-relative form-group"><label for="exampleEmail11" class="">MSRP</label><input name="MSRP" id="D7" placeholder="..." type="text" class="form-control"></div>
                                     </div>          
@@ -529,16 +526,16 @@ session_start();
                                              "vender":document.getElementById("D3").value.toString(),
                                              "scale":document.getElementById("D4").value.toString(),
                                              "msrp":document.getElementById("D7").value.toString(),
-                                             "qty": document.getElementById("D5").value.toString(),
-                                             "buy":document.getElementById("D6").value.toString(),
+                                             
+                                             
                                              "des":document.getElementById("D8").value.toString(),
                         };
                         document.getElementById("D1").value = "";
                         document.getElementById("D2").value = "";
                         document.getElementById("D3").value = "";
                         document.getElementById("D4").value = "";
-                        document.getElementById("D5").value = "";
-                        document.getElementById("D6").value = "";
+                        
+                        
                         document.getElementById("D7").value = "";
                         document.getElementById("D8").value = "";
                             console.log(addproduct);
@@ -693,7 +690,8 @@ session_start();
                         });
 
                         function addstockin(){
-                           if(jsonn.legth > 0){
+                            
+                           if(jsonn.length > 0){
                             var stockin =  { "date":document.getElementById("B5").value.toString(),
                                              "comments":document.getElementById("A4").value.toString(),
                                              "dataarr":jsonn};
@@ -705,7 +703,8 @@ session_start();
                                 data: stockin,
                                 success: function(response){
                                     alert(response);
-                            
+                                    jsonn.splice(0, jsonn.length);
+                                    Genlist();
                                     Gentable();
                                 },
                                 error: function (error) {

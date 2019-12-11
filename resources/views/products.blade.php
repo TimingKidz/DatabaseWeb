@@ -222,13 +222,9 @@ session_start();
                         <div class="app-sidebar__inner">
                             <ul class="vertical-nav-menu">
                                 
-                            <li class="app-sidebar__heading">Dashboard</li>
-                            <li>
-                                    <a href="../dashboard">
-                                        <i class="metismenu-icon pe-7s-display2"></i>
-                                        Dashboard
-                                    </a>
-                                </li>
+                            
+                                    
+                                
 
 
                                 <li class="app-sidebar__heading">Menu</li>
@@ -263,11 +259,17 @@ session_start();
                                         Saleorder
                                     </a>
                                 </li>
+                                <li>
+                                <a href="../dashboard">
+                                <i class="metismenu-icon pe-7s-cash"></i>
+                                        Payment
+                                    </a>
+                                </li>
                                 <?php
                                         if(session('status') != "Sales Rep"){
                                         echo '<li>
                                             <a href="../ERM">
-                                                <i class="metismenu-icon pe-7s-note2"></i>
+                                            <i class="metismenu-icon pe-7s-user"></i>
                                             ERM
                                             </a>
                                         </li>';

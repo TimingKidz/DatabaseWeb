@@ -392,8 +392,6 @@ session_start();
                             function delalert(stockinNumber){
                                 var p = stockinNumber.getAttribute("id");
                                 var n = stockinNumber.getAttribute("name");
-                                console.log(p+"  productCode");
-                                console.log(n+"  stockNumber");
                                 document.getElementById('id03').style.display='block';
                                 document.getElementById('delbut').setAttribute("name",p);
                                 document.getElementById('delbut').setAttribute("value",n);
@@ -403,7 +401,6 @@ session_start();
                             var stock=0;
                             function update(a){
                             var stockkNumber = a.getAttribute("id");
-                            console.log(stockkNumber);
                             document.getElementById('id04').style.display='block';
                             json=getstockHD();
                             json.forEach(function(a) {
@@ -420,16 +417,16 @@ session_start();
                             document.getElementById('id04').style.display='none'; 
                             var update =  { "date": document.getElementById("dates").value.toString(), 
                                              "quantityOrdered": document.getElementById("A4").value.toString(),
-                                             "stockNumber": stock.stockNumber.toString()
+                                             "stockNumber": stock.stockNumber.toString(),
+                                             "productCode":stock.productCode.toString()
                                              };
-                            console.log(update);
                             $.ajax({
                                 type: "put",
                                 url: "/updatestock",
                                 data: update,
                                 success: function(response){
                                     gentabledetail();
-                                    console.log('sss');
+                                    console.log('Update Success');
                                 },
                                 error: function (error) {
                                     console.log(error);
@@ -443,10 +440,7 @@ session_start();
                             function deleteitem(a){
                                 var p = a.getAttribute("name");
                                 var n = a.getAttribute("value");
-                                console.log(p+"  productCode");
-                                console.log(n+"  stockNumber");
                                 console.log(json);
-                                console.log('/stockin/'+n+'/'+p);
                             $.ajax({
                                 type: 'delete',
                                 url: '/stockin/'+n+'/'+p, 

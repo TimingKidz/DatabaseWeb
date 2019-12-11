@@ -355,8 +355,14 @@ class DataController extends Controller
     public function updatestock(Request $request)
     {
         try {
-            $data = DB::update("update stockinHeader set stockDate= '$request->date' where stockNumber = '$request->stockNumber'");
-            $data = DB::update("update stockinDetails set quantityOrdered='$request->quantityOrdered' where stockinNumber='$request->stockNumber'");
+            $qty = DB::select("select quantityInStock from products where productCode='$request->productCode'");
+            $qtyordered = DB::select("select quantityOrdered from stockinDetails where stockinNumber='$request->stockNumber' and productCode='$request->productCode'");
+            $qty=(int)$qty[0]->quantityInStock;
+            $qtyordered=(int)$qtyordered[0]->quantityOrdered;
+            $totalqty=$qty-$qtyordered+(int)$request->quantityOrdered;
+            DB::update("update stockinHeader set stockDate= '$request->date' where stockNumber = '$request->stockNumber'");
+            DB::update("update stockinDetails set quantityOrdered='$request->quantityOrdered' where stockinNumber='$request->stockNumber' and productCode='$request->productCode'");
+            DB::update("update products set quantityInStock = $totalqty where productCode='$request->productCode'");
         } catch (Exception $e) {
             echo $e->getMessage();
         }

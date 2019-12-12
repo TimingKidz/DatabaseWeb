@@ -13,7 +13,7 @@ session_start();
     <meta http-equiv="Content-Language" content="en">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     
-    <title>Products</title>
+    <title>Payments</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
     <meta name="description" content="This is an example dashboard created using build-in elements and components.">
     <meta name="msapplication-tap-highlight" content="no">
@@ -257,20 +257,55 @@ session_start();
                                             <input type="text" class="form-control" id="A2" placeholder="Cheque Number..." >
                                             
                                         </div>
-                                        <div class="col-md-3 mb-3">
+                                        <div class="col-md-2 mb-3">
                                             <label for="validationCustom04">Date</label>
                                             <input type="Date" class="form-control mt-2" id="A3">
                                         </div>
-                                        <div class="col-md-3 mb-3">
+                                        <div class="col-md-2 mb-3">
                                             <label for="validationCustom05">Total Amount</label>
                                             <input type="text" class="form-control" id="A4" placeholder="Total Amount..." >
                                            
                                         </div>
+                                        <div class="col-md-2 mb-3 mt-4">
+                                        <button class="col-sm mt-3 btn btn-primary" onclick="addpayment()">Submit</button>
+                                        </div>
                                     </div>
-                                    <button class="btn btn-primary" onclick="addpayment()">Submit form</button>
+                                 
                                 </div>
                             </div>
                         </div>
+                        <div class="main-card mb-3 card">
+                                    <div class="card-header">
+                                    <div class="mr-2">
+                                        Stock-In
+                                    </div>  
+                                    
+                                    <div class="col-md-1">
+                                        <div class="search-wrapper">
+                                            <div class="input-holder">
+                                                <input type="text" class="search-input" placeholder="Type to search" id="searchinput">
+                                                <button class="search-icon"><span></span></button>
+                                            </div>
+                                            <button class="close"></button>
+                                        </div>
+                                    </div>
+                                </div>
+                                    <div class="table-responsive">
+                                        <table class="align-middle mb-0 table table-borderless table-striped table-hover">
+                                            <thead>
+                                            <tr>
+                                                <th class="text-center">#</th>                                            
+                                                <th>Cheque Number</th>
+                                                <th class="text-center">Date</th>
+                                                <th class="text-center">Total</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody id="tablelist">
+                                                <!-- table -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
                   
  
                            
@@ -291,7 +326,45 @@ session_start();
                         });
                         
                  
+                        var json = 0;
+                        function getpayment(){
+                            var data = 0;
+                            $.ajax({
+                                type: "post",
+                                url: "/getpayment",
+                                success: function(response){
+                                    data = response;
+                                },
+                                async: false,
+                            });
+                            return JSON.parse(data);
+                        }
+
+                        
+                        function Gentable(){
+                            json = getpayment();
+                            var tableproduct = "";
+                            var i = 0;
+                            json.forEach(function(a) {
+                                tableproduct += tablepay(i++,a.checkNumber,a.customerNumber,a.paymentDate,a.amount);
+                            });
+                            document.getElementById("tablelist").innerHTML = tableproduct;
+                        }
+                        Gentable();
                 
+                        document.querySelector('#searchinput').addEventListener('input',noti);
+                        function noti(e){
+                            var input = document.getElementById("searchinput");
+                            var filter = input.value.toUpperCase();
+                            var i = 0 ;
+                            var tableproduct = "";
+                            json.forEach(function(a) {
+                                if (((a.customerNumber.toString()).toUpperCase()).includes(filter)){
+                                    tableproduct +=  tablepay(i++,a.checkNumber,a.customerNumber,a.paymentDate,a.amount);
+                                }
+                            });
+                            document.getElementById("tablelist").innerHTML = tableproduct;
+                        }
                     
                     var d = new Date();
                     document.getElementById('A3').value = `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`;

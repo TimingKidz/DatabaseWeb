@@ -64,7 +64,7 @@ Route::group(['middleware' => 'checkuser'], function () {
     Route::post('/addproductline','DataController@addproductline');
     Route::post('/newPayments','DataController@newPayment');
 
-
+    Route::post('/getpayment', 'DataController@getpayment');
     Route::post('/customerAddr', 'DataController@addMulAddr');
     Route::put('/customerAddrupdate', 'DataController@updateMulAddr');
     Route::post('/customerAddrdelete/{map}', 'DataController@deleteMulAddr');

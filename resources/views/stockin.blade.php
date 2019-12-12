@@ -307,7 +307,7 @@ session_start();
     </div>
               
  
-        <div class="col-md-12">
+        
             <div class="main-card mb-2 card">
                 <div class="main-card">
                     <div class="card-body">
@@ -408,7 +408,7 @@ session_start();
                             
                         </div>
                     </div>
-                    </div>
+                   
                     
                     <script src="../assets/scripts/htmlGen.js" type="text/javascript"></script>
                     <script src="../assets/scripts/jquery-3.4.1.js" type="text/javascript"></script>

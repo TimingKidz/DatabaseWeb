@@ -49,7 +49,7 @@ function tablecustomer(customerNumber, customerName, city, country, postalCode, 
         </tr>`
 }
 
-function tablepay(i, col1, col2,col3,col4) {
+function tablepay(i, col1, col2, col3, col4) {
     return ` 
     <tr>
             <td class="text-center text-muted"> ${i}</td>
@@ -92,7 +92,7 @@ function tableERM(a, b, c, e, f, g, h, op) {
                     <button class="btn btn-danger btn-sm"  id="${a}" onclick="downn(this)"><i class="pe-7s-angle-down"></i></button>
                     </td>
             </tr>`
-    }else if (op == 2){
+    } else if (op == 2) {
         return ` 
         <tr>
                 <td class="text-center text-muted"> ${a}</td>
@@ -303,7 +303,7 @@ function tableCart(i, col1, col2, col3, col4, col5, code, qty) {
 </tr>`
 }
 
-function tablest(col1, col2, col3 , code) {
+function tablest(col1, col2, col3, code) {
     return `<tr>
     <td class="text-center text-muted"> ${code}</td>
     <td>
@@ -329,6 +329,7 @@ function tablest(col1, col2, col3 , code) {
         </td>
 </tr>`
 }
+
 function detailPopupGen(productCode, productName, productScale, productVendor, quantityInStock, MSRP, productLine, productDescription) {
     return `
     <div class="mb-3 card">
@@ -402,7 +403,7 @@ function tablestockdetail(stockinNumber, productCode, qty) {
             </td>
                 <td class="text-center">${qty}</td>
                 <td class="text-center">
-                <button id="${stockinNumber}" class="btn btn-primary btn-sm" onclick="update(this)">Edit</button>
+                <button id="${productCode}" name="${stockinNumber}" class="btn btn-primary btn-sm" onclick="update(this)">Edit</button>
                 <button class="btn btn-danger btn-sm"  id="${productCode}" name="${stockinNumber}" onclick="delalert(this)">X</button>
                 </td>
                                                                               

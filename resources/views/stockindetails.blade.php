@@ -400,11 +400,12 @@ session_start();
                             
                             var stock=0;
                             function update(a){
-                            var stockkNumber = a.getAttribute("id");
+                            var stockkNumber = a.getAttribute("name");
+                            var productCode = a.getAttribute("id");
                             document.getElementById('id04').style.display='block';
                             json=getstockHD();
                             json.forEach(function(a) {
-                                if(a.stockNumber == stockkNumber){
+                                if(a.stockNumber == stockkNumber && a.productCode == productCode){
                                     stock = a;
                                 }
                             });        

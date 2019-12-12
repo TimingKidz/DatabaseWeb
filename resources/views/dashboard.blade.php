@@ -346,7 +346,7 @@ session_start();
                             var tableproduct = "";
                             var i = 0;
                             json.forEach(function(a) {
-                                tableproduct += tablepay(i++,a.checkNumber,a.customerNumber,a.paymentDate,a.amount);
+                                tableproduct += tablepay(++i,a.checkNumber,a.customerNumber,a.paymentDate,a.amount);
                             });
                             document.getElementById("tablelist").innerHTML = tableproduct;
                         }

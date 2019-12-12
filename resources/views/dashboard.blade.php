@@ -243,7 +243,7 @@ session_start();
               
     <div class="main-card mb-2 card">
                             <div class="card-body">
-                                <h5 class="card-title">Payment</h5>
+                                <h5 class="card-title">Add Payment</h5>
                                 <div class="needs-validation" novalidate="">
                                     
                                     <div class="form-row">
@@ -277,7 +277,7 @@ session_start();
                         <div class="main-card mb-3 card">
                                     <div class="card-header">
                                     <div class="mr-2">
-                                        Stock-In
+                                        Payment
                                     </div>  
                                     
                                     <div class="col-md-1">

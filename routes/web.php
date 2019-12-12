@@ -85,6 +85,6 @@ Route::post('/logout', 'DataController@logout');
 
 Route::get('/getpass', 'DataController@passGen');
 Route::get('/test', 'DataController@test');
-Route::get('/dashboard', 'DataController@dashboard');
+Route::get('/payment', 'DataController@dashboard');
 Route::put('/employees', 'DataController@updateerm');
 // Route::get('/','DataController@index');

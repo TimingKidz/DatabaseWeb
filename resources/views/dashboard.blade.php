@@ -180,7 +180,7 @@ session_start();
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="../dashboard"  class="mm-active">
+                                    <a href="../payment"  class="mm-active">
                                     <i class="metismenu-icon pe-7s-cash"></i>
                                         Payment
                                     </a>
